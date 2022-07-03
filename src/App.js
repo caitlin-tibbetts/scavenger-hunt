@@ -5,10 +5,9 @@ import db from './firebase';
 import './App.css';
 
 function App() {
-  const [createTeamClicked, setCreateTeamClicked] = useState(false);
-  const [existingTeamClicked, setExistingTeamClicked] = useState(false);
+  const [joinGameClicked, setJoinGameClicked] = useState(false);
 
-  if(createTeamClicked) {
+  if(joinGameClicked) {
     return (
       <div className="App">
         <div className="Floating-form">
@@ -40,9 +39,6 @@ function App() {
                 <p>Team Name: <Field name="teamName" /></p>
                 <ErrorMessage name="teamName" component="div" />
 
-                <p>Password: <Field type="password" name="password" /></p>
-                <ErrorMessage name="password" component="div" />
-
                 <p>Game Pin: <Field name="gamePin"/></p>
                 <ErrorMessage name="gamePin" component="div" />
 
@@ -55,16 +51,6 @@ function App() {
         </div>
       </div>
     );
-  } else if(existingTeamClicked) {
-    return (
-      <div className="App">
-        <div className="Floating-form">
-          <h1>Welcome to the Scavenger Hunt!</h1>
-          <h2>Mequet Family Dauphin Island 2022</h2>
-          
-        </div>
-      </div>
-    );
   } else {
     return (
       <div className="App">
@@ -72,16 +58,10 @@ function App() {
           <h1>Welcome to the Scavenger Hunt!</h1>
           <h2>Mequet Family Dauphin Island 2022</h2>
           <button onClick={() => {
-            setCreateTeamClicked(true);
+            setJoinGameClicked(true);
           }}>
-            Create new Team
+            Join a Game!
           </button>
-          <button onClick={() => {
-            setExistingTeamClicked(true);
-          }}>
-            Log in as Existing Team
-          </button>
-          
         </div>
       </div>
     );
