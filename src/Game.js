@@ -6,33 +6,36 @@ import db from "./firebase";
 
 import { collection, getDocs } from "firebase/firestore";
 
-
 import "./Game.css";
 
 function Game() {
   const [clues, setClues] = useState([]);
 
-
   useEffect(() => {
     const colRef = collection(db, "games", "0000", "clues");
-    getDocs(colRef).then((docSnap) => {
-        setClues(docSnap);
+    getDocs(colRef)
+      .then((docSnap) => {
+        const docData = [];
+        docSnap.forEach((doc) => {
+          docData.push({ ...doc.data() });
+        });
+        setClues(docData);
       })
-.catch((err) => {
-    console.log(err);
-  })
-    
-  
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
-  const clueArray = Object.keys(clues)
   return (
     <div className="Game">
-      {
-      
-       clueArray.map((clue, index) => {
-        console.log(clue)
+      {clues.map((clue, index) => {
         return (
-          <Clue id={index} num={index} loc={clue.location} desc={clue.description} />
+          <Clue
+            key={index}
+            loc={clue.location}
+            num={clue.number}
+            task={clue.task}
+            answer={clue.answer}
+          />
         );
       })}
     </div>

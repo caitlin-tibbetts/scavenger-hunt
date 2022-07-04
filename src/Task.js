@@ -9,7 +9,7 @@ function Task(props) {
 
   return (
     <div className="Task">
-      <Typography>{props.desc}</Typography>
+      <Typography>{props.task}</Typography>
 
       <Formik
         initialValues={{ answer: "" }}

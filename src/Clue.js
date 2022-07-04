@@ -8,7 +8,6 @@ import "./Clue.css";
 function Clue(props) {
     return (
         <div className="Clue">
-         { console.log("hi")}
      <Accordion className="Accordian">
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -18,7 +17,7 @@ function Clue(props) {
           <Typography>Clue #{props.num} - {props.loc}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-         <Task desc={props.desc}/>
+         <Task task={props.task} answer={props.answer}/>
         </AccordionDetails>
       </Accordion>
         </div>
