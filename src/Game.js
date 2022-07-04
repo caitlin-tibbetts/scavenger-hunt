@@ -24,11 +24,12 @@ function Game() {
     
   
   }, []);
-  
+  const clueArray = Object.keys(clues)
   return (
     <div className="Game">
-      {clues.forEach((clue, index) => {
-        clue=clue.data();
+      {
+      
+       clueArray.map((clue, index) => {
         console.log(clue)
         return (
           <Clue id={index} num={index} loc={clue.location} desc={clue.description} />
