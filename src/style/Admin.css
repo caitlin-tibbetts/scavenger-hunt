@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: left;
+}
+
+.form {
+    flex: 2;
+    margin-right: 2.5%;
+}
+
+.clues {
+    flex: 1;
+    margin-left: 2.5%;
+}
