@@ -1,10 +1,13 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { collection, addDoc, doc, getDoc } from "firebase/firestore"; 
+
 
 import db from "./firebase";
 import "./App.css";
 
 function App() {
+
   return (
     <div className="App">
       <div className="Floating-form">
@@ -23,15 +26,31 @@ function App() {
             }
             return errors;
           }}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={async (values, { setSubmitting }) => {
+            /*
             db.collection("/team")
-              .where("teamName", "==", "Test")
+              .where("teamName", "==", `${values.teamName}`)
               .then((res) => {
                 console.log(res.data());
               })
               .catch((err) => {
                 console.log(err);
               });
+              */
+             try {
+
+              const docRef = await addDoc(collection(db, "team"), {
+                gamePin: values.gamePin,
+                password: "test",
+                teamName: values.teamName
+              });
+              console.log("Document written with ID: ", docRef.id);
+              
+              
+             }
+             catch(err) {
+              console.log(err);
+             }
           }}
         >
           {({ isSubmitting }) => (
@@ -55,6 +74,7 @@ function App() {
       </div>
     </div>
   );
+
 }
 
 export default App;
