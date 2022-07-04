@@ -2,9 +2,10 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { collection, addDoc, doc, getDoc } from "firebase/firestore"; 
 
-
 import db from "./firebase";
 import "./style/App.css";
+
+import CreateClue from "./components/CreateClue";
 
 function App() {
 
@@ -13,8 +14,9 @@ function App() {
       <div className="Floating-form">
         <h1>Welcome to the Scavenger Hunt!</h1>
         <h2>Mequet Family Dauphin Island 2022</h2>
+        <CreateClue/>
         <Formik
-          initialValues={{ teamName: "", password: "", gamePin: "" }}
+          initialValues={{ teamName: "", gamePin: "" }}
           validate={(values) => {
             const regex = new RegExp("[0-9]{4}$");
             const errors = {};
