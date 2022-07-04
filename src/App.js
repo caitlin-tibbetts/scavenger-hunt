@@ -4,7 +4,7 @@ import { collection, addDoc, doc, getDoc } from "firebase/firestore";
 
 
 import db from "./firebase";
-import "./App.css";
+import "./style/App.css";
 
 function App() {
 

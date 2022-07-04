@@ -3,7 +3,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React from "react";
 import Task from "./Task";
 
-import "./Clue.css";
+import "../style/Clue.css";
 
 function Clue(props) {
     return (

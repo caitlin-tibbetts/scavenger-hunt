@@ -2,11 +2,11 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import Clue from "./Clue";
-import db from "./firebase";
+import db from "../firebase";
 
 import { collection, getDocs } from "firebase/firestore";
 
-import "./Game.css";
+import "../style/Game.css";
 
 function Game() {
   const [clues, setClues] = useState([]);
