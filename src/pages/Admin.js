@@ -11,6 +11,8 @@ import {
   getDocs,
 } from "firebase/firestore";
 
+import ClueListItem from "../components/ClueListItem"
+
 import db from "../firebase";
 
 function Admin() {
@@ -18,7 +20,6 @@ function Admin() {
   const [isGamePinSet, setIsGamePinSet] = useState(false);
   const [createGame, setCreateGame] = useState(false);
   const [clueList, setClueList] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
 
   async function getClues() {
     return await getDocs(collection(db, "games", gamePin, "clues"));
@@ -129,12 +130,13 @@ function Admin() {
         }
         return errors;
       }}
-      onSubmit={async (values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting, resetForm }) => {
         await addDoc(collection(db, "games", gamePin, "clues"), {
           location: values.location,
           instructions: values.instructions,
           answer: values.answer,
         });
+        resetForm();
         setSubmitting(false);
       }}
     >
@@ -156,7 +158,7 @@ function Admin() {
           <ErrorMessage name="answer" component="p" />
 
           <button type="submit" disabled={isSubmitting}>
-            Submit
+            Add Clue
           </button>
         </Form>
       )}
@@ -190,17 +192,10 @@ function Admin() {
               {clueList.map((value, index) => {
                 if (value.data.answer !== "") {
                   return (
-                    <div>
-                      <p>Location: {value.data.location}</p>
-                      <p>Instructions: {value.data.instructions}</p>
-                      <p>Answer: {value.data.answer}</p>
-                      <button>
-                        Edit
-                      </button>
-                      <hr />
-                    </div>
+                    <ClueListItem key={value.id} id={value.id} location={value.data.location} instructions={value.data.instructions} answer={value.data.answer} gamePin={gamePin}/>
                   );
-                }
+                } 
+                return null;
               })}
             </div>
           </div>
