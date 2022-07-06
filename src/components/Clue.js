@@ -6,8 +6,8 @@ import Task from "./Task";
 import { CardActionArea, CardActions, IconButton, Typography } from "@material-ui/core";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
-import './Clue.css'
- 
+import "../style/Clue.css";
+
 function Clue(props) {
 
   let [showBack, setShowBack]  = useState(false);

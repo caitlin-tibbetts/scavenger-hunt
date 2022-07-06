@@ -2,7 +2,7 @@ import { Typography } from "@material-ui/core";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 
-import "./Task.css";
+import "../style/Task.css";
 
 function Task(props) {
   const [incorrect, setIncorrect] = useState();

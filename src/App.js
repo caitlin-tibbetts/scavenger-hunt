@@ -1,20 +1,18 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { collection, addDoc, doc, getDoc } from "firebase/firestore"; 
-
+import { collection, addDoc, doc, getDoc } from "firebase/firestore";
 
 import db from "./firebase";
-import "./App.css";
+import "./style/App.css";
 
 function App() {
-
   return (
     <div className="App">
       <div className="Floating-form">
         <h1>Welcome to the Scavenger Hunt!</h1>
         <h2>Mequet Family Dauphin Island 2022</h2>
         <Formik
-          initialValues={{ teamName: "", password: "", gamePin: "" }}
+          initialValues={{ teamName: "", gamePin: "" }}
           validate={(values) => {
             const regex = new RegExp("[0-9]{4}$");
             const errors = {};
@@ -37,20 +35,15 @@ function App() {
                 console.log(err);
               });
               */
-             try {
-
+            try {
               const docRef = await addDoc(collection(db, "team"), {
                 gamePin: values.gamePin,
-                password: "test",
-                teamName: values.teamName
+                teamName: values.teamName,
               });
               console.log("Document written with ID: ", docRef.id);
-              
-              
-             }
-             catch(err) {
+            } catch (err) {
               console.log(err);
-             }
+            }
           }}
         >
           {({ isSubmitting }) => (
@@ -74,7 +67,6 @@ function App() {
       </div>
     </div>
   );
-
 }
 
 export default App;
