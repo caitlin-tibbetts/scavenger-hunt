@@ -82,7 +82,7 @@ function ClueCard(props) {
         </Formik>
       </Card>
     );
-  }
+  } else 
   if (status === 2) {
     return (
       <div className="clue">
