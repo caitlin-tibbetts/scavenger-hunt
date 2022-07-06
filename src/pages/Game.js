@@ -1,11 +1,11 @@
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import Clue from "./Clue";
+import { useState, useEffect } from "react";
+import ClueCard from "../components/ClueCard";
 import db from "../firebase";
 
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 
+import "../style/App.css";
 import "../style/Game.css";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -26,8 +26,10 @@ const useGridStyles = makeStyles(({ breakpoints }) => ({
 }));
 
 function Game() {
-  const [teamData, setTeamData] = useState([{number: 1, answer: 'beach',  instructions: "enter answer"}, {number: 2, answer: 'bedroom',  instructions: "enter answer"}
-]);
+  const [teamData, setTeamData] = useState([
+    { number: 1, answer: "beach", instructions: "enter answer" },
+    { number: 2, answer: "bedroom", instructions: "enter answer" },
+  ]);
   const [index, setIndex] = useState(1);
   const [finished, setFinished] = useState(false);
 
@@ -61,36 +63,21 @@ function Game() {
   }, []);
   */
   return (
-    <div className="Game">
-      <div className="Game-content">
-      <header className="Game-header">Welcome Team {teamData.name}</header>
-      <Grid
-        container
-        direction="column"
-        spacing={6}
-       alignItems="center"
-        >
-      
-     
-          {teamData.map((clue, i) =>
-            (
-             
-          <Grid item key={i} className="grid-item-clue" xs={6}>
-            
-            <Clue
-              key={i}
-              num={clue.number}
-              answer={clue.answer}
-              instructions={clue.instructions}
-              className="clue"
-            />
-                </Grid>
-            ) 
-            
-            
-            )}
-
-      </Grid>
+    <div className="App">
+      <div className="Floating-form">
+        <h1>Welcome Team {teamData.name}</h1>
+        <Grid container direction="row" spacing={6} alignItems="center">
+          {teamData.map((clue, i) => (
+            <Grid item key={i} xs={6}>
+              <ClueCard
+                key={i}
+                num={clue.number}
+                answer={clue.answer}
+                instructions={clue.instructions}
+              />
+            </Grid>
+          ))}
+        </Grid>
       </div>
     </div>
   );

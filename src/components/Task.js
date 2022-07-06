@@ -1,15 +1,14 @@
-import { Typography } from "@material-ui/core";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 
-import "../style/Task.css";
+import "../style/Game.css";
 
 function Task(props) {
   const [incorrect, setIncorrect] = useState();
 
   return (
     <div className="Task">
-      <Typography>{props.instructions}</Typography>
+      <p>{props.instructions}</p>
 
       <Formik
         initialValues={{ answer: "" }}
@@ -24,7 +23,7 @@ function Task(props) {
 
           return errors;
         }}
-        onSubmit={async (values, { setSubmitting }) => {
+        onSubmit={async (values) => {
           if (values.answer !== props.answer) {
             setIncorrect(true);
           }
@@ -35,8 +34,7 @@ function Task(props) {
             <p>
               Answer: <Field name="answer"/>
             </p>
-            <ErrorMessage name="answer" />
-            {incorrect && <div>Incorrect Answer</div>}
+            <ErrorMessage name="answer" component="p" />
             <button type="submit" disabled={isSubmitting}>
               Submit
             </button>
