@@ -56,11 +56,11 @@ function ClueCard(props) {
                   iTeamData.clueList[i].status = 2;
                 }
               }
-              setTeamData(iTeamData);
               await setDoc(
                 doc(db, "games", props.gamePin, "teams", props.teamName),
-                teamData
+                iTeamData
               );
+              setTeamData(iTeamData);
               setShowBack(true);
               setStatus(2);
             } else {
@@ -132,16 +132,16 @@ function ClueCard(props) {
                       setStatus(3);
                       nextCard = true;
                     }
-                    if(nextCard) {
+                    if (nextCard) {
                       iTeamData.clueList[i].status = 1;
                       nextCard = false;
                     }
                   }
-                  setTeamData(iTeamData);
                   await setDoc(
                     doc(db, "games", props.gamePin, "teams", props.teamName),
-                    teamData
+                    iTeamData
                   );
+                  setTeamData(iTeamData);
                 } else {
                   resetForm();
                 }
@@ -174,8 +174,7 @@ function ClueCard(props) {
         </ReactCardFlip>
       </div>
     );
-  }
-  else if (status === 3) {
+  } else if (status === 3) {
     return (
       <div className="clue">
         <ReactCardFlip isFlipped={showBack} flipDirection="vertical">
@@ -221,7 +220,7 @@ function ClueCard(props) {
           </Card>
         </ReactCardFlip>
       </div>
-    )
+    );
   }
 }
 
