@@ -29,7 +29,7 @@ function ClueCard(props) {
         }
       }
     });
-  });
+  }, []);
   if (status === 1) {
     return (
       <Card
