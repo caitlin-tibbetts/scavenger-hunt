@@ -14,17 +14,22 @@
   width: 50vh;
 }
 
+h2 {
+  margin: 0;
+}
+
 .clue-front {
-  background-color: aliceblue;
+  background-color: white;
   height: 30vh;
-  width: inherit;
+  width: 30vh;
   justify-content: center;
   text-align: center;
 }
 .clue-back {
-  background-color: aliceblue;
+  background-color: white;
   min-height: 30vh;
   min-width: 30vh;
+  width: inherit;
 }
 
 .front-text {
