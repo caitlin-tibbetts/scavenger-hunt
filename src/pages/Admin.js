@@ -85,14 +85,6 @@ function Admin() {
               await setDoc(doc(db, "games", values.gamePin), {
                 name: values.gameTitle,
               });
-              await addDoc(collection(db, "games", values.gamePin, "clues"), {
-                location: "",
-                answer: "",
-                instructions: "",
-              });
-              await addDoc(collection(db, "games", values.gamePin, "teams"), {
-                name: "",
-              });
               setIsGamePinSet(true);
               setSubmitting(false);
               setCreateGame(false);
@@ -147,19 +139,16 @@ function Admin() {
             </div>
             <div className="clues">
               {clueList.map((value, index) => {
-                if (value.data.answer !== "") {
-                  return (
-                    <ClueListItem
-                      key={value.id}
-                      id={value.id}
-                      location={value.data.location}
-                      instructions={value.data.instructions}
-                      answer={value.data.answer}
-                      gamePin={gamePin}
-                    />
-                  );
-                }
-                return null;
+                return (
+                  <ClueListItem
+                    key={value.id}
+                    id={value.id}
+                    location={value.data.location}
+                    instructions={value.data.instructions}
+                    answer={value.data.answer}
+                    gamePin={gamePin}
+                  />
+                );
               })}
             </div>
           </div>

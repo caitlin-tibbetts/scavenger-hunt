@@ -4,9 +4,9 @@ function CreateClueForm(props) {
   return (
     <Formik
       initialValues={{
-        location: "",
-        instructions: "",
-        answer: "",
+        location: props.initialLocation || "",
+        instructions: props.initialInstructions || "",
+        answer: props.initialAnswer || "",
       }}
       validate={(values) => {
         const errors = {};
