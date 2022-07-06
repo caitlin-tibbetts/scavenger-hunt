@@ -5,11 +5,11 @@ import React, { useState } from "react";
 import "./Task.css";
 
 function Task(props) {
-  const [incorrect, setIncorrect, incorrectRef] = useState(false);
+  const [incorrect, setIncorrect] = useState();
 
   return (
     <div className="Task">
-      <Typography>{props.task}</Typography>
+      <Typography>{props.instructions}</Typography>
 
       <Formik
         initialValues={{ answer: "" }}
@@ -36,7 +36,7 @@ function Task(props) {
               Answer: <Field name="answer"/>
             </p>
             <ErrorMessage name="answer" />
-            {incorrectRef && <div>Incorrect Answer</div>}
+            {incorrect && <div>Incorrect Answer</div>}
             <button type="submit" disabled={isSubmitting}>
               Submit
             </button>

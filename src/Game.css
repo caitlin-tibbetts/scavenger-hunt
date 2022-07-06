@@ -3,10 +3,17 @@
     background: rgb(38,70,83);
     background: linear-gradient(180deg, rgba(38,70,83,1) 0%, rgba(231,111,81,1) 70%, rgba(233,196,106,1) 100%);
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     font-size: calc(10px + 2vmin);
     color: #CDEAC0;
+   
   }
+
+
+
+
+.Game-header {
+  padding: 5vh;
+}
+.grid-item-clue {
+  width: 50vh;
+}
