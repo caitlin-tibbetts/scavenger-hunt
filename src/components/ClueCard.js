@@ -19,7 +19,6 @@ function ClueCard(props) {
         getDoc(
           doc(db, "games", props.gamePin, "teams", props.teamData.name)
         ).then((iTeamData) => {
-          console.log(iTeamData.data())
           for (let i = 0; i < iTeamData.data().clueList.length; i++) {
             if (iTeamData.data().clueList[i].id === id) {
               setStatus(iTeamData.data().clueList[i].status);
