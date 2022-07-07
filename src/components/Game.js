@@ -26,18 +26,17 @@ const useGridStyles = makeStyles(({ breakpoints }) => ({
 }));
 
 function Game(props) {
-  const [clueList, setClueList] = useState([]);
-  const [index, setIndex] = useState(1);
-  const [finished, setFinished] = useState(false);
+  const [teamData, setTeamData] = useState();
 
   const gridStyles = useGridStyles();
 
   useEffect(() => {
+    console.log("done")
     async function getClues() {
       return (await getDocs(
         collection(db, "games", props.gamePin, "clues")
       )).docs.sort((a, b) => 0.5 - Math.random()).map((clue, index) => {
-        if(index == 0) {
+        if(index === 0) {
           return {
             id: clue.id,
             location: clue.data().location,
@@ -56,12 +55,12 @@ function Game(props) {
       });
     }
     getClues().then((iClueList) => {
-      setDoc(doc(db, "games", props.gamePin, "teams", props.teamName), {clueList: iClueList}, {merge: true}).then(() => {
-        setClueList(iClueList);
-      })
       
-    })
-  }, []);
+      setDoc(doc(db, "games", props.gamePin, "teams", props.teamName), {clueList: iClueList}, {merge: true}).then(() => {
+        setTeamData({name: props.teamName, clueList: iClueList});
+      })
+    }).catch(console.error)
+  }, [props.gamePin, props.teamName]);
 
   return (
     <>
@@ -74,7 +73,7 @@ function Game(props) {
         alignItems="center"
         style={{ maxHeight: "45vh", overflow: "auto" }}
       >
-        {clueList.map((clue, i) => (
+        {teamData.clueList.map((clue, i) => (
           <Grid item key={i} xs={9}>
             <ClueCard
               key={clue.id}
@@ -86,6 +85,8 @@ function Game(props) {
               answer={clue.answer}
               instructions={clue.instructions}
               location={clue.location}
+              teamData={teamData}
+              setTeamData={setTeamData}
             />
           </Grid>
         ))}
