@@ -26,9 +26,8 @@ const useGridStyles = makeStyles(({ breakpoints }) => ({
 }));
 
 function Game(props) {
-  const [teamData, setTeamData] = useState();
+  const [teamData, setTeamData] = useState([]);
 
-  const gridStyles = useGridStyles();
 
   useEffect(() => {
     async function getClues() {
@@ -71,7 +70,7 @@ function Game(props) {
         alignItems="center"
         style={{ maxHeight: "45vh", overflow: "auto" }}
       >
-        {teamData.clueList.map((clue, i) => (
+        {teamData.clueList && teamData.clueList.map((clue, i) => (
           <Grid item key={i} xs={9}>
             <ClueCard
               key={clue.id}
