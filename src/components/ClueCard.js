@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Card from "@material-ui/core/Card";
 import ReactCardFlip from "react-card-flip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,24 +13,6 @@ import db from "../firebase";
 function ClueCard(props) {
   const [showBack, setShowBack] = useState(false);
   const [status, setStatus] = useState(0);
-  const [teamData, setTeamData] = useState();
-  useEffect(() => {
-    console.log("hi");
-    async function getTeamData() {
-      setTeamData(
-        (
-          await getDoc(doc(db, "games", props.gamePin, "teams", props.teamName))
-        ).data()
-      );
-    }
-    getTeamData().then(() => {
-      for (let i = 0; i < teamData.clueList.length; i++) {
-        if (teamData.clueList[i].id === props.id) {
-          setStatus(teamData.clueList[i].status);
-        }
-      }
-    });
-  });
   if (status === 1) {
     return (
       <Card
@@ -51,19 +33,20 @@ function ClueCard(props) {
           }}
           onSubmit={async (values, { resetForm }) => {
             if (values.passcode === props.passcode) {
-              let iTeamData = teamData;
+              let iTeamData = props.teamData;
               for (let i = 0; i < iTeamData.clueList.length; i++) {
                 if (iTeamData.clueList[i].id === props.id) {
                   iTeamData.clueList[i].status = 2;
                 }
               }
-              await setDoc(
+              setDoc(
                 doc(db, "games", props.gamePin, "teams", props.teamName),
                 iTeamData
-              );
-              setTeamData(iTeamData);
-              setShowBack(true);
-              setStatus(2);
+              ).then(() => {
+                props.setTeamData(iTeamData);
+                setShowBack(true);
+                setStatus(2);
+              });
             } else {
               resetForm();
             }
@@ -83,8 +66,7 @@ function ClueCard(props) {
         </Formik>
       </Card>
     );
-  }
-  if (status === 2) {
+  } else if (status === 2) {
     return (
       <div className="clue">
         <ReactCardFlip isFlipped={showBack} flipDirection="vertical">
@@ -125,24 +107,24 @@ function ClueCard(props) {
               }}
               onSubmit={async (values, { resetForm }) => {
                 if (values.answer === props.answer) {
-                  let iTeamData = teamData;
+                  let iTeamData = props.teamData;
                   let nextCard = false;
                   for (let i = 0; i < iTeamData.clueList.length; i++) {
                     if (iTeamData.clueList[i].id === props.id) {
                       iTeamData.clueList[i].status = 3;
-                      setStatus(3);
                       nextCard = true;
-                    }
-                    if (nextCard) {
+                    } else if (nextCard) {
                       iTeamData.clueList[i].status = 1;
                       nextCard = false;
                     }
                   }
-                  await setDoc(
+                  setDoc(
                     doc(db, "games", props.gamePin, "teams", props.teamName),
                     iTeamData
-                  );
-                  setTeamData(iTeamData);
+                  ).then(() => {
+                    props.setTeamData(iTeamData);
+                    setStatus(3);
+                  });
                 } else {
                   resetForm();
                 }
