@@ -15,6 +15,7 @@ function ClueCard(props) {
   const [status, setStatus] = useState(0);
   const [teamData, setTeamData] = useState();
   useEffect(() => {
+    console.log("hi");
     async function getTeamData() {
       setTeamData(
         (
