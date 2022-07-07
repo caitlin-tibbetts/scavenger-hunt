@@ -31,7 +31,6 @@ function Game(props) {
   const gridStyles = useGridStyles();
 
   useEffect(() => {
-    console.log("done")
     async function getClues() {
       return (await getDocs(
         collection(db, "games", props.gamePin, "clues")
@@ -55,7 +54,6 @@ function Game(props) {
       });
     }
     getClues().then((iClueList) => {
-      
       setDoc(doc(db, "games", props.gamePin, "teams", props.teamName), {clueList: iClueList}, {merge: true}).then(() => {
         setTeamData({name: props.teamName, clueList: iClueList});
       })
