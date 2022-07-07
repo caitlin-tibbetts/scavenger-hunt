@@ -3,27 +3,13 @@ import { useState, useEffect } from "react";
 import ClueCard from "./ClueCard";
 import db from "../firebase";
 
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 
 import "../style/App.css";
 import "../style/Game.css";
 
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
-const useGridStyles = makeStyles(({ breakpoints }) => ({
-  root: {
-    overflow: "auto",
-    [breakpoints.only("xs")]: {
-      "& > *:not(:first-child)": {
-        paddingLeft: 0,
-      },
-    },
-    [breakpoints.up("sm")]: {
-      justifyContent: "center",
-    },
-  },
-}));
 
 function Game(props) {
   const [teamData, setTeamData] = useState([]);
@@ -71,6 +57,7 @@ function Game(props) {
         style={{ maxHeight: "45vh", overflow: "auto" }}
       >
         {teamData.clueList && teamData.clueList.map((clue, i) => (
+        
           <Grid item key={i} xs={9}>
             <ClueCard
               key={clue.id}
@@ -84,6 +71,7 @@ function Game(props) {
               location={clue.location}
               teamData={teamData}
               setTeamData={setTeamData}
+              status={clue.status}
             />
           </Grid>
         ))}

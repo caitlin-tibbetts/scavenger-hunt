@@ -12,7 +12,7 @@ import db from "../firebase";
 
 function ClueCard(props) {
   const [showBack, setShowBack] = useState(false);
-  const [status, setStatus] = useState(0);
+  const [status, setStatus] = useState(props.status);
   if (status === 1) {
     return (
       <Card
