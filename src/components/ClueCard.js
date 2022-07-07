@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "@material-ui/core/Card";
 import ReactCardFlip from "react-card-flip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,8 +11,29 @@ import { setDoc, getDoc, doc } from "firebase/firestore";
 import db from "../firebase";
 
 function ClueCard(props) {
+  const useStatus = (id) => {
+    const [status, setStatus] = useState(0);
+    useEffect(() => {
+      if (id) {
+        alert("Getting new status");
+        getDoc(
+          doc(db, "games", props.gamePin, "teams", props.teamData.name)
+        ).then((iTeamData) => {
+          console.log(iTeamData.data())
+          for (let i = 0; i < iTeamData.data().clueList.length; i++) {
+            if (iTeamData.data().clueList[i].id === id) {
+              setStatus(iTeamData.data().clueList[i].status);
+              break;
+            }
+          }
+        });
+      }
+    }, [id]);
+    return status;
+  };
+  const status = useStatus(props.id);
   const [showBack, setShowBack] = useState(false);
-  const [status, setStatus] = useState(props.status);
+
   if (status === 1) {
     return (
       <Card
@@ -33,19 +54,17 @@ function ClueCard(props) {
           }}
           onSubmit={async (values, { resetForm }) => {
             if (values.passcode === props.passcode) {
-              let iTeamData = props.teamData;
-              for (let i = 0; i < iTeamData.clueList.length; i++) {
-                if (iTeamData.clueList[i].id === props.id) {
-                  iTeamData.clueList[i].status = 2;
+              alert("Moving from status 1 to 2");
+              for (let i = 0; i < props.teamData.clueList.length; i++) {
+                if (props.teamData.clueList[i].id === props.id) {
+                  props.teamData.clueList[i].status = 2;
                 }
               }
               setDoc(
                 doc(db, "games", props.gamePin, "teams", props.teamName),
-                iTeamData
+                props.teamData
               ).then(() => {
-                props.setTeamData(iTeamData);
                 setShowBack(true);
-                setStatus(2);
               });
             } else {
               resetForm();
@@ -107,24 +126,21 @@ function ClueCard(props) {
               }}
               onSubmit={async (values, { resetForm }) => {
                 if (values.answer === props.answer) {
-                  let iTeamData = props.teamData;
+                  alert("Moving from status 2 to 3");
                   let nextCard = false;
-                  for (let i = 0; i < iTeamData.clueList.length; i++) {
-                    if (iTeamData.clueList[i].id === props.id) {
-                      iTeamData.clueList[i].status = 3;
+                  for (let i = 0; i < props.teamData.clueList.length; i++) {
+                    if (props.teamData.clueList[i].id === props.id) {
+                      props.teamData.clueList[i].status = 3;
                       nextCard = true;
                     } else if (nextCard) {
-                      iTeamData.clueList[i].status = 1;
+                      props.teamData.clueList[i].status = 1;
                       nextCard = false;
                     }
                   }
                   setDoc(
                     doc(db, "games", props.gamePin, "teams", props.teamName),
-                    iTeamData
-                  ).then(() => {
-                    props.setTeamData(iTeamData);
-                    setStatus(3);
-                  });
+                    props.teamData
+                  ).then();
                 } else {
                   resetForm();
                 }
