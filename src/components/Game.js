@@ -15,8 +15,10 @@ function Game(props) {
   const [teamData, setTeamData] = useState([]);
 
 
+
   useEffect(() => {
     async function getClues() {
+      console.log("useeffect")
       return (await getDocs(
         collection(db, "games", props.gamePin, "clues")
       )).docs.sort((a, b) => 0.5 - Math.random()).map((clue, index) => {
@@ -47,6 +49,7 @@ function Game(props) {
 
   return (
     <>
+    {console.log("yoyo")}
       <h1>{props.gameName}</h1>
       <h2>Welcome {props.teamName}!</h2>
       <Grid
@@ -70,7 +73,7 @@ function Game(props) {
               instructions={clue.instructions}
               location={clue.location}
               teamData={teamData}
-              setTeamData={setTeamData}
+              setTeamData={setTeamDataHandler}
               status={clue.status}
             />
           </Grid>
