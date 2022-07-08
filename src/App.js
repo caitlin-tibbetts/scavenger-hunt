@@ -39,7 +39,6 @@ function App() {
             return errors;
           }}
           onSubmit={async (values, { resetForm }) => {
-            alert("Creating new team")
             if (
               (
                 await getDoc(

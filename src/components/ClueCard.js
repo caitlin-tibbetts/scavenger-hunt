@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Card from "@material-ui/core/Card";
 import ReactCardFlip from "react-card-flip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,7 +7,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 
 import "../style/App.css";
 import "../style/Game.css";
-import { setDoc, getDoc, doc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import db from "../firebase";
 
 function ClueCard(props) {
@@ -33,9 +33,9 @@ function ClueCard(props) {
           }}
           onSubmit={async (values, { resetForm }) => {
             if (values.passcode === props.passcode) {
-              alert("Moving from status 1 to 2");
               for (let i = 0; i < props.teamData.clueList.length; i++) {
                 if (props.teamData.clueList[i].id === props.id) {
+                  props.teamData.clueList[i].startTime = Date.now()
                   props.teamData.clueList[i].status = 2;
                 }
               }
@@ -106,10 +106,10 @@ function ClueCard(props) {
               }}
               onSubmit={async (values, { resetForm }) => {
                 if (values.answer === props.answer) {
-                  alert("Moving from status 2 to 3");
                   let nextCard = false;
                   for (let i = 0; i < props.teamData.clueList.length; i++) {
                     if (props.teamData.clueList[i].id === props.id) {
+                      props.teamData.clueList[i].endTime = Date.now()
                       props.teamData.clueList[i].status = 3;
                       nextCard = true;
                     } else if (nextCard) {
