@@ -11,29 +11,9 @@ import { setDoc, getDoc, doc } from "firebase/firestore";
 import db from "../firebase";
 
 function ClueCard(props) {
-  const useStatus = (id) => {
-    const [status, setStatus] = useState(0);
-    useEffect(() => {
-      if (id) {
-        alert("Getting new status");
-        getDoc(
-          doc(db, "games", props.gamePin, "teams", props.teamData.name)
-        ).then((iTeamData) => {
-          for (let i = 0; i < iTeamData.data().clueList.length; i++) {
-            if (iTeamData.data().clueList[i].id === id) {
-              setStatus(iTeamData.data().clueList[i].status);
-              break;
-            }
-          }
-        });
-      }
-    }, [id]);
-    return status;
-  };
-  const status = useStatus(props.id);
   const [showBack, setShowBack] = useState(false);
 
-  if (status === 1) {
+  if (props.status === 1) {
     return (
       <Card
         elevation={12}
@@ -64,6 +44,7 @@ function ClueCard(props) {
                 props.teamData
               ).then(() => {
                 setShowBack(true);
+                invalidate(true);
               });
             } else {
               resetForm();
@@ -84,7 +65,7 @@ function ClueCard(props) {
         </Formik>
       </Card>
     );
-  } else if (status === 2) {
+  } else if (props.status === 2) {
     return (
       <div className="clue">
         <ReactCardFlip isFlipped={showBack} flipDirection="vertical">
@@ -139,7 +120,9 @@ function ClueCard(props) {
                   setDoc(
                     doc(db, "games", props.gamePin, "teams", props.teamName),
                     props.teamData
-                  ).then();
+                  ).then(() => {
+                    invalidate(true);
+                  });
                 } else {
                   resetForm();
                 }
@@ -172,7 +155,7 @@ function ClueCard(props) {
         </ReactCardFlip>
       </div>
     );
-  } else if (status === 3) {
+  } else if (props.status === 3) {
     return (
       <div className="clue">
         <ReactCardFlip isFlipped={showBack} flipDirection="vertical">
