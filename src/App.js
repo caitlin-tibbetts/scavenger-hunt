@@ -8,18 +8,15 @@ import Game from "./components/Game";
 
 function App() {
   const [isGameMode, setIsGameMode] = useState(false);
-  const [teamName, setTeamName] = useState("");
   const [gamePin, setGamePin] = useState("");
   const [gameName, setGameName] = useState("");
+  const [teamName, setTeamName] = useState("");
+
   if (isGameMode) {
     return (
       <div className="App">
         <div className="Floating-form">
-          <Game
-            teamName={teamName}
-            gamePin={gamePin}
-            gameName={gameName}
-          />
+          <Game gamePin={gamePin} gameName={gameName} teamName={teamName} />
         </div>
       </div>
     );
@@ -35,34 +32,33 @@ function App() {
             const errors = {};
             if (!values.teamName) {
               errors.teamName = "Required";
-            } else if (
+            }
+            if (!values.gamePin || !regex.test(values.gamePin)) {
+              errors.gamePin = "Game pin must be exactly four numbers";
+            }
+            return errors;
+          }}
+          onSubmit={async (values, { resetForm }) => {
+            alert("Creating new team")
+            if (
               (
                 await getDoc(
                   doc(db, "games", values.gamePin, "teams", values.teamName)
                 )
-              ).exists()
-            ) {
-              errors.teamName = "Team already exists";
-            }
-            if (!values.gamePin || !regex.test(values.gamePin)) {
-              errors.gamePin = "Game pin must be exactly four numbers";
-            } else if (
+              ).exists() ||
               !(await getDoc(doc(db, "games", values.gamePin))).exists()
             ) {
-              errors.gamePin = "Game does not exist";
+              resetForm();
             }
-            return errors;
-          }}
-          onSubmit={async (values, { setSubmitting }) => {
             await setDoc(
               doc(db, "games", values.gamePin, "teams", values.teamName),
               { name: values.teamName }
             );
             setGamePin(values.gamePin);
-            setTeamName(values.teamName);
             setGameName(
               (await getDoc(doc(db, "games", values.gamePin))).data().name
             );
+            setTeamName(values.teamName);
             setIsGameMode(true);
           }}
         >

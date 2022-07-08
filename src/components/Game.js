@@ -10,41 +10,43 @@ import "../style/Game.css";
 
 import Grid from "@material-ui/core/Grid";
 
-
 function Game(props) {
-  const [teamData, setTeamData] = useState([]);
-
-
-
+  const [teamData, setTeamData] = useState();
   useEffect(() => {
     async function getClues() {
-      console.log("useeffect")
-      return (await getDocs(
-        collection(db, "games", props.gamePin, "clues")
-      )).docs.sort((a, b) => 0.5 - Math.random()).map((clue, index) => {
-        if(index === 0) {
+      return (await getDocs(collection(db, "games", props.gamePin, "clues"))).docs
+        .sort((a, b) => 0.5 - Math.random())
+        .map((clue, index) => {
+          if (index === 0) {
+            return {
+              id: clue.id,
+              location: clue.data().location,
+              instructions: clue.data().instructions,
+              answer: clue.data().answer,
+              status: 1,
+            };
+          }
           return {
             id: clue.id,
             location: clue.data().location,
             instructions: clue.data().instructions,
             answer: clue.data().answer,
-            status: 1
-          }
-        }
-        return {
-          id: clue.id,
-          location: clue.data().location,
-          instructions: clue.data().instructions,
-          answer: clue.data().answer,
-          status: 0
-        }
-      });
+            status: 0,
+          };
+        });
     }
-    getClues().then((iClueList) => {
-      setDoc(doc(db, "games", props.gamePin, "teams", props.teamName), {clueList: iClueList}, {merge: true}).then(() => {
-        setTeamData({name: props.teamName, clueList: iClueList});
+    getClues()
+      .then((iClueList) => {
+        alert("Setting clue list for team in App");
+        setDoc(
+          doc(db, "games", props.gamePin, "teams", props.teamName),
+          { clueList: iClueList },
+          { merge: true }
+        ).then(() => {
+          setTeamData({ name: props.teamName, clueList: iClueList });
+        });
       })
-    }).catch(console.error)
+      .catch(console.error);
   }, [props.gamePin, props.teamName]);
 
   return (
@@ -59,25 +61,26 @@ function Game(props) {
         alignItems="center"
         style={{ maxHeight: "45vh", overflow: "auto" }}
       >
-        {teamData.clueList && teamData.clueList.map((clue, i) => (
-        
-          <Grid item key={i} xs={9}>
-            <ClueCard
-              key={clue.id}
-              id={clue.id}
-              gamePin={props.gamePin}
-              teamName={props.teamName}
-              passcode={clue.id.slice(0, 6)}
-              index={i + 1}
-              answer={clue.answer}
-              instructions={clue.instructions}
-              location={clue.location}
-              teamData={teamData}
-              setTeamData={setTeamDataHandler}
-              status={clue.status}
-            />
-          </Grid>
-        ))}
+        {teamData &&
+          teamData.clueList &&
+          teamData.clueList.map((clue, i) => {
+            return (
+              <Grid item key={i} xs={9}>
+                <ClueCard
+                  key={clue.id}
+                  id={clue.id}
+                  teamData={teamData}
+                  gamePin={props.gamePin}
+                  teamName={props.teamName}
+                  passcode={clue.id.slice(0, 6)}
+                  index={i + 1}
+                  answer={clue.answer}
+                  instructions={clue.instructions}
+                  location={clue.location}
+                />
+              </Grid>
+            );
+          })}
       </Grid>
     </>
   );
