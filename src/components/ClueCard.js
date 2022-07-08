@@ -44,7 +44,7 @@ function ClueCard(props) {
                 props.teamData
               ).then(() => {
                 setShowBack(true);
-                invalidate(true);
+                props.invalidate(true);
               });
             } else {
               resetForm();
@@ -121,7 +121,7 @@ function ClueCard(props) {
                     doc(db, "games", props.gamePin, "teams", props.teamName),
                     props.teamData
                   ).then(() => {
-                    invalidate(true);
+                    props.invalidate(true);
                   });
                 } else {
                   resetForm();
