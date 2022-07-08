@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import "../style/App.css";
 import "../style/Admin.css";
@@ -21,6 +21,23 @@ function Admin() {
   const [isGamePinSet, setIsGamePinSet] = useState(false);
   const [createGame, setCreateGame] = useState(false);
   const [clueList, setClueList] = useState([]);
+  const [invalidated, invalidate] = useState(true);
+
+  useEffect(() => {
+    async function getClues() {
+      return (await getDocs(collection(db, "games", gamePin, "clues"))).docs;
+    }
+    if (invalidated && gamePin) {
+      getClues().then((clues) => {
+        setClueList(
+          clues.map((value, index) => {
+            return { data: value.data(), id: value.id };
+          })
+        );
+      });
+      invalidate(false)
+    }
+  }, [gamePin, invalidated]);
 
   const gamePinForm = (
     <Formik
@@ -37,6 +54,7 @@ function Admin() {
         return errors;
       }}
       onSubmit={async (values, { setSubmitting }) => {
+        invalidate(true);
         setGamePin(values.gamePin);
         setIsGamePinSet(true);
         setSubmitting(false);
@@ -86,6 +104,7 @@ function Admin() {
                 name: values.gameTitle,
               });
               setIsGamePinSet(true);
+              invalidate(true);
               setSubmitting(false);
               setCreateGame(false);
             }}
@@ -110,13 +129,6 @@ function Admin() {
       </div>
     );
   } else if (isGamePinSet) {
-    getDocs(collection(db, "games", gamePin, "clues")).then((clues) => {
-      setClueList(
-        clues.docs.map((value, index) => {
-          return { data: value.data(), id: value.id };
-        })
-      );
-    });
     return (
       <div className="App">
         <div className="Floating-form">
@@ -132,24 +144,27 @@ function Admin() {
                     instructions: values.instructions,
                     answer: values.answer,
                   });
+                  invalidate(true);
                   resetForm();
                   setSubmitting(false);
                 }}
               />
             </div>
             <div className="clues">
-              {clueList.map((value, index) => {
-                return (
-                  <ClueListItem
-                    key={value.id}
-                    id={value.id}
-                    location={value.data.location}
-                    instructions={value.data.instructions}
-                    answer={value.data.answer}
-                    gamePin={gamePin}
-                  />
-                );
-              })}
+              {clueList &&
+                clueList.map((value, index) => {
+                  return (
+                    <ClueListItem
+                      key={value.id}
+                      id={value.id}
+                      location={value.data.location}
+                      instructions={value.data.instructions}
+                      answer={value.data.answer}
+                      gamePin={gamePin}
+                      invalidate={invalidate}
+                    />
+                  );
+                })}
             </div>
           </div>
         </div>

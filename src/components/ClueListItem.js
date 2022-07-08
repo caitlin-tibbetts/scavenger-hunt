@@ -14,6 +14,7 @@ function ClueListItem(props) {
       <>
         <FontAwesomeIcon icon={faX} onClick={async () => {
           await deleteDoc(doc(db, "games", props.gamePin, "clues", props.id))
+          props.invalidate(true);
         }}/>
         <CreateClueForm
           gamePin={props.gamePin}
@@ -27,6 +28,7 @@ function ClueListItem(props) {
               instructions: values.instructions,
               answer: values.answer,
             });
+            props.invalidate(true);
             setIsEditing(false);
           }}
         />
