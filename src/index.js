@@ -6,15 +6,18 @@ import Admin from "./routes/Admin";
 import Game from "./components/Game";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="admin" element={<Admin />} />
-    </Routes>
-  </BrowserRouter>
+  <CookiesProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="admin" element={<Admin />} />
+      </Routes>
+    </BrowserRouter>
+  </CookiesProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

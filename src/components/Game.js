@@ -14,6 +14,8 @@ function Game(props) {
   const [teamData, setTeamData] = useState();
   const [invalidated, invalidate] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+
+
   useEffect(() => {
     async function getClues() {
       return (

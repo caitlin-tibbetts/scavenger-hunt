@@ -5,12 +5,18 @@ import { setDoc, doc, getDoc } from "firebase/firestore";
 import db from "./firebase";
 import "./style/App.css";
 import Game from "./components/Game";
+import { useCookies } from "react-cookie";
 
 function App() {
-  const [isGameMode, setIsGameMode] = useState(false);
-  const [gamePin, setGamePin] = useState("");
-  const [gameName, setGameName] = useState("");
-  const [teamName, setTeamName] = useState("");
+
+  const [cookies, setCookie] = useCookies(['scav-hunt']);
+
+  const [isGameMode, setIsGameMode] = useState(cookies.gamePin && cookies.teamName);
+  const [gamePin, setGamePin] = useState(cookies.gamePin || "");
+  const [gameName, setGameName] = useState(cookies.gameName || "");
+  const [teamName, setTeamName] = useState(cookies.teamName || "");
+
+  
 
   if (isGameMode) {
     return (
@@ -53,11 +59,14 @@ function App() {
               doc(db, "games", values.gamePin, "teams", values.teamName),
               { name: values.teamName }
             );
-            setGamePin(values.gamePin);
-            setGameName(
-              (await getDoc(doc(db, "games", values.gamePin))).data().name
-            );
-            setTeamName(values.teamName);
+       
+            setCookie('gamePin',  values.gamePin, { path: '/' });
+            setCookie('teamName', values.teamName, { path: '/' });
+            setCookie('gameName', (await getDoc(doc(db, "games", values.gamePin))).data().name, { path: '/' });
+
+            setGamePin(cookies.gamePin);
+            setGameName(cookies.gameName);
+            setTeamName(cookies.teamName);
             setIsGameMode(true);
           }}
         >
