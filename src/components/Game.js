@@ -13,6 +13,7 @@ import Grid from "@material-ui/core/Grid";
 function Game(props) {
   const [teamData, setTeamData] = useState();
   const [invalidated, invalidate] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
   useEffect(() => {
     async function getClues() {
       return (
@@ -39,6 +40,7 @@ function Game(props) {
         });
     }
     if (!teamData) {
+      alert("Getting new clue list for team")
       getClues()
         .then((iClueList) => {
           alert("Setting clue list for team in App");
@@ -51,18 +53,29 @@ function Game(props) {
           });
         })
         .catch(console.error);
+        setGameOver(false);
     } else if(invalidated) {
-      alert("Reading new team data from Firestore")
+      alert("Reading team data from Firestore")
       getDoc(doc(db, "games", props.gamePin, "teams", props.teamName)).then((iTeamData) => {
-        setTeamData(iTeamData)
+        setGameOver(true);
+        iTeamData.data().clueList.forEach((clue) => {
+          if(clue.status !== 3) {
+            setGameOver(false);
+          }
+        });
+        setTeamData(iTeamData.data())
       })
       invalidate(false);
     }
-  }, [props.gamePin, props.teamName]);
+  }, [props.gamePin, props.teamName, invalidated, teamData]);
 
+  if(gameOver) {
+    return (
+      <p>Congratulations! You finished {props.gameName}! Head on home...</p>
+    )
+  }
   return (
     <>
-    {console.log("yoyo")}
       <h1>{props.gameName}</h1>
       <h2>Welcome {props.teamName}!</h2>
       <Grid

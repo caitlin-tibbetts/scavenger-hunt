@@ -36,6 +36,7 @@ function ClueCard(props) {
               alert("Moving from status 1 to 2");
               for (let i = 0; i < props.teamData.clueList.length; i++) {
                 if (props.teamData.clueList[i].id === props.id) {
+                  props.teamData.clueList[i].startTime = Date.now()
                   props.teamData.clueList[i].status = 2;
                 }
               }
@@ -44,7 +45,7 @@ function ClueCard(props) {
                 props.teamData
               ).then(() => {
                 setShowBack(true);
-                invalidate(true);
+                props.invalidate(true);
               });
             } else {
               resetForm();
@@ -110,6 +111,7 @@ function ClueCard(props) {
                   let nextCard = false;
                   for (let i = 0; i < props.teamData.clueList.length; i++) {
                     if (props.teamData.clueList[i].id === props.id) {
+                      props.teamData.clueList[i].endTime = Date.now()
                       props.teamData.clueList[i].status = 3;
                       nextCard = true;
                     } else if (nextCard) {
@@ -121,7 +123,7 @@ function ClueCard(props) {
                     doc(db, "games", props.gamePin, "teams", props.teamName),
                     props.teamData
                   ).then(() => {
-                    invalidate(true);
+                    props.invalidate(true);
                   });
                 } else {
                   resetForm();
