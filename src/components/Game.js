@@ -40,10 +40,8 @@ function Game(props) {
         });
     }
     if (!teamData) {
-      alert("Getting new clue list for team")
       getClues()
         .then((iClueList) => {
-          alert("Setting clue list for team in App");
           setDoc(
             doc(db, "games", props.gamePin, "teams", props.teamName),
             { clueList: iClueList },
@@ -55,7 +53,6 @@ function Game(props) {
         .catch(console.error);
         setGameOver(false);
     } else if(invalidated) {
-      alert("Reading team data from Firestore")
       getDoc(doc(db, "games", props.gamePin, "teams", props.teamName)).then((iTeamData) => {
         setGameOver(true);
         iTeamData.data().clueList.forEach((clue) => {
