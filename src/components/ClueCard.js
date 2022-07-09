@@ -106,7 +106,7 @@ function ClueCard(props) {
                 return errors;
               }}
               onSubmit={async (values, { resetForm }) => {
-                if (values.answer === props.answer) {
+                if (values.answer.replaceAll(/\s/g,'') === props.answer.replaceAll(/\s/g,'')) {
                   let nextCard = false;
                   for (let i = 0; i < props.teamData.clueList.length; i++) {
                     if (props.teamData.clueList[i].id === props.id) {
