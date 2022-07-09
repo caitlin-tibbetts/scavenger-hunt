@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import ClueCard from "./ClueCard";
 import db from "../firebase";
-import ReactLoading from 'react-loading';
+import ReactLoading from "react-loading";
 
 import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 
@@ -16,31 +16,36 @@ function Game(props) {
   const [invalidated, invalidate] = useState(false);
   const [gameOver, setGameOver] = useState(false);
 
-
   useEffect(() => {
     async function getClues() {
-      return (
-        await getDocs(collection(db, "games", props.gamePin, "clues"))
-      ).docs
-        .sort((a, b) => 0.5 - Math.random())
-        .map((clue, index) => {
-          if (index === 0) {
+      let currentTeamData = (
+        await getDoc(doc(db, "games", props.gamePin, "teams", props.teamName))
+      ).data();
+      if(currentTeamData && !("clueList" in currentTeamData)) {
+        return (
+          await getDocs(collection(db, "games", props.gamePin, "clues"))
+        ).docs
+          .sort((a, b) => 0.5 - Math.random())
+          .map((clue, index) => {
+            if (index === 0) {
+              return {
+                id: clue.id,
+                location: clue.data().location,
+                instructions: clue.data().instructions,
+                answer: clue.data().answer,
+                status: 1,
+              };
+            }
             return {
               id: clue.id,
               location: clue.data().location,
               instructions: clue.data().instructions,
               answer: clue.data().answer,
-              status: 1,
+              status: 0,
             };
-          }
-          return {
-            id: clue.id,
-            location: clue.data().location,
-            instructions: clue.data().instructions,
-            answer: clue.data().answer,
-            status: 0,
-          };
-        });
+          });
+      }
+      return currentTeamData.clueList
     }
     if (!teamData) {
       getClues()
@@ -54,47 +59,45 @@ function Game(props) {
           });
         })
         .catch(console.error);
-        setGameOver(false);
-    } else if(invalidated) {
-      getDoc(doc(db, "games", props.gamePin, "teams", props.teamName)).then((iTeamData) => {
-        setGameOver(true);
-        iTeamData.data().clueList.forEach((clue) => {
-          if(clue.status !== 3) {
-            setGameOver(false);
-          }
-        });
-        setTeamData(iTeamData.data())
-      })
+      setGameOver(false);
+    } else if (invalidated) {
+      getDoc(doc(db, "games", props.gamePin, "teams", props.teamName)).then(
+        (iTeamData) => {
+          setGameOver(true);
+          iTeamData.data().clueList.forEach((clue) => {
+            if (clue.status !== 3) {
+              setGameOver(false);
+            }
+          });
+          setTeamData(iTeamData.data());
+        }
+      );
       invalidate(false);
     }
   }, [props.gamePin, props.teamName, invalidated, teamData]);
 
-  if(gameOver) {
+  if (gameOver) {
     return (
       <p>Congratulations! You finished {props.gameName}! Head on home...</p>
-    )
+    );
   }
   return (
     <>
-    <div className="game-welcome">
-      <h1>{props.gameName}</h1>
-      <h2>Welcome {props.teamName}!</h2>
+      <div className="game-welcome">
+        <h1>{props.gameName}</h1>
+        <h2>Welcome {props.teamName}!</h2>
       </div>
       <Grid
         container
         direction="column-reverse"
         spacing={2}
         alignItems="center"
-        style={{ maxHeight: "45vh", flexWrap: "nowrap", overflow: "auto"}}
+        style={{ maxHeight: "45vh", flexWrap: "nowrap", overflow: "auto" }}
       >
-
-        {(teamData &&
-          teamData.clueList) ?
-         teamData.clueList.map((clue, i) => {
-        
+        {teamData && teamData.clueList ? (
+          teamData.clueList.map((clue, i) => {
             return (
-           
-              <Grid item key={i+1} xs={12}>
+              <Grid item key={i + 1} xs={12}>
                 <ClueCard
                   key={clue.id}
                   id={clue.id}
@@ -103,7 +106,7 @@ function Game(props) {
                   gamePin={props.gamePin}
                   teamName={props.teamName}
                   passcode={clue.id.slice(0, 6)}
-                  index={i+1}
+                  index={i + 1}
                   answer={clue.answer}
                   instructions={clue.instructions}
                   location={clue.location}
@@ -111,14 +114,12 @@ function Game(props) {
                 />
               </Grid>
             );
-          }
-        
-          )
-          : 
+          })
+        ) : (
           <Grid item xs={9}>
-          <ReactLoading type="spokes" color="#4a4747" />
+            <ReactLoading type="spokes" color="#4a4747" />
           </Grid>
-          }
+        )}
       </Grid>
     </>
   );
