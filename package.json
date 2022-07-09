@@ -25,6 +25,7 @@
     "react-card-flip": "^1.1.5",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
+    "react-loading": "^2.0.3",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"

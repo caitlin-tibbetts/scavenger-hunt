@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import ClueCard from "./ClueCard";
 import db from "../firebase";
+import ReactLoading from 'react-loading';
 
 import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 
@@ -14,6 +15,7 @@ function Game(props) {
   const [teamData, setTeamData] = useState();
   const [invalidated, invalidate] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
 
   useEffect(() => {
@@ -84,8 +86,8 @@ function Game(props) {
         alignItems="center"
         style={{ maxHeight: "45vh", overflow: "auto" }}
       >
-        {teamData &&
-          teamData.clueList &&
+        {(teamData &&
+          teamData.clueList) ?
           teamData.clueList.map((clue, i) => {
             return (
               <Grid item key={i} xs={9}>
@@ -105,7 +107,11 @@ function Game(props) {
                 />
               </Grid>
             );
-          })}
+          }) : 
+          <Grid item xs={9}>
+          <ReactLoading type="spokes" color="#4a4747" />
+          </Grid>
+          }
       </Grid>
     </>
   );
