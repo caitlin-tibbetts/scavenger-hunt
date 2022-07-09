@@ -15,7 +15,6 @@ function Game(props) {
   const [teamData, setTeamData] = useState();
   const [invalidated, invalidate] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
 
   useEffect(() => {
@@ -77,18 +76,21 @@ function Game(props) {
   }
   return (
     <>
+    <div className="game-welcome">
       <h1>{props.gameName}</h1>
       <h2>Welcome {props.teamName}!</h2>
+      </div>
       <Grid
         container
         direction="column"
         spacing={8}
         alignItems="center"
-        style={{ maxHeight: "45vh", overflow: "auto" }}
+        style={{ maxHeight: "45vh", flexWrap: "nowrap", overflow: "auto"}}
       >
+
         {(teamData &&
           teamData.clueList) ?
-          teamData.clueList.map((clue, i) => {
+         teamData.clueList.map((clue, i) => {
             return (
               <Grid item key={i} xs={9}>
                 <ClueCard
@@ -107,7 +109,10 @@ function Game(props) {
                 />
               </Grid>
             );
-          }) : 
+          }
+        
+          )
+          : 
           <Grid item xs={9}>
           <ReactLoading type="spokes" color="#4a4747" />
           </Grid>

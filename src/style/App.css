@@ -21,6 +21,7 @@
   min-width: 50%;
   border-radius: 1vh;
   padding: 2%;
+  overflow: hidden;
 }
 
 button {
