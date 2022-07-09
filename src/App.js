@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 
@@ -11,12 +11,10 @@ function App() {
 
   const [cookies, setCookie] = useCookies(['scav-hunt']);
 
-  const [isGameMode, setIsGameMode] = useState(cookies.gamePin && cookies.teamName);
+  const [isGameMode, setIsGameMode] = useState((cookies.gamePin && cookies.teamName) !== undefined || false);
   const [gamePin, setGamePin] = useState(cookies.gamePin || "");
   const [gameName, setGameName] = useState(cookies.gameName || "");
   const [teamName, setTeamName] = useState(cookies.teamName || "");
-
-  
 
   if (isGameMode) {
     return (
@@ -59,14 +57,16 @@ function App() {
               doc(db, "games", values.gamePin, "teams", values.teamName),
               { name: values.teamName }
             );
-       
+            
+            let iTeamName = (await getDoc(doc(db, "games", values.gamePin))).data().name;
+
             setCookie('gamePin',  values.gamePin, { path: '/' });
             setCookie('teamName', values.teamName, { path: '/' });
-            setCookie('gameName', (await getDoc(doc(db, "games", values.gamePin))).data().name, { path: '/' });
+            setCookie('gameName', iTeamName, { path: '/' });
 
-            setGamePin(cookies.gamePin);
-            setGameName(cookies.gameName);
-            setTeamName(cookies.teamName);
+            setGamePin(values.gamePin);
+            setGameName(values.teamName);
+            setTeamName(iTeamName);
             setIsGameMode(true);
           }}
         >
