@@ -19,8 +19,9 @@ function ClueCard(props) {
         elevation={12}
         className="clue-front"
         style={{ position: "relative" }}
+       
       >
-        <h2>Clue #{props.index}</h2>
+        <h2 >Clue #{props.index}</h2>
         <p>{props.location}</p>
         <Formik
           initialValues={{ passcode: "" }}
@@ -54,7 +55,7 @@ function ClueCard(props) {
           {({ isSubmitting }) => (
             <Form>
               <p>
-                Passcode (case sensitive): <Field name="passcode" />
+                Passcode (case sensitive): <Field         autoFocus name="passcode" />
                 <ErrorMessage name="passcode" component="p" />
               </p>
               <button type="submit" disabled={isSubmitting}>

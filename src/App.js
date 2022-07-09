@@ -58,15 +58,15 @@ function App() {
               { name: values.teamName }
             );
             
-            let iTeamName = (await getDoc(doc(db, "games", values.gamePin))).data().name;
+            let iGameName = (await getDoc(doc(db, "games", values.gamePin))).data().name;
 
             setCookie('gamePin',  values.gamePin, { path: '/' });
             setCookie('teamName', values.teamName, { path: '/' });
-            setCookie('gameName', iTeamName, { path: '/' });
+            setCookie('gameName', iGameName, { path: '/' });
 
             setGamePin(values.gamePin);
             setGameName(values.teamName);
-            setTeamName(iTeamName);
+            setTeamName(iGameName);
             setIsGameMode(true);
           }}
         >

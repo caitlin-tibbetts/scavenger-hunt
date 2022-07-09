@@ -82,8 +82,8 @@ function Game(props) {
       </div>
       <Grid
         container
-        direction="column"
-        spacing={8}
+        direction="column-reverse"
+        spacing={2}
         alignItems="center"
         style={{ maxHeight: "45vh", flexWrap: "nowrap", overflow: "auto"}}
       >
@@ -91,8 +91,10 @@ function Game(props) {
         {(teamData &&
           teamData.clueList) ?
          teamData.clueList.map((clue, i) => {
+        
             return (
-              <Grid item key={i} xs={12}>
+           
+              <Grid item key={i+1} xs={12}>
                 <ClueCard
                   key={clue.id}
                   id={clue.id}
@@ -101,7 +103,7 @@ function Game(props) {
                   gamePin={props.gamePin}
                   teamName={props.teamName}
                   passcode={clue.id.slice(0, 6)}
-                  index={i + 1}
+                  index={i+1}
                   answer={clue.answer}
                   instructions={clue.instructions}
                   location={clue.location}
