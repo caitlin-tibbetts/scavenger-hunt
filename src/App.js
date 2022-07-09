@@ -60,9 +60,9 @@ function App() {
               { name: values.teamName }
             );
        
-            setCookie('gamePin',  values.gamePin, { path: '/' });
-            setCookie('teamName', values.teamName, { path: '/' });
-            setCookie('gameName', (await getDoc(doc(db, "games", values.gamePin))).data().name, { path: '/' });
+            setCookie('gamePin',  values.gamePin, { path: '/', maxAge: 7200 });
+            setCookie('teamName', values.teamName, { path: '/', maxAge: 7200 });
+            setCookie('gameName', (await getDoc(doc(db, "games", values.gamePin))).data().name, { path: '/', maxAge: 7200 });
 
             setGamePin(cookies.gamePin);
             setGameName(cookies.gameName);

@@ -9,8 +9,11 @@ import "../style/App.css";
 import "../style/Game.css";
 
 import Grid from "@material-ui/core/Grid";
+import { useCookies } from "react-cookie";
 
 function Game(props) {
+  const [cookies] = useCookies(['scav-hunt']);
+
   const [teamData, setTeamData] = useState();
   const [invalidated, invalidate] = useState(false);
   const [gameOver, setGameOver] = useState(false);
@@ -19,7 +22,7 @@ function Game(props) {
   useEffect(() => {
     async function getClues() {
       return (
-        await getDocs(collection(db, "games", props.gamePin, "clues"))
+        await getDocs(collection(db, "games", cookies.gamePin, "clues"))
       ).docs
         .sort((a, b) => 0.5 - Math.random())
         .map((clue, index) => {
@@ -45,17 +48,17 @@ function Game(props) {
       getClues()
         .then((iClueList) => {
           setDoc(
-            doc(db, "games", props.gamePin, "teams", props.teamName),
+            doc(db, "games", cookies.gamePin, "teams", cookies.teamName),
             { clueList: iClueList },
             { merge: true }
           ).then(() => {
-            setTeamData({ name: props.teamName, clueList: iClueList });
+            setTeamData({ name: cookies.teamName, clueList: iClueList });
           });
         })
         .catch(console.error);
         setGameOver(false);
     } else if(invalidated) {
-      getDoc(doc(db, "games", props.gamePin, "teams", props.teamName)).then((iTeamData) => {
+      getDoc(doc(db, "games", cookies.gamePin, "teams", cookies.teamName)).then((iTeamData) => {
         setGameOver(true);
         iTeamData.data().clueList.forEach((clue) => {
           if(clue.status !== 3) {
@@ -66,17 +69,17 @@ function Game(props) {
       })
       invalidate(false);
     }
-  }, [props.gamePin, props.teamName, invalidated, teamData]);
+  }, [cookies.gamePin, cookies.teamName, invalidated, teamData]);
 
   if(gameOver) {
     return (
-      <p>Congratulations! You finished {props.gameName}! Head on home...</p>
+      <p>Congratulations! You finished {cookies.gameName}! Head on home...</p>
     )
   }
   return (
     <>
-      <h1>{props.gameName}</h1>
-      <h2>Welcome {props.teamName}!</h2>
+      <h1>{cookies.gameName}</h1>
+      <h2>Welcome {cookies.teamName}!</h2>
       <Grid
         container
         direction="column"
@@ -94,8 +97,8 @@ function Game(props) {
                   id={clue.id}
                   teamData={teamData}
                   status={clue.status}
-                  gamePin={props.gamePin}
-                  teamName={props.teamName}
+                  gamePin={cookies.gamePin}
+                  teamName={cookies.teamName}
                   passcode={clue.id.slice(0, 6)}
                   index={i + 1}
                   answer={clue.answer}
