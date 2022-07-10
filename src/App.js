@@ -65,8 +65,8 @@ function App() {
             setCookie('gameName', iGameName, { path: '/' });
 
             setGamePin(values.gamePin);
-            setGameName(values.teamName);
-            setTeamName(iGameName);
+            setGameName(iGameName);
+            setTeamName(values.teamName);
             setIsGameMode(true);
           }}
         >
