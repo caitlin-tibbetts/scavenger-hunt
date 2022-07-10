@@ -120,7 +120,7 @@ function GameDashboard() {
         <div className="Floating-form">
           {gamePinForm}
           <div className="container">
-            <div className="clues">
+            <div className="teams">
               {teamList &&
                 teamList.map((value, index) => {
                   return (
@@ -135,7 +135,7 @@ function GameDashboard() {
                   );
                 })}
             </div>
-            <div className="form">
+            <div className="clues">
               <p>Pick a team!</p>
             </div>
           </div>
@@ -148,7 +148,7 @@ function GameDashboard() {
         <div className="Floating-form">
           {gamePinForm}
           <div className="container">
-            <div className="clues">
+            <div className="teams">
               {teamList &&
                 teamList.map((value, index) => {
                   return (
@@ -163,7 +163,7 @@ function GameDashboard() {
                   );
                 })}
             </div>
-            <div className="form">
+            <div className="clues">
               Total Points: {totalTeamPoints}
               {teamData &&
                 teamData.clueList.map((value, i) => {
