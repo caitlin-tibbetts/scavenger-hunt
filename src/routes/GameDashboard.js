@@ -24,6 +24,7 @@ function GameDashboard() {
   const [teamData, setTeamData] = useState();
   const [teamList, setTeamList] = useState([]);
   const [invalidated, invalidate] = useState(true);
+  const [totalTeamPoints, setTotalTeamPoints] = useState(0);
 
   const [isCurrentTeamSet, setIsCurrentTeamSet] = useState(false);
   const [currentTeam, setCurrentTeam] = useState("");
@@ -52,8 +53,14 @@ function GameDashboard() {
       invalidate(false);
     }
     if (invalidated && isGamePinSet && isCurrentTeamSet &&  currentTeamRef.current !== currentTeam) {
-      console.log("here")
       getClues().then((iTeamData) => {
+         console.log(iTeamData)
+        let iPoints = 0;
+        iTeamData.clueList.forEach((clue) => {
+          iPoints+=clue.points+(300-(clue.endTime.seconds-clue.startTime.seconds))
+        }
+        )
+        setTotalTeamPoints(iPoints);
         setTeamData(iTeamData);
         invalidate(false);
         currentTeamRef.current = currentTeam;
@@ -141,16 +148,18 @@ function GameDashboard() {
                       points={value.points}
                       setIsCurrentTeamSet={setIsCurrentTeamSet}
                       invalidate={invalidate}
+
                     />
                   );
                 })}
             </div>
             <div className="form">
+            Total Points: {totalTeamPoints}
               {teamData &&
                 teamData.clueList.map((value, i) => {
                   console.log("Downhere", value);
                   return <DashboardClueListItem 
-                  key={value.name} 
+                  key={value.id} 
                   id={value.id}
                   teamData={teamData}
                   status={value.status}
@@ -159,6 +168,7 @@ function GameDashboard() {
                   answer={value.answer}
                   //team answer needs to be updated to be team answer
                   teamAnswer={""}
+                  points={value.points}
                   instructions={value.instructions}
                   location={value.location}
                   invalidate={invalidated}

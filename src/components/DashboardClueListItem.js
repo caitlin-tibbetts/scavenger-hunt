@@ -15,6 +15,7 @@ function DashboardClueListItem(props) {
       <p>Instructions: {props.instructions}</p>
       <p>Answer: {props.answer}</p>
       <p>Team Answer: {props.teamAnswer}</p>
+      <p>Points: {props.points}</p>
       <p>
         <button
           onClick={() => {
