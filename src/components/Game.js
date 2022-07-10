@@ -52,10 +52,10 @@ function Game(props) {
         .then((iClueList) => {
           setDoc(
             doc(db, "games", props.gamePin, "teams", props.teamName),
-            { clueList: iClueList },
+            { clueList: iClueList, points: 0 },
             { merge: true }
           ).then(() => {
-            setTeamData({ name: props.teamName, clueList: iClueList });
+            setTeamData({ name: props.teamName, clueList: iClueList, points: 0 });
           });
         })
         .catch(console.error);

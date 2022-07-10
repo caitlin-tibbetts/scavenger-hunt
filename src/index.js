@@ -7,6 +7,7 @@ import Game from "./components/Game";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
+import GameDashboard from "./routes/GameDashboard";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,6 +16,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="admin" element={<Admin />} />
+        <Route path="gameDash" element={<GameDashboard />} />
       </Routes>
     </BrowserRouter>
   </CookiesProvider>
