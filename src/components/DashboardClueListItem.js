@@ -14,7 +14,15 @@ function DashboardClueListItem(props) {
       <p>Location: {props.location}</p>
       <p>Instructions: {props.instructions}</p>
       <p>Answer: {props.answer}</p>
-      <p>Team Answer: {props.teamAnswer}</p>
+      {console.log(props.teamAnswers)}
+      {props.teamAnswers && props.teamAnswers.map((teamAnswer, i) => {
+        return (
+          <p key={i}>
+            Team Answer #{i+1}: {teamAnswer}
+          </p>
+        );
+      })}
+
       <p>Points: {props.points}</p>
       <p>
         <button

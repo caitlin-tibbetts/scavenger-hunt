@@ -48,25 +48,36 @@ function GameDashboard() {
     if (invalidated && isGamePinSet && teamList.length === 0) {
       getTeams().then((iTeamList) => {
         setTeamList(iTeamList);
-        
       });
       invalidate(false);
     }
-    if (invalidated && isGamePinSet && isCurrentTeamSet &&  currentTeamRef.current !== currentTeam) {
+    if (
+      invalidated &&
+      isGamePinSet &&
+      isCurrentTeamSet &&
+      currentTeamRef.current !== currentTeam
+    ) {
       getClues().then((iTeamData) => {
-         console.log(iTeamData)
         let iPoints = 0;
         iTeamData.clueList.forEach((clue) => {
-          iPoints+=clue.points+(300-(clue.endTime.seconds-clue.startTime.seconds))
-        }
-        )
+          iPoints +=
+            clue.points +
+            (300 - (clue.endTime.seconds - clue.startTime.seconds));
+        });
         setTotalTeamPoints(iPoints);
         setTeamData(iTeamData);
         invalidate(false);
         currentTeamRef.current = currentTeam;
       });
     }
-  }, [gamePin, currentTeam, isGamePinSet, isCurrentTeamSet, invalidated,teamList.length]);
+  }, [
+    gamePin,
+    currentTeam,
+    isGamePinSet,
+    isCurrentTeamSet,
+    invalidated,
+    teamList.length,
+  ]);
 
   const gamePinForm = (
     <Formik
@@ -148,31 +159,30 @@ function GameDashboard() {
                       points={value.points}
                       setIsCurrentTeamSet={setIsCurrentTeamSet}
                       invalidate={invalidate}
-
                     />
                   );
                 })}
             </div>
             <div className="form">
-            Total Points: {totalTeamPoints}
+              Total Points: {totalTeamPoints}
               {teamData &&
                 teamData.clueList.map((value, i) => {
-                  console.log("Downhere", value);
-                  return <DashboardClueListItem 
-                  key={value.id} 
-                  id={value.id}
-                  teamData={teamData}
-                  status={value.status}
-                  passcode={value.id.slice(0, 6)}
-                  index={i + 1}
-                  answer={value.answer}
-                  //team answer needs to be updated to be team answer
-                  teamAnswer={""}
-                  points={value.points}
-                  instructions={value.instructions}
-                  location={value.location}
-                  invalidate={invalidated}
-                  />;
+                  return (
+                    <DashboardClueListItem
+                      key={value.id}
+                      id={value.id}
+                      teamData={teamData}
+                      status={value.status}
+                      passcode={value.id.slice(0, 6)}
+                      index={i + 1}
+                      answer={value.answer}
+                      teamAnswers={value.teamAnswers}
+                      points={value.points}
+                      instructions={value.instructions}
+                      location={value.location}
+                      invalidate={invalidated}
+                    />
+                  );
                 })}
             </div>
           </div>
