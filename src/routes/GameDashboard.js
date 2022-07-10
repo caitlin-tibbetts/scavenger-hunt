@@ -16,6 +16,7 @@ import CreateClueForm from "../components/CreateClueForm";
 
 import db from "../firebase";
 import DashboardClueListItem from "../components/DashboardClueListItem";
+import { useRef } from "react";
 
 function GameDashboard() {
   const [gamePin, setGamePin] = useState("");
@@ -26,6 +27,7 @@ function GameDashboard() {
 
   const [isCurrentTeamSet, setIsCurrentTeamSet] = useState(false);
   const [currentTeam, setCurrentTeam] = useState("");
+  const currentTeamRef = useRef();
 
   useEffect(() => {
     async function getClues() {
@@ -42,18 +44,22 @@ function GameDashboard() {
         return document.data();
       });
     }
-    if (invalidated && isGamePinSet) {
+    if (invalidated && isGamePinSet && teamList.length === 0) {
       getTeams().then((iTeamList) => {
         setTeamList(iTeamList);
+        
       });
       invalidate(false);
     }
-    if (invalidated && isGamePinSet && isCurrentTeamSet) {
+    if (invalidated && isGamePinSet && isCurrentTeamSet &&  currentTeamRef.current !== currentTeam) {
+      console.log("here")
       getClues().then((iTeamData) => {
         setTeamData(iTeamData);
+        invalidate(false);
+        currentTeamRef.current = currentTeam;
       });
     }
-  }, [gamePin, currentTeam, isGamePinSet, isCurrentTeamSet, invalidated]);
+  }, [gamePin, currentTeam, isGamePinSet, isCurrentTeamSet, invalidated,teamList.length]);
 
   const gamePinForm = (
     <Formik
@@ -90,7 +96,7 @@ function GameDashboard() {
     </Formik>
   );
 
-  if (isGamePinSet) {
+  if (isGamePinSet && !isCurrentTeamSet) {
     return (
       <div className="App">
         <div className="Floating-form">
@@ -134,15 +140,29 @@ function GameDashboard() {
                       teamName={value.name}
                       points={value.points}
                       setIsCurrentTeamSet={setIsCurrentTeamSet}
+                      invalidate={invalidate}
                     />
                   );
                 })}
             </div>
             <div className="form">
               {teamData &&
-                teamData.clueList.map((value, index) => {
+                teamData.clueList.map((value, i) => {
                   console.log("Downhere", value);
-                  return <DashboardClueListItem key={value.name} />;
+                  return <DashboardClueListItem 
+                  key={value.name} 
+                  id={value.id}
+                  teamData={teamData}
+                  status={value.status}
+                  passcode={value.id.slice(0, 6)}
+                  index={i + 1}
+                  answer={value.answer}
+                  //team answer needs to be updated to be team answer
+                  teamAnswer={""}
+                  instructions={value.instructions}
+                  location={value.location}
+                  invalidate={invalidated}
+                  />;
                 })}
             </div>
           </div>

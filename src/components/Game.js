@@ -21,9 +21,6 @@ function Game(props) {
       let currentTeamData = (
         await getDoc(doc(db, "games", props.gamePin, "teams", props.teamName))
       ).data();
-       console.log(props.gamePin)
-        console.log(props.teamName)
-      console.log(currentTeamData)
       if(currentTeamData && !("clueList" in currentTeamData)) {
         return (
           await getDocs(collection(db, "games", props.gamePin, "clues"))

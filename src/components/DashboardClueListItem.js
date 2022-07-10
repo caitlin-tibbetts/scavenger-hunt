@@ -10,7 +10,7 @@ import CreateClueForm from "./CreateClueForm";
 function DashboardClueListItem(props) {
   return (
     <div>
-      <p>Passcode: {props.id.slice(0, 6)}</p>
+      <p>Passcode: {props.id}</p>
       <p>Location: {props.location}</p>
       <p>Instructions: {props.instructions}</p>
       <p>Answer: {props.answer}</p>
