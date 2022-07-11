@@ -58,13 +58,7 @@ function GameDashboard() {
       currentTeamRef.current !== currentTeam
     ) {
       getClues().then((iTeamData) => {
-        let iPoints = 0;
-        iTeamData.clueList.forEach((clue) => {
-          iPoints +=
-            clue.points +
-            (300 - (clue.endTime.seconds - clue.startTime.seconds));
-        });
-        setTotalTeamPoints(iPoints);
+        setTotalTeamPoints(iTeamData.points);
         setTeamData(iTeamData);
         invalidate(false);
         currentTeamRef.current = currentTeam;
@@ -171,16 +165,17 @@ function GameDashboard() {
                     <DashboardClueListItem
                       key={value.id}
                       id={value.id}
+                      teamName={teamData.name}
                       teamData={teamData}
                       status={value.status}
                       passcode={value.id.slice(0, 6)}
                       index={i + 1}
                       answer={value.answer}
-                      teamAnswers={value.teamAnswers}
+                      teamAnswer={value.teamAnswer}
                       points={value.points}
                       instructions={value.instructions}
                       location={value.location}
-                      invalidate={invalidated}
+                      invalidate={invalidate}
                     />
                   );
                 })}
