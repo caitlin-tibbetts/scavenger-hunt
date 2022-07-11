@@ -3,11 +3,11 @@ import ReactDOM from "react-dom/client";
 import "./style/index.css";
 import App from "./App";
 import Admin from "./routes/Admin";
-import Game from "./components/Game";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
 import GameDash from "./routes/GameDash";
+import Leaderboard from "./routes/Leaderboard";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,6 +17,7 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="admin" element={<Admin />} />
         <Route path="gameDash" element={<GameDash />} />
+        <Route path="leaderboard" element={<Leaderboard />} />
       </Routes>
     </BrowserRouter>
   </CookiesProvider>
