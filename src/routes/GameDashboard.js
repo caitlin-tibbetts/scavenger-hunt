@@ -158,7 +158,7 @@ function GameDashboard() {
                 })}
             </div>
             <div className="clues">
-              Total Points: {totalTeamPoints}
+              Total Points: {Math.round(totalTeamPoints)}
               {teamData &&
                 teamData.clueList.map((value, i) => {
                   return (
@@ -166,12 +166,14 @@ function GameDashboard() {
                       key={value.id}
                       id={value.id}
                       teamName={teamData.name}
+                      gamePin={gamePin}
                       teamData={teamData}
                       status={value.status}
                       passcode={value.id.slice(0, 6)}
                       index={i + 1}
                       answer={value.answer}
                       teamAnswer={value.teamAnswer}
+                      correct={"correct" in value ? value.correct : "N/A"}
                       points={value.points}
                       instructions={value.instructions}
                       location={value.location}
