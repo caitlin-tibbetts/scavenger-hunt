@@ -1,20 +1,18 @@
 import { useState } from "react";
 import { setDoc, doc, deleteDoc } from "firebase/firestore";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 
 import db from "../firebase";
 import CreateClueForm from "./CreateClueForm";
 
-function ClueListItem(props) {
+function AdminClueListItem(props) {
   const [isEditing, setIsEditing] = useState(false);
   if (isEditing) {
     return (
       <>
         <FontAwesomeIcon icon={faX} onClick={async () => {
           await deleteDoc(doc(db, "games", props.gamePin, "clues", props.id))
-          props.invalidate(true);
         }}/>
         <CreateClueForm
           gamePin={props.gamePin}
@@ -28,7 +26,6 @@ function ClueListItem(props) {
               instructions: values.instructions,
               answer: values.answer,
             });
-            props.invalidate(true);
             setIsEditing(false);
           }}
         />
@@ -55,4 +52,4 @@ function ClueListItem(props) {
   }
 }
 
-export default ClueListItem;
+export default AdminClueListItem;

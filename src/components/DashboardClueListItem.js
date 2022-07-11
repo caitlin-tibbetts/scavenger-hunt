@@ -1,11 +1,7 @@
-import { useState } from "react";
-import { setDoc, doc, deleteDoc } from "firebase/firestore";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import { setDoc, doc } from "firebase/firestore";
 
 import db from "../firebase";
-import CreateClueForm from "./CreateClueForm";
 
 function DashboardClueListItem(props) {
   let statusString = "";

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { collection, doc, onSnapshot } from "firebase/firestore";
 
+import db from "../firebase";
 import TeamListItem from "./TeamListItem";
 import DashboardClueListItem from "./DashboardClueListItem";
-import db from "../firebase";
 
-function GameDashboard(props) {
+function DashboardForm(props) {
   const [teamData, setTeamData] = useState();
   const [teamList, setTeamList] = useState([]);
   const [totalTeamPoints, setTotalTeamPoints] = useState(0);
@@ -112,4 +112,4 @@ function GameDashboard(props) {
   );
 }
 
-export default GameDashboard;
+export default DashboardForm;

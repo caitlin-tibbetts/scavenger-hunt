@@ -7,7 +7,6 @@ function TeamListItem(props) {
         onClick={() => {
           props.setCurrentTeam(props.teamName)
           props.setIsCurrentTeamSet(true)
-          //props.invalidate(true)
         }}
       >
         More Information
