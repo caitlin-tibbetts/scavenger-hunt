@@ -17,7 +17,11 @@ function ScoreCard(props) {
         alignItems="center"
         style={{display: "flex", flexWrap: "nowrap", overflow: "auto", height: "inherit"}}
         >
-        <Grid item xs={7} style={{marginLeft: '2vh'}}>
+           <Grid item xs={1} style={{marginLeft: '2vh', textAlign: 'center'}}>
+        <h2 >{props.index}</h2>
+        </Grid>
+        <Divider orientation='vertical' flexItem style={{marginRight: '2vh', marginLeft: '2vh'}}/>
+        <Grid item xs={6} style={{marginLeft: '2vh'}}>
         <h2 >{props.teamName}</h2>
         </Grid>
         <Divider orientation='vertical' flexItem style={{marginRight: '2vh', marginLeft: '2vh'}}/>
