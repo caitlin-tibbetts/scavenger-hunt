@@ -5,16 +5,27 @@
     align-items: left;
 }
 
+.left {
+    flex: 2;
+}
+
+.right {
+    flex: 1;
+}
+
 .teams {
     flex: 1;
     margin-right: 2.5%;
-    height: 45vh;
+    height: 50vh;
     overflow-y: scroll;
 }
 
-.clues {
+.clueContainer {
     flex: 2;
     margin-left: 2.5%;
+}
+
+.clues {
     height: 45vh;
     overflow-y: scroll;
 }

@@ -1,5 +1,7 @@
 import React from "react";
 import { setDoc, doc } from "firebase/firestore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 import db from "../firebase";
 
@@ -17,14 +19,21 @@ function DashboardClueListItem(props) {
   if (props.teamAnswer) {
     return (
       <div>
-        <p>Passcode: {props.passcode}</p>
-        <p>Status: {statusString}</p>
-        <p>Location: {props.location}</p>
-        <p>Instructions: {props.instructions}</p>
-        <p>Answer: {props.answer}</p>
-        <p>Team Answer: {props.teamAnswer ? props.teamAnswer : ""}</p>
-        <p>Correct? {props.correct ? "Yes" : "No"}</p>
-        <p>Points: {props.points ? Math.round(props.points) : 0}</p>
+        <h1>Clue #{props.index}</h1>
+        <div className="container">
+          <div className="left">
+            <p>Passcode: {props.id.slice(0, 6)}</p>
+            <p>Location: {props.location}</p>
+            <p>Instructions: {props.instructions}</p>
+            <p>Correct Answer: {props.answer}</p>
+            <p>Team Answer: {props.teamAnswer ? props.teamAnswer : ""}</p>
+          </div>
+          <div className="right">
+            <p>{statusString}</p>
+            <p>{props.points ? Math.round(props.points) : 0}</p>
+            <h1>{props.correct ? <FontAwesomeIcon icon={faCheck}/> : <FontAwesomeIcon icon={faX}/>}</h1>
+          </div>
+        </div>
         <p>
           <button
             onClick={() => {
@@ -71,11 +80,18 @@ function DashboardClueListItem(props) {
   }
   return (
     <div>
-      <p>Passcode: {props.passcode}</p>
-      <p>Status: {statusString}</p>
-      <p>Location: {props.location}</p>
-      <p>Instructions: {props.instructions}</p>
-      <p>Answer: {props.answer}</p>
+      <h1>Clue #{props.index}</h1>
+      <div className="container">
+        <div className="left">
+          <p>Passcode: {props.id.slice(0, 6)}</p>
+          <p>Location: {props.location}</p>
+          <p>Instructions: {props.instructions}</p>
+          <p>Correct Answer: {props.answer}</p>
+        </div>
+        <div className="right">
+          <p>{statusString}</p>
+        </div>
+      </div>
       <hr />
     </div>
   );

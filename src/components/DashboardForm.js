@@ -62,8 +62,9 @@ function DashboardForm(props) {
               );
             })}
         </div>
-        <div className="clues">
+        <div className="clueContainer">
           Total Points: {Math.round(totalTeamPoints)}
+          <div className="clues">
           {teamData &&
             teamData.clueList.map((value, i) => {
               return (
@@ -74,7 +75,6 @@ function DashboardForm(props) {
                   gamePin={props.gamePin}
                   teamData={teamData}
                   status={value.status}
-                  passcode={value.id.slice(0, 6)}
                   index={i + 1}
                   answer={value.answer}
                   teamAnswer={value.teamAnswer}
@@ -85,6 +85,7 @@ function DashboardForm(props) {
                 />
               );
             })}
+            </div>
         </div>
       </div>
     );

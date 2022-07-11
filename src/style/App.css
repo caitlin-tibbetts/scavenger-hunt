@@ -50,7 +50,7 @@ h1 {
 }
 
 p {
-  font-size: small;
+  font-size: medium;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -98,15 +98,15 @@ h2 {
 
 .clue-front {
   background-color: white;
-  height: 32vh;
-  width: 30vh;
+  height: 35vh;
+  width: 40vh;
   min-height: fit-content;
   justify-content: center;
   text-align: center;
 }
 .clue-back {
   background-color: white;
-  min-height: 32vh;
-  min-width: 30vh;
+  min-height: 35vh;
+  min-width: 40vh;
   width: inherit;
 }
