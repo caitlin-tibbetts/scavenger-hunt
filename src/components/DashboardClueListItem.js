@@ -8,17 +8,17 @@ import db from "../firebase";
 import CreateClueForm from "./CreateClueForm";
 
 function DashboardClueListItem(props) {
-  let statusString = ""
-  if(props.status === 0) {
-    statusString = "Not Started"
-  } else if(props.status === 1) {
-    statusString = "En Route"
-  } else if(props.status === 2) {
-    statusString = "In Progress"
-  } else if(props.status === 3) {
-    statusString = "Finished"
+  let statusString = "";
+  if (props.status === 0) {
+    statusString = "Not Started";
+  } else if (props.status === 1) {
+    statusString = "En Route";
+  } else if (props.status === 2) {
+    statusString = "In Progress";
+  } else if (props.status === 3) {
+    statusString = "Finished";
   }
-  if(props.teamAnswer) {
+  if (props.teamAnswer) {
     return (
       <div>
         <p>Passcode: {props.passcode}</p>
@@ -34,20 +34,17 @@ function DashboardClueListItem(props) {
             onClick={() => {
               for (let i = 0; i < props.teamData.clueList.length; i++) {
                 if (props.teamData.clueList[i].id === props.id) {
-                  if(!props.teamData.clueList[i].correct) {
+                  if (!props.teamData.clueList[i].correct) {
                     props.teamData.clueList[i].points += 500;
-                    props.teamData.points += 500
+                    props.teamData.points += 500;
                   }
                   props.teamData.clueList[i].correct = true;
                 }
               }
-              alert("Setting correct")
               setDoc(
                 doc(db, "games", props.gamePin, "teams", props.teamName),
                 props.teamData
-              ).then(() => {
-                //props.invalidate(true);
-              });
+              ).then();
             }}
           >
             Correct
@@ -56,20 +53,17 @@ function DashboardClueListItem(props) {
             onClick={() => {
               for (let i = 0; i < props.teamData.clueList.length; i++) {
                 if (props.teamData.clueList[i].id === props.id) {
-                  if(props.teamData.clueList[i].correct) {
+                  if (props.teamData.clueList[i].correct) {
                     props.teamData.clueList[i].points -= 500;
-                    props.teamData.points -= 500
+                    props.teamData.points -= 500;
                   }
                   props.teamData.clueList[i].correct = false;
                 }
               }
-              alert("Setting incorrect")
               setDoc(
                 doc(db, "games", props.gamePin, "teams", props.teamName),
                 props.teamData
-              ).then(() => {
-                //props.invalidate(true);
-              });
+              ).then();
             }}
           >
             Incorrect

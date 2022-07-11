@@ -17,20 +17,21 @@ function GameDashboard(props) {
       collection(db, "games", props.gamePin, "teams"),
       (snapshot) => {
         if (snapshot.size) {
-          setTeamList(snapshot.docs.map((document) => {
-            return document.data()
-          }))
+          setTeamList(
+            snapshot.docs.map((document) => {
+              return document.data();
+            })
+          );
         }
       }
     );
     if (isCurrentTeamSet) {
-        console.log("here")
       const unsubscribeClues = onSnapshot(
         doc(db, "games", props.gamePin, "teams", currentTeam),
         (snapshot) => {
           if (snapshot.exists()) {
-            setTeamData(snapshot.data())
-            setTotalTeamPoints(snapshot.data().points)
+            setTeamData(snapshot.data());
+            setTotalTeamPoints(snapshot.data().points);
           }
         }
       );
