@@ -46,7 +46,7 @@ function DashboardClueListItem(props) {
                 doc(db, "games", props.gamePin, "teams", props.teamName),
                 props.teamData
               ).then(() => {
-                props.invalidate(true);
+                //props.invalidate(true);
               });
             }}
           >
@@ -68,7 +68,7 @@ function DashboardClueListItem(props) {
                 doc(db, "games", props.gamePin, "teams", props.teamName),
                 props.teamData
               ).then(() => {
-                props.invalidate(true);
+                //props.invalidate(true);
               });
             }}
           >
