@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import "../style/App.css";
-import "../style/Admin.css";
 import {
   doc,
   getDoc,
 } from "firebase/firestore";
 
-import db from "../firebase";
-import GameDashboard from "../components/GameDashboard";
+import "../style/App.css";
+import "../style/Dashboard.css";
 
-function GameDash() {
+import db from "../firebase";
+import DashboardForm from "../components/DashboardForm";
+
+function Dashboard() {
   const [gamePin, setGamePin] = useState("");
   const [isGamePinSet, setIsGamePinSet] = useState(false);
 
@@ -53,7 +54,7 @@ function GameDash() {
       <div className="App">
         <div className="Floating-form">
           {gamePinForm}
-          <GameDashboard gamePin={gamePin} />
+          <DashboardForm gamePin={gamePin} />
         </div>
       </div>
     );
@@ -66,4 +67,4 @@ function GameDash() {
   }
 }
 
-export default GameDash;
+export default Dashboard;

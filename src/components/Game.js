@@ -1,80 +1,87 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import ClueCard from "./ClueCard";
-import db from "../firebase";
+import React, { useState, useEffect } from "react";
 import ReactLoading from "react-loading";
-
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
-
-import "../style/App.css";
-import "../style/Game.css";
-
+import {
+  collection,
+  doc,
+  getDocs,
+  setDoc,
+  onSnapshot,
+} from "firebase/firestore";
 import Grid from "@material-ui/core/Grid";
+
+import db from "../firebase";
+import ClueCard from "./ClueCard";
 
 function Game(props) {
   const [teamData, setTeamData] = useState();
-  const [invalidated, invalidate] = useState(false);
   const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
-    async function getClues() {
-      let currentTeamData = (
-        await getDoc(doc(db, "games", props.gamePin, "teams", props.teamName))
-      ).data();
-      if(currentTeamData && !("clueList" in currentTeamData)) {
-        return (
-          await getDocs(collection(db, "games", props.gamePin, "clues"))
-        ).docs
-          .sort((a, b) => 0.5 - Math.random())
-          .map((clue, index) => {
-            if (index === 0) {
-              return {
-                id: clue.id,
-                location: clue.data().location,
-                instructions: clue.data().instructions,
-                answer: clue.data().answer,
-                status: 1,
-              };
-            }
-            return {
-              id: clue.id,
-              location: clue.data().location,
-              instructions: clue.data().instructions,
-              answer: clue.data().answer,
-              status: 0,
-            };
-          });
-      }
-      return currentTeamData.clueList
-    }
-    if (!teamData) {
-      getClues()
-        .then((iClueList) => {
-          setDoc(
-            doc(db, "games", props.gamePin, "teams", props.teamName),
-            { clueList: iClueList, points: 0 },
-            { merge: true }
-          ).then(() => {
-            setTeamData({ name: props.teamName, clueList: iClueList, points: 0 });
-          });
-        })
-        .catch(console.error);
-      setGameOver(false);
-    } else if (invalidated) {
-      getDoc(doc(db, "games", props.gamePin, "teams", props.teamName)).then(
-        (iTeamData) => {
-          setGameOver(true);
-          iTeamData.data().clueList.forEach((clue) => {
-            if (clue.status !== 3) {
-              setGameOver(false);
-            }
-          });
-          setTeamData(iTeamData.data());
+    const unsubscribeClues = onSnapshot(
+      doc(db, "games", props.gamePin, "teams", props.teamName),
+      (snapshot) => {
+        if (snapshot.exists()) {
+          if ("clueList" in snapshot.data()) {
+            setTeamData(snapshot.data());
+            let iGameOver = true;
+            snapshot.data().clueList.forEach((clue) => {
+              if (clue.status !== 3) {
+                iGameOver = false;
+              }
+            });
+            setGameOver(iGameOver);
+          } else {
+            getDocs(collection(db, "games", props.gamePin, "clues")).then(
+              (col) => {
+                let iClueList = col.docs
+                  .sort((a, b) => 0.5 - Math.random())
+                  .map((clue, index) => {
+                    if (index === 0) {
+                      return {
+                        id: clue.id,
+                        location: clue.data().location,
+                        instructions: clue.data().instructions,
+                        answer: clue.data().answer,
+                        status: 1,
+                      };
+                    }
+                    return {
+                      id: clue.id,
+                      location: clue.data().location,
+                      instructions: clue.data().instructions,
+                      answer: clue.data().answer,
+                      status: 0,
+                    };
+                  });
+                setDoc(
+                  doc(db, "games", props.gamePin, "teams", props.teamName),
+                  { clueList: iClueList, points: 0 },
+                  { merge: true }
+                ).then(() => {
+                  setTeamData({
+                    name: props.teamName,
+                    clueList: iClueList,
+                    points: 0,
+                  });
+                  let iGameOver = true;
+                  iClueList.forEach((clue) => {
+                    if (clue.status !== 3) {
+                      iGameOver = false;
+                    }
+                  });
+                  setGameOver(iGameOver);
+                });
+              }
+            );
+          }
         }
-      );
-      invalidate(false);
-    }
-  }, [props.gamePin, props.teamName, invalidated, teamData]);
+      }
+    );
+
+    return () => {
+      unsubscribeClues();
+    };
+  }, [props.gamePin, props.teamName, teamData]);
 
   if (gameOver) {
     return (
@@ -110,7 +117,6 @@ function Game(props) {
                   answer={clue.answer}
                   instructions={clue.instructions}
                   location={clue.location}
-                  invalidate={invalidate}
                 />
               </Grid>
             );

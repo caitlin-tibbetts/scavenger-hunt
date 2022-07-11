@@ -4,10 +4,8 @@ import ReactCardFlip from "react-card-flip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-
-import "../style/App.css";
-import "../style/Game.css";
 import { setDoc, doc } from "firebase/firestore";
+
 import db from "../firebase";
 
 function ClueCard(props) {
@@ -45,7 +43,6 @@ function ClueCard(props) {
                 props.teamData
               ).then(() => {
                 setShowBack(true);
-                props.invalidate(true);
               });
             } else {
               resetForm();
@@ -129,9 +126,7 @@ function ClueCard(props) {
                   setDoc(
                     doc(db, "games", props.gamePin, "teams", props.teamName),
                     props.teamData
-                  ).then(() => {
-                    props.invalidate(true);
-                  });
+                  ).then();
                 } else {
                   let nextCard = false;
                   for (let i = 0; i < props.teamData.clueList.length; i++) {
@@ -154,9 +149,7 @@ function ClueCard(props) {
                   setDoc(
                     doc(db, "games", props.gamePin, "teams", props.teamName),
                     props.teamData
-                  ).then(() => {
-                    props.invalidate(true);
-                  });
+                  ).then();
                 }
               }}
             >
