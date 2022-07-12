@@ -6,13 +6,10 @@
     background-color: white;
     height: 10vh;
     min-width: 100vh;
-    min-height: fit-content;
+
   }
   .score-form {
     max-width: 100%;
-    
-  }
-
-  .Leaderboard {
-    max-height: 100%;
+    position: fixed;
+    top: 0
   }
