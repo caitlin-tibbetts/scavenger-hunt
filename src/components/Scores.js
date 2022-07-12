@@ -14,13 +14,27 @@ import ScoreCard from "./ScoreCard";
 function Scores(props) {
 
     const [teamData, setTeamData] = useState();
+    const [currentPage, setCurrentPage] = React.useState(0);
 
     useEffect(() => {
+      const timerId = setInterval(() => {
+      
+        setCurrentPage(cur => teamData  ? (cur < (teamData.length)  % 6 - 1 ? cur + 1 : 0) : 0);
+    }, 7000);
+    return () => {
+      
+        clearInterval(timerId);
+        
+    };
 
+    }, []);
+
+    useEffect(() => {
           const unsubscribeTeams = onSnapshot(
             collection(db, "games", props.gamePin, "teams"),
             (snapshot) => {
                 if (snapshot.size) {
+                  
                     setTeamData(
                       snapshot.docs.map((document) => {
                         return document.data();
@@ -30,7 +44,9 @@ function Scores(props) {
                 }
           );
           return () => {
+            
             unsubscribeTeams();
+            
           };
       }, [props.gamePin]);
     
@@ -52,7 +68,7 @@ function Scores(props) {
         {teamData  ? (
           teamData.map((teamInfo, i) => {
             return (
-                
+              i >= currentPage * 6 && i < (currentPage+1) * 6 &&
               <Grid item key={i + 1} xs={12} >
                 <ScoreCard
                   key={teamInfo.id}
