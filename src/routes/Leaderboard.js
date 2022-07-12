@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import "../style/App.css";
-import "../style/Admin.css";
-import "../style/Scores.css";
 import { doc, getDoc } from "firebase/firestore";
 
-import "../style/App.css"
-import "../style/Leaderboard.css"
+import "../style/App.css";
+import "../style/Leaderboard.css";
 
 import db from "../firebase";
 import ScoreList from "../components/ScoreList";
