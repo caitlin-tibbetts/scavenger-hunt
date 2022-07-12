@@ -1,17 +1,15 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import db from "../firebase";
+import React, { useState, useEffect } from "react";
+import Grid from "@material-ui/core/Grid";
 import ReactLoading from "react-loading";
-
 import { collection, onSnapshot} from "firebase/firestore";
 
 import "../style/App.css";
-import "../style/Scores.css";
+import "../style/Leaderboard.css";
 
-import Grid from "@material-ui/core/Grid";
+import db from "../firebase";
 import ScoreCard from "./ScoreCard";
 
-function Scores(props) {
+function ScoreList(props) {
 
     const [teamData, setTeamData] = useState();
     const [currentPage, setCurrentPage] = React.useState(0);
@@ -91,4 +89,4 @@ function Scores(props) {
   );
 }
 
-export default Scores;
+export default ScoreList;

@@ -3,14 +3,13 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import "../style/App.css";
 import "../style/Admin.css";
 import "../style/Scores.css";
-import {
-  doc,
-  getDoc,
-} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+
+import "../style/App.css"
+import "../style/Leaderboard.css"
 
 import db from "../firebase";
-import Scores from "../components/Scores";
-
+import ScoreList from "../components/ScoreList";
 
 function Leaderboard() {
   const [gamePin, setGamePin] = useState("");
@@ -36,7 +35,8 @@ function Leaderboard() {
         setIsGamePinSet(true);
         setSubmitting(false);
 
-        let iGameName = (await getDoc(doc(db, "games", values.gamePin))).data().name;
+        let iGameName = (await getDoc(doc(db, "games", values.gamePin))).data()
+          .name;
 
         setGameName(iGameName);
       }}
@@ -59,7 +59,7 @@ function Leaderboard() {
     return (
       <div className="App">
         <div className="Floating-form score-form">
-          <Scores gamePin={gamePin} gameName={gameName}/>
+          <ScoreList gamePin={gamePin} gameName={gameName} />
         </div>
       </div>
     );
