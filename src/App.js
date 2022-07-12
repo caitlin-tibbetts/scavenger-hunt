@@ -8,10 +8,11 @@ import Game from "./components/Game";
 import { useCookies } from "react-cookie";
 
 function App() {
+  const [cookies, setCookie] = useCookies(["scav-hunt"]);
 
-  const [cookies, setCookie] = useCookies(['scav-hunt']);
-
-  const [isGameMode, setIsGameMode] = useState((cookies.gamePin && cookies.teamName) !== undefined || false);
+  const [isGameMode, setIsGameMode] = useState(
+    (cookies.gamePin && cookies.teamName) !== undefined || false
+  );
   const [gamePin, setGamePin] = useState(cookies.gamePin || "");
   const [gameName, setGameName] = useState(cookies.gameName || "");
   const [teamName, setTeamName] = useState(cookies.teamName || "");
@@ -57,12 +58,14 @@ function App() {
               doc(db, "games", values.gamePin, "teams", values.teamName),
               { name: values.teamName }
             );
-            
-            let iGameName = (await getDoc(doc(db, "games", values.gamePin))).data().name;
 
-            setCookie('gamePin',  values.gamePin, { path: '/' });
-            setCookie('teamName', values.teamName, { path: '/' });
-            setCookie('gameName', iGameName, { path: '/' });
+            let iGameName = (
+              await getDoc(doc(db, "games", values.gamePin))
+            ).data().name;
+
+            setCookie("gamePin", values.gamePin, { path: "/" });
+            setCookie("teamName", values.teamName, { path: "/" });
+            setCookie("gameName", iGameName, { path: "/" });
 
             setGamePin(values.gamePin);
             setGameName(iGameName);

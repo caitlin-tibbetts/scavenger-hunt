@@ -25,8 +25,9 @@ function CreateClueForm(props) {
           <ErrorMessage name="location" component="p" />
 
           <p>
-            Instructions: <Field name="instructions" as="textarea" />
+            Instructions
           </p>
+          <Field name="instructions" as="textarea" />
           <ErrorMessage name="instructions" component="p" />
 
           <p>

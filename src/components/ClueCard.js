@@ -17,9 +17,8 @@ function ClueCard(props) {
         elevation={12}
         className="clue-front"
         style={{ position: "relative" }}
-       
       >
-        <h2 >Clue #{props.index}</h2>
+        <h2>Clue #{props.index}</h2>
         <p>{props.location}</p>
         <Formik
           initialValues={{ passcode: "" }}
@@ -34,7 +33,7 @@ function ClueCard(props) {
             if (values.passcode === props.passcode) {
               for (let i = 0; i < props.teamData.clueList.length; i++) {
                 if (props.teamData.clueList[i].id === props.id) {
-                  props.teamData.clueList[i].startTime = Date.now()
+                  props.teamData.clueList[i].startTime = Date.now();
                   props.teamData.clueList[i].status = 2;
                 }
               }
@@ -52,7 +51,7 @@ function ClueCard(props) {
           {({ isSubmitting }) => (
             <Form>
               <p>
-                Passcode (case sensitive): <Field         autoFocus name="passcode" />
+                Passcode (case sensitive): <Field autoFocus name="passcode" />
                 <ErrorMessage name="passcode" component="p" />
               </p>
               <button type="submit" disabled={isSubmitting}>
@@ -103,19 +102,27 @@ function ClueCard(props) {
                 return errors;
               }}
               onSubmit={async (values, { resetForm }) => {
-                if (values.answer.replaceAll(/\s/g,'') === props.answer.replaceAll(/\s/g,'')) {
+                if (
+                  values.answer.replaceAll(/\s/g, "").toLowerCase() ===
+                  props.answer.replaceAll(/\s/g, "").toLowerCase()
+                ) {
                   let nextCard = false;
                   for (let i = 0; i < props.teamData.clueList.length; i++) {
                     if (props.teamData.clueList[i].id === props.id) {
-                      props.teamData.clueList[i].endTime = Date.now()
+                      props.teamData.clueList[i].endTime = Date.now();
                       props.teamData.clueList[i].status = 3;
                       props.teamData.clueList[i].correct = true;
-                      props.teamData.clueList[i].points = 300-((props.teamData.clueList[i].endTime-props.teamData.clueList[i].startTime)/2000);
-                      if(props.teamData.clueList[i].points < 0) {
-                        props.teamData.clueList[i].points = 0
+                      props.teamData.clueList[i].points =
+                        300 -
+                        (props.teamData.clueList[i].endTime -
+                          props.teamData.clueList[i].startTime) /
+                          2000;
+                      if (props.teamData.clueList[i].points < 0) {
+                        props.teamData.clueList[i].points = 0;
                       }
                       props.teamData.clueList[i].points += 500;
-                      props.teamData.points += props.teamData.clueList[i].points
+                      props.teamData.points +=
+                        props.teamData.clueList[i].points;
                       props.teamData.clueList[i].teamAnswer = values.answer;
                       nextCard = true;
                     } else if (nextCard) {
@@ -131,14 +138,19 @@ function ClueCard(props) {
                   let nextCard = false;
                   for (let i = 0; i < props.teamData.clueList.length; i++) {
                     if (props.teamData.clueList[i].id === props.id) {
-                      props.teamData.clueList[i].endTime = Date.now()
+                      props.teamData.clueList[i].endTime = Date.now();
                       props.teamData.clueList[i].status = 3;
                       props.teamData.clueList[i].correct = false;
-                      props.teamData.clueList[i].points = 300-((props.teamData.clueList[i].endTime-props.teamData.clueList[i].startTime)/2000);
-                      if(props.teamData.clueList[i].points < 0) {
-                        props.teamData.clueList[i].points = 0
+                      props.teamData.clueList[i].points =
+                        300 -
+                        (props.teamData.clueList[i].endTime -
+                          props.teamData.clueList[i].startTime) /
+                          2000;
+                      if (props.teamData.clueList[i].points < 0) {
+                        props.teamData.clueList[i].points = 0;
                       }
-                      props.teamData.points += props.teamData.clueList[i].points
+                      props.teamData.points +=
+                        props.teamData.clueList[i].points;
                       props.teamData.clueList[i].teamAnswer = values.answer;
                       nextCard = true;
                     } else if (nextCard) {

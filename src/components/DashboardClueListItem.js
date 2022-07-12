@@ -31,7 +31,13 @@ function DashboardClueListItem(props) {
           <div className="right">
             <p>{statusString}</p>
             <p>{props.points ? Math.round(props.points) : 0}</p>
-            <h1>{props.correct ? <FontAwesomeIcon icon={faCheck}/> : <FontAwesomeIcon icon={faX}/>}</h1>
+            <h1>
+              {props.correct ? (
+                <FontAwesomeIcon icon={faCheck} />
+              ) : (
+                <FontAwesomeIcon icon={faX} />
+              )}
+            </h1>
           </div>
         </div>
         <p>

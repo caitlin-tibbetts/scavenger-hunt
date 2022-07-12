@@ -1,29 +1,30 @@
-import React, {useEffect, useState} from "react";
-import {
-  addDoc,
-  collection,
-  onSnapshot,
-} from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { addDoc, collection, onSnapshot } from "firebase/firestore";
 
 import db from "../firebase";
 import CreateClueForm from "./CreateClueForm";
 import AdminClueListItem from "./AdminClueListItem";
 
 function AdminForm(props) {
-    const [clueList, setClueList] = useState([]);
-    useEffect(() => {
-        const unsubscribeClues = onSnapshot(collection(db, "games", props.gamePin, "clues"), (snapshot) => {
-          setClueList(snapshot.docs.map((value, index) => {
-            let iClueData = value.data()
-            iClueData.id = value.id
-            return iClueData
-          }))
-        })
-    
-        return (() => {
-          unsubscribeClues();
-        })
-      }, [props.gamePin]);
+  const [clueList, setClueList] = useState([]);
+  useEffect(() => {
+    const unsubscribeClues = onSnapshot(
+      collection(db, "games", props.gamePin, "clues"),
+      (snapshot) => {
+        setClueList(
+          snapshot.docs.map((value, index) => {
+            let iClueData = value.data();
+            iClueData.id = value.id;
+            return iClueData;
+          })
+        );
+      }
+    );
+
+    return () => {
+      unsubscribeClues();
+    };
+  }, [props.gamePin]);
   return (
     <div className="container">
       <div className="form">

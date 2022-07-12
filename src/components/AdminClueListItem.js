@@ -11,9 +11,12 @@ function AdminClueListItem(props) {
   if (isEditing) {
     return (
       <>
-        <FontAwesomeIcon icon={faX} onClick={async () => {
-          await deleteDoc(doc(db, "games", props.gamePin, "clues", props.id))
-        }}/>
+        <FontAwesomeIcon
+          icon={faX}
+          onClick={async () => {
+            await deleteDoc(doc(db, "games", props.gamePin, "clues", props.id));
+          }}
+        />
         <CreateClueForm
           gamePin={props.gamePin}
           initialLocation={props.location}
@@ -29,13 +32,13 @@ function AdminClueListItem(props) {
             setIsEditing(false);
           }}
         />
-        <hr/>
+        <hr />
       </>
     );
   } else {
     return (
       <div>
-        <p>Passcode: {props.id.slice(0,6)}</p>
+        <p>Passcode: {props.id.slice(0, 6)}</p>
         <p>Location: {props.location}</p>
         <p>Instructions: {props.instructions}</p>
         <p>Answer: {props.answer}</p>
