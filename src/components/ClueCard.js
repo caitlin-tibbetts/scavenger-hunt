@@ -103,8 +103,8 @@ function ClueCard(props) {
               }}
               onSubmit={async (values, { resetForm }) => {
                 if (
-                  values.answer.replaceAll(/\s/g, "") ===
-                  props.answer.replaceAll(/\s/g, "")
+                  values.answer.replaceAll(/\s/g, "").toLowerCase() ===
+                  props.answer.replaceAll(/\s/g, "").toLowerCase()
                 ) {
                   let nextCard = false;
                   for (let i = 0; i < props.teamData.clueList.length; i++) {
