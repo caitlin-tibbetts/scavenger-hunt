@@ -11,8 +11,11 @@
 
 .score-form {
   max-width: 100%;
+  position: absolute;
+  top: 0;
 }
 
 .Leaderboard {
   max-height: 100%;
+
 }

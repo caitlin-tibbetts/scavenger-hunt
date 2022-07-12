@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from "react";
-import Grid from "@material-ui/core/Grid";
+import React from "react";
+import { useState, useEffect } from "react";
+import db from "../firebase";
 import ReactLoading from "react-loading";
+
 import { collection, onSnapshot } from "firebase/firestore";
 
 import "../style/App.css";
 import "../style/Leaderboard.css";
 
-import db from "../firebase";
+import Grid from "@material-ui/core/Grid";
 import ScoreCard from "./ScoreCard";
+import "animate.css";
+import { TransitionGroup } from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
 
 function ScoreList(props) {
   const [teamData, setTeamData] = useState();
@@ -22,7 +27,7 @@ function ScoreList(props) {
     return () => {
       clearInterval(timerId);
     };
-  }, []);
+  }, [teamData]);
 
   useEffect(() => {
     const unsubscribeTeams = onSnapshot(
@@ -50,6 +55,7 @@ function ScoreList(props) {
         <h1>{props.gameName}</h1>
         <h2>Scoreboard</h2>
       </div>
+
       <Grid
         container
         direction="column"
@@ -58,21 +64,41 @@ function ScoreList(props) {
         style={{ flexWrap: "nowrap", overflow: "auto", textAlign: "left" }}
       >
         {teamData ? (
-          teamData.map((teamInfo, i) => {
-            return (
-              i >= currentPage * 6 &&
-              i < (currentPage + 1) * 6 && (
-                <Grid item key={i + 1} xs={12}>
-                  <ScoreCard
-                    key={teamInfo.id}
-                    teamName={teamInfo.name}
-                    index={i + 1}
-                    points={teamInfo.points}
-                  />
-                </Grid>
-              )
-            );
-          })
+          <TransitionGroup>
+            {teamData.map((teamInfo, i) => {
+              return (
+                i >= currentPage * 6 &&
+                i < (currentPage + 1) * 6 && (
+                  <CSSTransition
+                    key={i + 1}
+                    in={true}
+                    classNames={{
+                      enterActive:
+                        "animate__animated animate__lightSpeedInLeft",
+                      exitActive:
+                        "animate__animated animate__lightSpeedOutLeft",
+                    }}
+                    timeout={900}
+                    unmountOnExit
+                  >
+                    <Grid
+                      item
+                      key={i + 1}
+                      xs={12}
+                      style={{ marginBottom: "2vh" }}
+                    >
+                      <ScoreCard
+                        key={teamInfo.id}
+                        teamName={teamInfo.name}
+                        index={i + 1}
+                        points={teamInfo.points}
+                      />
+                    </Grid>
+                  </CSSTransition>
+                )
+              );
+            })}
+          </TransitionGroup>
         ) : (
           <Grid item xs={9}>
             <ReactLoading type="spokes" color="#4a4747" />
