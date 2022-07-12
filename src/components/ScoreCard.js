@@ -26,7 +26,7 @@ function ScoreCard(props) {
         </Grid>
         <Divider orientation='vertical' flexItem style={{marginRight: '2vh', marginLeft: '2vh'}}/>
         <Grid item xs={5} >
-             Points: {props.points}
+             Points: {Math.round(props.points)}
           </Grid>
         </Grid>
     
