@@ -27,9 +27,10 @@ function Admin() {
         }
         return errors;
       }}
-      onSubmit={(values) => {
+      onSubmit={(values, { setSubmitting }) => {
         setGamePin(values.gamePin);
         setIsGamePinSet(true);
+        setSubmitting(false);
       }}
     >
       {({ isSubmitting }) => (
