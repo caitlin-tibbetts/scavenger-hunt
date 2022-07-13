@@ -91,103 +91,116 @@ function ClueCard(props) {
             className="clue-back"
             style={{ position: "relative" }}
           >
-            <p>{props.instructions}</p>
-            <Formik
-              initialValues={{ answer: "" }}
-              validate={(values) => {
-                const errors = {};
-                if (!values.answer) {
-                  errors.answer = "Required";
-                }
-                return errors;
-              }}
-              onSubmit={async (values, { resetForm }) => {
-                if (
-                  values.answer.replaceAll(/\s/g, "").toLowerCase() ===
-                  props.answer.replaceAll(/\s/g, "").toLowerCase()
-                ) {
-                  let nextCard = false;
-                  for (let i = 0; i < props.teamData.clueList.length; i++) {
-                    if (props.teamData.clueList[i].id === props.id) {
-                      props.teamData.clueList[i].endTime = Date.now();
-                      props.teamData.clueList[i].status = 3;
-                      props.teamData.clueList[i].correct = true;
-                      props.teamData.clueList[i].points =
-                        300 -
-                        (props.teamData.clueList[i].endTime -
-                          props.teamData.clueList[i].startTime) /
-                          2000;
-                      if (props.teamData.clueList[i].points < 0) {
-                        props.teamData.clueList[i].points = 0;
-                      }
-                      props.teamData.clueList[i].points += 500;
-                      props.teamData.points +=
-                        props.teamData.clueList[i].points;
-                      props.teamData.clueList[i].teamAnswer = values.answer;
-                      nextCard = true;
-                    } else if (nextCard) {
-                      props.teamData.clueList[i].status = 1;
-                      nextCard = false;
+            <div className="container">
+              <div className="form">
+                <p>{props.instructions}</p>
+                {props.link ? <img src={props.link} alt="Clue"/> : ""}
+                <Formik
+                  initialValues={{ answer: "" }}
+                  validate={(values) => {
+                    const errors = {};
+                    if (!values.answer) {
+                      errors.answer = "Required";
                     }
-                  }
-                  setDoc(
-                    doc(db, "games", props.gamePin, "teams", props.teamName),
-                    props.teamData
-                  ).then();
-                } else {
-                  let nextCard = false;
-                  for (let i = 0; i < props.teamData.clueList.length; i++) {
-                    if (props.teamData.clueList[i].id === props.id) {
-                      props.teamData.clueList[i].endTime = Date.now();
-                      props.teamData.clueList[i].status = 3;
-                      props.teamData.clueList[i].correct = false;
-                      props.teamData.clueList[i].points =
-                        300 -
-                        (props.teamData.clueList[i].endTime -
-                          props.teamData.clueList[i].startTime) /
-                          2000;
-                      if (props.teamData.clueList[i].points < 0) {
-                        props.teamData.clueList[i].points = 0;
+                    return errors;
+                  }}
+                  onSubmit={async (values, { resetForm }) => {
+                    if (
+                      values.answer.replaceAll(/\s/g, "").toLowerCase() ===
+                      props.answer.replaceAll(/\s/g, "").toLowerCase()
+                    ) {
+                      let nextCard = false;
+                      for (let i = 0; i < props.teamData.clueList.length; i++) {
+                        if (props.teamData.clueList[i].id === props.id) {
+                          props.teamData.clueList[i].endTime = Date.now();
+                          props.teamData.clueList[i].status = 3;
+                          props.teamData.clueList[i].correct = true;
+                          props.teamData.clueList[i].points =
+                            300 -
+                            (props.teamData.clueList[i].endTime -
+                              props.teamData.clueList[i].startTime) /
+                              2000;
+                          if (props.teamData.clueList[i].points < 0) {
+                            props.teamData.clueList[i].points = 0;
+                          }
+                          props.teamData.clueList[i].points += 500;
+                          props.teamData.points +=
+                            props.teamData.clueList[i].points;
+                          props.teamData.clueList[i].teamAnswer = values.answer;
+                          nextCard = true;
+                        } else if (nextCard) {
+                          props.teamData.clueList[i].status = 1;
+                          nextCard = false;
+                        }
                       }
-                      props.teamData.points +=
-                        props.teamData.clueList[i].points;
-                      props.teamData.clueList[i].teamAnswer = values.answer;
-                      nextCard = true;
-                    } else if (nextCard) {
-                      props.teamData.clueList[i].status = 1;
-                      nextCard = false;
+                      setDoc(
+                        doc(
+                          db,
+                          "games",
+                          props.gamePin,
+                          "teams",
+                          props.teamName
+                        ),
+                        props.teamData
+                      ).then();
+                    } else {
+                      let nextCard = false;
+                      for (let i = 0; i < props.teamData.clueList.length; i++) {
+                        if (props.teamData.clueList[i].id === props.id) {
+                          props.teamData.clueList[i].endTime = Date.now();
+                          props.teamData.clueList[i].status = 3;
+                          props.teamData.clueList[i].correct = false;
+                          props.teamData.clueList[i].points =
+                            300 -
+                            (props.teamData.clueList[i].endTime -
+                              props.teamData.clueList[i].startTime) /
+                              2000;
+                          if (props.teamData.clueList[i].points < 0) {
+                            props.teamData.clueList[i].points = 0;
+                          }
+                          props.teamData.points +=
+                            props.teamData.clueList[i].points;
+                          props.teamData.clueList[i].teamAnswer = values.answer;
+                          nextCard = true;
+                        } else if (nextCard) {
+                          props.teamData.clueList[i].status = 1;
+                          nextCard = false;
+                        }
+                      }
+                      setDoc(
+                        doc(
+                          db,
+                          "games",
+                          props.gamePin,
+                          "teams",
+                          props.teamName
+                        ),
+                        props.teamData
+                      ).then();
                     }
-                  }
-                  setDoc(
-                    doc(db, "games", props.gamePin, "teams", props.teamName),
-                    props.teamData
-                  ).then();
-                }
-              }}
-            >
-              {({ isSubmitting }) => (
-                <Form>
-                  <p>
-                    Answer: <Field name="answer" />
-                  </p>
-                  <ErrorMessage name="answer" component="p" />
-                  <button type="submit" disabled={isSubmitting}>
-                    Submit
-                  </button>
-                </Form>
-              )}
-            </Formik>
-            <FontAwesomeIcon
-              icon={faAngleDown}
-              onClick={() => setShowBack(!showBack)}
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                width: "100%",
-                height: "25%",
-              }}
-            />
+                  }}
+                >
+                  {({ isSubmitting }) => (
+                    <Form>
+                      <p>
+                        Answer: <Field name="answer" />
+                      </p>
+                      <ErrorMessage name="answer" component="p" />
+                      <button type="submit" disabled={isSubmitting}>
+                        Submit
+                      </button>
+                    </Form>
+                  )}
+                </Formik>
+              </div>
+              <div className="flipButton">
+                <FontAwesomeIcon
+                  icon={faAngleDown}
+                  onClick={() => setShowBack(!showBack)}
+                  size="4x"
+                />
+              </div>
+            </div>
           </Card>
         </ReactCardFlip>
       </div>
@@ -201,20 +214,26 @@ function ClueCard(props) {
             className="clue-front"
             style={{ position: "relative" }}
           >
-            <h2>Clue #{props.index}</h2>
-            <p>{props.location}</p>
-            <p>Finished!</p>
-            <FontAwesomeIcon
-              icon={faAngleDown}
-              onClick={() => setShowBack(!showBack)}
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                width: "100%",
-                height: "25%",
-              }}
-            />
+            <div className="container">
+              <div className="form">
+                <h2>Clue #{props.index}</h2>
+                <p>{props.location}</p>
+                <p>Finished!</p>
+              </div>
+              <div className="flipButton">
+                <FontAwesomeIcon
+                  icon={faAngleDown}
+                  onClick={() => setShowBack(!showBack)}
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "25%",
+                  }}
+                />
+              </div>
+            </div>
           </Card>
 
           <Card
@@ -223,6 +242,7 @@ function ClueCard(props) {
             style={{ position: "relative" }}
           >
             <p>{props.instructions}</p>
+            {props.link ? <img src={props.link} alt="Clue"/> : ""}
             <p>Finished! Answer: {props.answer}</p>
             <FontAwesomeIcon
               icon={faAngleDown}

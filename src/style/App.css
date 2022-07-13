@@ -72,18 +72,6 @@ p {
   }
 }
 
-.Game {
-  text-align: center;
-  background: rgb(38, 70, 83);
-  background: linear-gradient(
-    180deg,
-    rgba(38, 70, 83, 1) 0%,
-    rgba(231, 111, 81, 1) 70%,
-    rgba(233, 196, 106, 1) 100%
-  );
-  min-height: 100vh;
-}
-
 .grid-item-clue {
   width: 50vh;
 }
@@ -94,19 +82,4 @@ p {
 
 h2 {
   margin: 0;
-}
-
-.clue-front {
-  background-color: white;
-  height: 35vh;
-  width: 40vh;
-  min-height: fit-content;
-  justify-content: center;
-  text-align: center;
-}
-.clue-back {
-  background-color: white;
-  min-height: 35vh;
-  min-width: 40vh;
-  width: inherit;
 }

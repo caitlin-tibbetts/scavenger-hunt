@@ -6,6 +6,7 @@ function CreateClueForm(props) {
       initialValues={{
         location: props.initialLocation || "",
         instructions: props.initialInstructions || "",
+        link: props.initialLink || "",
         answer: props.initialAnswer || "",
       }}
       validate={(values) => {
@@ -29,6 +30,11 @@ function CreateClueForm(props) {
           </p>
           <Field name="instructions" as="textarea" />
           <ErrorMessage name="instructions" component="p" />
+
+          <p>
+            Picture Link: <Field name="link" />
+          </p>
+          <ErrorMessage name="link" component="p" />
 
           <p>
             Answer: <Field name="answer" />

@@ -24,15 +24,34 @@ h2 {
 
 .clue-front {
   background-color: white;
-  height: 32vh;
-  width: 30vh;
+  height: 40vh;
+  width: 40vh;
   min-height: fit-content;
   justify-content: center;
   text-align: center;
 }
 .clue-back {
   background-color: white;
-  min-height: 32vh;
-  min-width: 30vh;
+  min-height: 40vh;
+  min-width: 40vh;
   width: inherit;
+}
+
+img {
+  width: 25vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  flex: 3
+}
+
+.flipButton {
+  flex: 1;
+  height: 25%;
+  width: 100%;
 }
