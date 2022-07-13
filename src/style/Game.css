@@ -10,23 +10,10 @@
   min-height: 100vh;
 }
 
-.grid-item-clue {
-  width: 50vh;
-}
-
-.game-welcome {
-  margin-bottom: 1vh;
-}
-
-h2 {
-  margin: 0;
-}
-
 .clue-front {
   background-color: white;
   height: 40vh;
   width: 40vh;
-  min-height: fit-content;
   justify-content: center;
   text-align: center;
 }
@@ -37,17 +24,15 @@ h2 {
   width: inherit;
 }
 
-img {
-  width: 25vh;
-}
-
-.container {
+.cardContainer {
   display: flex;
   flex-direction: column;
+  height: inherit;
 }
 
 .form {
-  flex: 3
+  flex: 3;
+  height: 75%;
 }
 
 .flipButton {

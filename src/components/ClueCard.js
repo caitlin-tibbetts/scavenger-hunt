@@ -71,19 +71,19 @@ function ClueCard(props) {
             className="clue-front"
             style={{ position: "relative" }}
           >
-            <h2>Clue #{props.index}</h2>
-            <p>{props.location}</p>
-            <FontAwesomeIcon
-              icon={faAngleDown}
-              onClick={() => setShowBack(!showBack)}
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                width: "100%",
-                height: "25%",
-              }}
-            />
+            <div className="cardContainer">
+              <div className="form">
+                <h2>Clue #{props.index}</h2>
+                <p>{props.location}</p>
+              </div>
+              <div className="flipButton">
+                <FontAwesomeIcon
+                  icon={faAngleDown}
+                  onClick={() => setShowBack(!showBack)}
+                  size="4x"
+                />
+              </div>
+            </div>
           </Card>
 
           <Card
@@ -91,10 +91,10 @@ function ClueCard(props) {
             className="clue-back"
             style={{ position: "relative" }}
           >
-            <div className="container">
+            <div className="cardContainer">
               <div className="form">
                 <p>{props.instructions}</p>
-                {props.link ? <img src={props.link} alt="Clue"/> : ""}
+                {props.link ? <img src={props.link} alt="Clue" /> : ""}
                 <Formik
                   initialValues={{ answer: "" }}
                   validate={(values) => {
@@ -104,7 +104,7 @@ function ClueCard(props) {
                     }
                     return errors;
                   }}
-                  onSubmit={async (values, { resetForm }) => {
+                  onSubmit={async (values) => {
                     if (
                       values.answer.replaceAll(/\s/g, "").toLowerCase() ===
                       props.answer.replaceAll(/\s/g, "").toLowerCase()
@@ -214,7 +214,7 @@ function ClueCard(props) {
             className="clue-front"
             style={{ position: "relative" }}
           >
-            <div className="container">
+            <div className="cardContainer">
               <div className="form">
                 <h2>Clue #{props.index}</h2>
                 <p>{props.location}</p>
@@ -224,13 +224,7 @@ function ClueCard(props) {
                 <FontAwesomeIcon
                   icon={faAngleDown}
                   onClick={() => setShowBack(!showBack)}
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "25%",
-                  }}
+                  size="4x"
                 />
               </div>
             </div>
@@ -241,20 +235,20 @@ function ClueCard(props) {
             className="clue-back"
             style={{ position: "relative" }}
           >
-            <p>{props.instructions}</p>
-            {props.link ? <img src={props.link} alt="Clue"/> : ""}
-            <p>Finished! Answer: {props.answer}</p>
-            <FontAwesomeIcon
-              icon={faAngleDown}
-              onClick={() => setShowBack(!showBack)}
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                width: "100%",
-                height: "25%",
-              }}
-            />
+            <div className="cardContainer">
+              <div className="form">
+                <p>{props.instructions}</p>
+                {props.link ? <img src={props.link} alt="Clue" /> : ""}
+                <p>Finished! Answer: {props.answer}</p>
+              </div>
+              <div className="flipButton">
+                <FontAwesomeIcon
+                  icon={faAngleDown}
+                  onClick={() => setShowBack(!showBack)}
+                  size="4x"
+                />
+              </div>
+            </div>
           </Card>
         </ReactCardFlip>
       </div>
