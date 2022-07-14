@@ -20,10 +20,14 @@ function ScoreList(props) {
 
   useEffect(() => {
     const timerId = setInterval(() => {
-      setCurrentPage((cur) =>
-        teamData ? (cur < (teamData.length % 6) - 1 ? cur + 1 : 0) : 0
+      if(teamData && teamData.length > 6) {
+      setCurrentPage((cur) =>{
+      return(
+        teamData ? (cur < Math.floor((teamData.length-1) / 6) ? cur + 1 : 0) : 0
+      )}
       );
-    }, 7000);
+    }}, 7000);
+  
     return () => {
       clearInterval(timerId);
     };
