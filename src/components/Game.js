@@ -9,6 +9,8 @@ import {
 } from "firebase/firestore";
 import Grid from "@material-ui/core/Grid";
 
+import "../style/Game.css"
+
 import db from "../firebase";
 import ClueCard from "./ClueCard";
 
@@ -42,6 +44,7 @@ function Game(props) {
                         location: clue.data().location,
                         instructions: clue.data().instructions,
                         answer: clue.data().answer,
+                        link: clue.data().link || "",
                         status: 1,
                       };
                     }
@@ -50,6 +53,7 @@ function Game(props) {
                       location: clue.data().location,
                       instructions: clue.data().instructions,
                       answer: clue.data().answer,
+                      link: clue.data().link || "",
                       status: 0,
                     };
                   });
@@ -117,6 +121,7 @@ function Game(props) {
                   answer={clue.answer}
                   instructions={clue.instructions}
                   location={clue.location}
+                  link={clue.link || ""}
                 />
               </Grid>
             );

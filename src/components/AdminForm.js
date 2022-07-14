@@ -26,7 +26,7 @@ function AdminForm(props) {
     };
   }, [props.gamePin]);
   return (
-    <div className="container">
+    <div className="containerAdmin">
       <div className="form">
         <CreateClueForm
           gamePin={props.gamePin}
@@ -35,6 +35,7 @@ function AdminForm(props) {
             await addDoc(collection(db, "games", props.gamePin, "clues"), {
               location: values.location,
               instructions: values.instructions,
+              link: values.link ? values.link : "",
               answer: values.answer,
             });
             resetForm();
@@ -52,6 +53,7 @@ function AdminForm(props) {
                 location={value.location}
                 instructions={value.instructions}
                 answer={value.answer}
+                link={value.link || ""}
               />
             );
           })}

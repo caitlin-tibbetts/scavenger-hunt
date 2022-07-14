@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 
-import db from "./firebase";
 import "./style/App.css";
+
+import db from "./firebase";
 import Game from "./components/Game";
-import { useCookies } from "react-cookie";
 
 function App() {
   const [cookies, setCookie] = useCookies(["scav-hunt"]);

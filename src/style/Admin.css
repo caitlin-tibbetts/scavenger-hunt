@@ -1,4 +1,4 @@
-.container {
+.containerAdmin {
   display: flex;
   flex-direction: row;
   justify-content: left;
@@ -15,4 +15,8 @@
   margin-left: 2.5%;
   height: 45vh;
   overflow-y: scroll;
+}
+
+img {
+  width: 80%;
 }
