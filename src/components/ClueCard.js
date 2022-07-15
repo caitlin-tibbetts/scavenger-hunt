@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Card from "@material-ui/core/Card";
 import ReactCardFlip from "react-card-flip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
 import { setDoc, doc } from "firebase/firestore";
+import { QrReader } from 'react-qr-reader';
 
 import db from "../firebase";
 
 function ClueCard(props) {
   const [showBack, setShowBack] = useState(false);
+  //const [field, meta, helpers] = useField(props);
+  const formikRef = useRef();
 
   if (props.status === 1) {
     return (
@@ -20,8 +23,25 @@ function ClueCard(props) {
       >
         <h2>Clue #{props.index}</h2>
         <p>{props.location}</p>
+
+        <QrReader
+        onResult={(result, error) => {
+          if (!!result) {
+            formikRef.current.setFieldValue(
+              "passcode",
+              result?.text
+            );
+          }
+
+          if (!!error) {
+            console.info(error);
+          }
+        }}
+        style={{ width: '100%' }}
+      />
         <Formik
           initialValues={{ passcode: "" }}
+          innerRef={formikRef}
           validate={async (values) => {
             const errors = {};
             if (!values.passcode) {
