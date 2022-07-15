@@ -17,7 +17,6 @@
   flex: 1;
   margin-right: 2.5%;
   height: 50vh;
-  overflow-y: scroll;
 }
 
 .clueContainer {
@@ -27,5 +26,4 @@
 
 .clues {
   height: 45vh;
-  overflow-y: scroll;
 }

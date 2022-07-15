@@ -18,9 +18,12 @@
   text-align: center;
 }
 .clue-back {
+  overflow: auto;
   background-color: white;
   min-height: 40vh;
   min-width: 40vh;
+  max-width: 40vh;
+  max-height: 40vh;
   width: inherit;
 }
 
@@ -40,3 +43,9 @@
   height: 25%;
   width: 100%;
 }
+
+.game-welcome {
+  margin-bottom: 5vh;
+}
+
+

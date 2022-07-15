@@ -21,7 +21,7 @@ function App() {
   if (isGameMode) {
     return (
       <div className="App">
-        <div className="Floating-form">
+        <div className="Floating-form game-form">
           <Game gamePin={gamePin} gameName={gameName} teamName={teamName} />
         </div>
       </div>

@@ -89,7 +89,7 @@ function ClueCard(props) {
           <Card
             elevation={12}
             className="clue-back"
-            style={{ position: "relative" }}
+            style={{ position: "relative", overflow: "auto" }}
           >
             <div className="cardContainer">
               <div className="form">
@@ -233,7 +233,7 @@ function ClueCard(props) {
           <Card
             elevation={12}
             className="clue-back"
-            style={{ position: "relative" }}
+            style={{ position: "relative", overflow: "auto" }}
           >
             <div className="cardContainer">
               <div className="form">
