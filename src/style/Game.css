@@ -12,10 +12,13 @@
 
 .clue-front {
   background-color: white;
-  height: 40vh;
-  width: 40vh;
+  min-height: 40vh;
+  min-width: 40vh;
+  max-width: 40vh;
+  max-height: 40vh;
   justify-content: center;
   text-align: center;
+  overflow: auto;
 }
 .clue-back {
   overflow: auto;
@@ -59,4 +62,7 @@
   width: 100%;
   height: 100%;
   background:rgba(255,255,255,0.5);
+}
+
+.game-form {
 }

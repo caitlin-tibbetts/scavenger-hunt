@@ -22,7 +22,6 @@ function Game(props) {
     const unsubscribeClues = onSnapshot(
       doc(db, "games", props.gamePin, "teams", props.teamName),
       (snapshot) => {
-        alert("11");
         if (snapshot.exists()) {
           if ("clueList" in snapshot.data()) {
             setTeamData(snapshot.data());
@@ -34,10 +33,8 @@ function Game(props) {
             });
             setGameOver(iGameOver);
           } else {
-            alert("45");
             getDocs(collection(db, "games", props.gamePin, "clues")).then(
               (col) => {
-                alert("22");
                 let iClueList = col.docs
                   .sort((a, b) => 0.5 - Math.random())
                   .map((clue, index) => {
@@ -60,13 +57,11 @@ function Game(props) {
                       status: 0,
                     };
                   });
-                  alert("55");
                 setDoc(
                   doc(db, "games", props.gamePin, "teams", props.teamName),
                   { clueList: iClueList, points: 0 },
                   { merge: true }
                 ).then(() => {
-                  alert("13");
                   setTeamData({
                     name: props.teamName,
                     clueList: iClueList,
@@ -88,7 +83,6 @@ function Game(props) {
     );
 
     return () => {
-      alert("46");
       unsubscribeClues();
     };
   }, [props.gamePin, props.teamName]);
@@ -114,7 +108,7 @@ function Game(props) {
         {teamData && teamData.clueList ? (
           teamData.clueList.map((clue, i) => {
             return (
-              <Grid item key={i + 1} xs={12} style={{paddingTop: "0vh"}}>
+              <Grid item key={i + 1} xs={12} style={{ paddingTop: "0vh", paddingBottom: "0vh" }}>
                 <ClueCard
                   key={clue.id}
                   id={clue.id}
