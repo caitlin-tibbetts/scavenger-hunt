@@ -45,6 +45,7 @@ function ClueCard(props) {
         />
         {showCamera && (
           <QrReader
+            facingMode="rear"
             onScan={(result) => {
               if (!!result) {
                 formikRef.current.setFieldValue("passcode", result.text, false);
