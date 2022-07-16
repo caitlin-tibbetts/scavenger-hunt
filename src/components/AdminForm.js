@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 
+import "../style/Admin.css";
+
 import db from "../firebase";
 import CreateClueForm from "./CreateClueForm";
 import AdminClueListItem from "./AdminClueListItem";
@@ -42,7 +44,7 @@ function AdminForm(props) {
           }}
         />
       </div>
-      <div className="clues">
+      <div className="adminClues">
         {clueList &&
           clueList.map((value, index) => {
             return (

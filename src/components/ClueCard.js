@@ -2,17 +2,20 @@ import React, { useRef, useState } from "react";
 import Card from "@material-ui/core/Card";
 import ReactCardFlip from "react-card-flip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { setDoc, doc } from "firebase/firestore";
-import { QrReader } from 'react-qr-reader';
+import QrReader from 'react-qr-scanner';
 
 import db from "../firebase";
 
 function ClueCard(props) {
   const [showBack, setShowBack] = useState(false);
+  const [showCamera, setShowCamera] = useState(false);
   //const [field, meta, helpers] = useField(props);
   const formikRef = useRef();
+
 
   if (props.status === 1) {
     return (
@@ -23,22 +26,32 @@ function ClueCard(props) {
       >
         <h2>Clue #{props.index}</h2>
         <p>{props.location}</p>
-
-        <QrReader
-        onResult={(result, error) => {
-          if (!!result) {
-            formikRef.current.setFieldValue(
-              "passcode",
-              result?.text
-            );
+           <FontAwesomeIcon
+          icon={faCamera}
+          constraints={{ facingMode: 'user' }}
+          onClick={()=>
+            setShowCamera(true)
           }
-
-          if (!!error) {
-            console.info(error);
-          }
-        }}
-        style={{ width: '100%' }}
-      />
+        />
+        {showCamera &&
+<QrReader
+            onScan={(result) => {
+              if (result) {
+                console.log(result)
+                formikRef.current.setFieldValue(
+                  "passcode",
+                  result.text
+            
+                );
+              
+                setShowCamera(false);
+                formikRef.current.handleSubmit();
+              }
+            }}
+            className="camera"
+            style={{ width: '100%', height: '100%' }}
+          />}
+      
         <Formik
           initialValues={{ passcode: "" }}
           innerRef={formikRef}
@@ -57,6 +70,7 @@ function ClueCard(props) {
                   props.teamData.clueList[i].status = 2;
                 }
               }
+              alert("1");
               setDoc(
                 doc(db, "games", props.gamePin, "teams", props.teamName),
                 props.teamData
@@ -153,6 +167,7 @@ function ClueCard(props) {
                           nextCard = false;
                         }
                       }
+                      alert("2");
                       setDoc(
                         doc(
                           db,
@@ -187,6 +202,7 @@ function ClueCard(props) {
                           nextCard = false;
                         }
                       }
+                      alert("3");
                       setDoc(
                         doc(
                           db,

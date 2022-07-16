@@ -45,6 +45,7 @@ function App() {
             return errors;
           }}
           onSubmit={async (values, { resetForm }) => {
+            alert("44");
             if (
               (
                 await getDoc(
@@ -53,17 +54,18 @@ function App() {
               ).exists() ||
               !(await getDoc(doc(db, "games", values.gamePin))).exists()
             ) {
+              alert("22");
               resetForm();
             }
+            alert("23");
             await setDoc(
               doc(db, "games", values.gamePin, "teams", values.teamName),
               { name: values.teamName }
             );
-
+            alert("24");
             let iGameName = (
               await getDoc(doc(db, "games", values.gamePin))
             ).data().name;
-
             setCookie("gamePin", values.gamePin, { path: "/" });
             setCookie("teamName", values.teamName, { path: "/" });
             setCookie("gameName", iGameName, { path: "/" });

@@ -24,6 +24,7 @@
   margin-left: 2.5%;
 }
 
-.clues {
+.dashboardClues {
   height: 45vh;
+  overflow: auto;
 }

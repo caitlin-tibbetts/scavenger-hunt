@@ -64,7 +64,7 @@ function DashboardForm(props) {
         </div>
         <div className="clueContainer">
           Total Points: {Math.round(totalTeamPoints)}
-          <div className="clues">
+          <div className="dashboardClues">
             {teamData &&
               teamData.clueList.map((value, i) => {
                 return (
