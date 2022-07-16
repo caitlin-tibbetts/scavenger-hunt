@@ -4,7 +4,7 @@ import ReactCardFlip from "react-card-flip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
 import { setDoc, doc } from "firebase/firestore";
 import QrReader from "react-qr-scanner";
 
@@ -15,6 +15,19 @@ function ClueCard(props) {
   const [showCamera, setShowCamera] = useState(false);
   //const [field, meta, helpers] = useField(props);
   const formikRef = useRef();
+
+  const AutoSubmitToken = () => {
+    // Grab values and submitForm from context
+    const { values, submitForm } = useFormikContext();
+    React.useEffect(() => {
+      // Submit the form imperatively as an effect as soon as form values.token are 6 digits long
+      if (values.passcode.length === 6) {
+        submitForm();
+      }
+    }, [values, submitForm]);
+    return null;
+  };
+
 
   if (props.status === 1) {
     return (
@@ -33,12 +46,14 @@ function ClueCard(props) {
         {showCamera && (
           <QrReader
             onScan={(result) => {
-              if (result) {
-                formikRef.current.setValues({passcode: result.text});
+              if (!!result) {
+                formikRef.current.setFieldValue("passcode", result.text, false);
                 setShowCamera(false);
                 formikRef.current.handleSubmit();
               }
+
             }}
+
             onError={(e) => {
               console.log(e);
             }}
@@ -58,6 +73,7 @@ function ClueCard(props) {
             return errors;
           }}
           onSubmit={async (values, { resetForm }) => {
+            console.log(values.passcode)
             if (values.passcode === props.passcode) {
               for (let i = 0; i < props.teamData.clueList.length; i++) {
                 if (props.teamData.clueList[i].id === props.id) {
@@ -85,7 +101,9 @@ function ClueCard(props) {
               <button type="submit" disabled={isSubmitting}>
                 Submit
               </button>
+              <AutoSubmitToken />
             </Form>
+
           )}
         </Formik>
       </Card>
@@ -147,7 +165,7 @@ function ClueCard(props) {
                             300 -
                             (props.teamData.clueList[i].endTime -
                               props.teamData.clueList[i].startTime) /
-                              2000;
+                            2000;
                           if (props.teamData.clueList[i].points < 0) {
                             props.teamData.clueList[i].points = 0;
                           }
@@ -182,7 +200,7 @@ function ClueCard(props) {
                             300 -
                             (props.teamData.clueList[i].endTime -
                               props.teamData.clueList[i].startTime) /
-                              2000;
+                            2000;
                           if (props.teamData.clueList[i].points < 0) {
                             props.teamData.clueList[i].points = 0;
                           }
