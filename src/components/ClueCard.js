@@ -3,7 +3,7 @@ import Card from "@material-ui/core/Card";
 import ReactCardFlip from "react-card-flip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faX } from "@fortawesome/free-solid-svg-icons";
 import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
 import { setDoc, doc } from "firebase/firestore";
 import QrReader from "react-qr-reader";
@@ -43,6 +43,11 @@ function ClueCard(props) {
           onClick={() => setShowCamera(true)}
         />
         {showCamera && (
+          <div>
+           <FontAwesomeIcon
+           icon={faX}
+           onClick={() => setShowCamera(false)}
+         />
           <QrReader
             constraints={{ facingMode: 'environment' }}
             onResult={(result, error) => {
@@ -59,6 +64,7 @@ function ClueCard(props) {
             className="camera"
             style={{ width: "100%", height: "100%" }}
           />
+          </div>
         )}
 
         <Formik
