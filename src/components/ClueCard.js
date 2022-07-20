@@ -6,7 +6,7 @@ import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDown, faX } from "@fortawesome/free-solid-svg-icons";
 import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
 import { setDoc, doc } from "firebase/firestore";
-import {QrReader} from "react-qr-reader";
+import { QrReader } from "react-qr-reader";
 
 import db from "../firebase";
 
@@ -15,6 +15,7 @@ function ClueCard(props) {
   const [showCamera, setShowCamera] = useState(false);
   //const [field, meta, helpers] = useField(props);
   const formikRef = useRef();
+  const closeRef = useRef(null);
 
   const AutoSubmitToken = () => {
     // Grab values and submitForm from context
@@ -38,32 +39,35 @@ function ClueCard(props) {
       >
         <h2>Clue #{props.index}</h2>
         <p>{props.location}</p>
-        <FontAwesomeIcon
+        {!showCamera && <FontAwesomeIcon
           icon={faCamera}
           onClick={() => setShowCamera(true)}
-        />
+        />}
         {showCamera && (
           <div>
-           <FontAwesomeIcon
-           icon={faX}
-           onClick={() => setShowCamera(false)}
-         />
-          <QrReader
-            constraints={{ facingMode: 'environment' }}
-            onResult={(result, error) => {
-              if (!!result) {
-                formikRef.current.setFieldValue("passcode", result.text, false);
-                setShowCamera(false);
-                formikRef.current.handleSubmit();
-              }
-              if (!!error) {
-                console.log(error)
-              }
+            <FontAwesomeIcon
+              icon={faX}
+              onClick={() => setShowCamera(false)}
+            />
+            <>
+              <QrReader
+                constraints={{ facingMode: 'environment' }}
+                style={{ width: 'inherit', height: 'inherit' }}
+                onResult={(result, error) => {
+                  if (!!result) {
+                    formikRef.current.setFieldValue("passcode", result.text, false);
+                    setShowCamera(false);
+                    formikRef.current.handleSubmit();
+                  }
+                  if (!!error) {
+                    console.log(error)
+                  }
 
-            }}
-            className="camera"
-            style={{ width: "100%", height: "100%" }}
-          />
+                }}
+              //className="camera"
+
+              />
+            </>
           </div>
         )}
 
