@@ -6,7 +6,7 @@ import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDown, faX } from "@fortawesome/free-solid-svg-icons";
 import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
 import { setDoc, doc } from "firebase/firestore";
-import QrReader from "react-qr-reader";
+import {QrReader} from "react-qr-reader";
 
 import db from "../firebase";
 
