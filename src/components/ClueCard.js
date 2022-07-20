@@ -40,12 +40,12 @@ function ClueCard(props) {
         <p>{props.location}</p>
         <FontAwesomeIcon
           icon={faCamera}
-          constraints={{ facingMode: "user" }}
           onClick={() => setShowCamera(true)}
         />
         {showCamera && (
           <QrReader
             facingMode="rear"
+            constraints={ {facingMode: 'environment'}}
             onScan={(result) => {
               if (!!result) {
                 formikRef.current.setFieldValue("passcode", result.text, false);
