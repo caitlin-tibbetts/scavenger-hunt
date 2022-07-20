@@ -108,7 +108,7 @@ function Game(props) {
         {teamData && teamData.clueList ? (
           teamData.clueList.map((clue, i) => {
             return (
-              <Grid item key={i + 1} xs={12} style={{ paddingTop: "0vh", paddingBottom: "0vh" }}>
+              <Grid item key={i + 1} xs={12} style={{ paddingTop: "0vh", paddingBottom: "2vh" }}>
                 <ClueCard
                   key={clue.id}
                   id={clue.id}

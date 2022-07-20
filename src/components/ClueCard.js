@@ -15,7 +15,6 @@ function ClueCard(props) {
   const [showCamera, setShowCamera] = useState(false);
   //const [field, meta, helpers] = useField(props);
   const formikRef = useRef();
-  const closeRef = useRef(null);
 
   const AutoSubmitToken = () => {
     // Grab values and submitForm from context
