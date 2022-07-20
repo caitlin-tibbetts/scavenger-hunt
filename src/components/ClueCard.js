@@ -6,7 +6,7 @@ import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
 import { setDoc, doc } from "firebase/firestore";
-import QrReader from "react-qr-scanner";
+import QrReader from "react-qr-reader";
 
 import db from "../firebase";
 
@@ -44,19 +44,17 @@ function ClueCard(props) {
         />
         {showCamera && (
           <QrReader
-            facingMode="rear"
-            constraints={ {facingMode: 'environment'}}
-            onScan={(result) => {
+            constraints={{ facingMode: 'environment' }}
+            onResult={(result, error) => {
               if (!!result) {
                 formikRef.current.setFieldValue("passcode", result.text, false);
                 setShowCamera(false);
                 formikRef.current.handleSubmit();
               }
+              if (!!error) {
+                console.log(error)
+              }
 
-            }}
-
-            onError={(e) => {
-              console.log(e);
             }}
             className="camera"
             style={{ width: "100%", height: "100%" }}
