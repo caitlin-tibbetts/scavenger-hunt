@@ -22,6 +22,7 @@
 .clueContainer {
   flex: 2;
   margin-left: 2.5%;
+  overflow: auto;
 }
 
 .dashboardClues {
