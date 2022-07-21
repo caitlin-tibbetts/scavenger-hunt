@@ -17,6 +17,7 @@
   flex: 1;
   margin-right: 2.5%;
   height: 50vh;
+  overflow: auto;
 }
 
 .clueContainer {
