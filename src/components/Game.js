@@ -36,7 +36,7 @@ function Game(props) {
             getDocs(collection(db, "games", props.gamePin, "clues")).then(
               (col) => {
                 let iClueList = col.docs
-                  .sort((a, b) => 0.5 - Math.random())
+                  .sort(() => 0.5 - Math.random())
                   .map((clue, index) => {
                     if (index === 0) {
                       return {
@@ -99,16 +99,14 @@ function Game(props) {
         <h2>Welcome {props.teamName}!</h2>
       </div>
       <Container
-        container
         direction="column-reverse"
         spacing={2}
-        alignItems="center"
         style={{ maxHeight: "45vh", flexWrap: "nowrap", overflow: "auto" }}
       >
         {teamData && teamData.clueList ? (
           teamData.clueList.map((clue, i) => {
             return (
-              <Container item key={i + 1} xs={12} style={{ paddingTop: "0vh", paddingBottom: "2vh" }}>
+              <Container key={i + 1} xs={12} style={{ paddingTop: "0vh", paddingBottom: "2vh" }}>
                 <ClueCard
                   key={clue.id}
                   id={clue.id}
@@ -127,7 +125,7 @@ function Game(props) {
             );
           })
         ) : (
-          <Container item xs={9}>
+          <Container xs={9}>
             <ReactLoading type="spokes" color="#4a4747" />
           </Container>
         )}
