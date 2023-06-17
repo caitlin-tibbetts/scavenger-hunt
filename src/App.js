@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useCookies } from "react-cookie";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 
@@ -7,22 +6,30 @@ import "./style/App.css";
 
 import db from "./firebase";
 import Game from "./components/Game";
+import store from "store2";
+
+// store.local({
+//   gamepin: store.get("gamepin") || "",
+//   gamename: store.get("gamename") || "",
+//   teamname: store.get("teamname") || ""
+
+// })
 
 function App() {
-  const [cookies, setCookie] = useCookies(["scav-hunt"]);
+
+
 
   const [isGameMode, setIsGameMode] = useState(
-    (cookies.gamePin && cookies.teamName) !== undefined || false
+    store.get("gamepin") && store.get("teamname")
   );
-  const [gamePin, setGamePin] = useState(cookies.gamePin || "");
-  const [gameName, setGameName] = useState(cookies.gameName || "");
-  const [teamName, setTeamName] = useState(cookies.teamName || "");
 
   if (isGameMode) {
     return (
       <div className="App">
         <div className="Floating-form game-form">
-          <Game gamePin={gamePin} gameName={gameName} teamName={teamName} />
+          <Game gamePin={store.get("gamepin")}
+            gameName={store.get("gamename")}
+            teamName={store.get("teamname")} />
         </div>
       </div>
     );
@@ -62,13 +69,14 @@ function App() {
             let iGameName = (
               await getDoc(doc(db, "games", values.gamePin))
             ).data().name;
-            setCookie("gamePin", values.gamePin, { path: "/" });
-            setCookie("teamName", values.teamName, { path: "/" });
-            setCookie("gameName", iGameName, { path: "/" });
 
-            setGamePin(values.gamePin);
-            setGameName(iGameName);
-            setTeamName(values.teamName);
+            console.log()
+            store.local({
+              gamepin: values.gamePin,
+              gamename: iGameName,
+              teamname: values.teamName
+
+            })
             setIsGameMode(true);
           }}
         >
