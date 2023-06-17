@@ -2,11 +2,9 @@
   margin-bottom: 5vh;
 }
 
-.scorecard {
+.score-card {
   background-color: white;
-  height: 10vh;
-  min-width: 100vh;
-  min-height: fit-content;
+  min-height: 5vh;
 }
 
 .score-form {

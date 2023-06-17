@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import Card from "@material-ui/core/Card";
+import { Card } from "react-bootstrap";
 import ReactCardFlip from "react-card-flip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
@@ -34,16 +34,13 @@ function ClueCard(props) {
       <Card
         elevation={12}
         className="clue-front"
-        style={{ position: "relative", overflow: "auto" }}
+        style={{ position: "relative" }}
       >
-        <h2>Clue #{props.index}</h2>
-        <p>{props.location}</p>
-        {!showCamera && <FontAwesomeIcon
-          icon={faCamera}
-          onClick={() => setShowCamera(true)}
-        />}
-        {showCamera && (
-          <div>
+        <Card.Title>Clue #{props.index}</Card.Title>
+
+        <Card.Text>{props.location}</Card.Text>
+        <Card.Body>
+          {showCamera ? <div>
             <FontAwesomeIcon
               icon={faX}
               onClick={() => setShowCamera(false)}
@@ -51,7 +48,7 @@ function ClueCard(props) {
             <>
               <QrReader
                 constraints={{ facingMode: 'environment' }}
-                style={{ width: 'inherit', height: 'inherit' }}
+                containerStyle={{ height: "10vh" }}
                 onResult={(result, error) => {
                   if (!!result) {
                     formikRef.current.setFieldValue("passcode", result.text, false);
@@ -63,57 +60,59 @@ function ClueCard(props) {
                   }
 
                 }}
-              //className="camera"
-
               />
             </>
-          </div>
-        )}
+          </div> : <FontAwesomeIcon
+            icon={faCamera}
+            onClick={() => setShowCamera(true)}
+          />}
+        </Card.Body>
 
-        <Formik
-          initialValues={{ passcode: "" }}
-          innerRef={formikRef}
-          validate={(values) => {
-            const errors = {};
-            if (!values.passcode) {
-              errors.passcode = "Required";
-            }
-            return errors;
-          }}
-          onSubmit={async (values, { resetForm }) => {
-            console.log(values.passcode)
-            if (values.passcode === props.passcode) {
-              for (let i = 0; i < props.teamData.clueList.length; i++) {
-                if (props.teamData.clueList[i].id === props.id) {
-                  props.teamData.clueList[i].startTime = Date.now();
-                  props.teamData.clueList[i].status = 2;
-                }
+        <Card.Footer>
+          <Formik
+            initialValues={{ passcode: "" }}
+            innerRef={formikRef}
+            validate={(values) => {
+              const errors = {};
+              if (!values.passcode) {
+                errors.passcode = "Required";
               }
-              setDoc(
-                doc(db, "games", props.gamePin, "teams", props.teamName),
-                props.teamData
-              ).then(() => {
-                setShowBack(true);
-              });
-            } else {
-              resetForm();
-            }
-          }}
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              <p>
-                Passcode (case sensitive): <Field autoFocus name="passcode" />
-                <ErrorMessage name="passcode" component="p" />
-              </p>
-              <button type="submit" disabled={isSubmitting}>
-                Submit
-              </button>
-              <AutoSubmitToken />
-            </Form>
+              return errors;
+            }}
+            onSubmit={async (values, { resetForm }) => {
+              if (values.passcode === props.passcode) {
+                for (let i = 0; i < props.teamData.clueList.length; i++) {
+                  if (props.teamData.clueList[i].id === props.id) {
+                    props.teamData.clueList[i].startTime = Date.now();
+                    props.teamData.clueList[i].status = 2;
+                  }
+                }
+                setDoc(
+                  doc(db, "games", props.gamePin, "teams", props.teamName),
+                  props.teamData
+                ).then(() => {
+                  setShowBack(true);
+                });
+              } else {
+                resetForm();
+              }
+            }}
+          >
+            {({ isSubmitting }) => (
+              <Form>
+                <p>
+                  Passcode (case sensitive): <Field autoFocus name="passcode" />
+                  <ErrorMessage name="passcode" component="p" />
+                </p>
+                <button type="submit" disabled={isSubmitting}>
+                  Submit
+                </button>
+                <AutoSubmitToken />
+              </Form>
 
-          )}
-        </Formik>
+            )}
+          </Formik>
+        </Card.Footer>
       </Card>
     );
   } else if (props.status === 2) {

@@ -14,7 +14,7 @@ function AdminForm(props) {
       collection(db, "games", props.gamePin, "clues"),
       (snapshot) => {
         setClueList(
-          snapshot.docs.map((value, index) => {
+          snapshot.docs.map((value) => {
             let iClueData = value.data();
             iClueData.id = value.id;
             return iClueData;
@@ -46,7 +46,7 @@ function AdminForm(props) {
       </div>
       <div className="adminClues">
         {clueList &&
-          clueList.map((value, index) => {
+          clueList.map((value) => {
             return (
               <AdminClueListItem
                 key={value.id}

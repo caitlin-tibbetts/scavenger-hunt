@@ -1,44 +1,21 @@
 import React from "react";
-import Card from "@material-ui/core/Card";
-import { Divider, Grid } from "@material-ui/core";
+import { Container, Col, Row } from "react-bootstrap";
 
 function ScoreCard(props) {
   return (
-    <Card elevation={12} className="scorecard">
-      <Grid
-        container
-        direction="row"
-        spacing={0}
-        justifyContent="center"
-        alignItems="center"
-        style={{
-          display: "flex",
-          flexWrap: "nowrap",
-          overflow: "auto",
-          height: "inherit",
-        }}
-      >
-        <Grid item xs={1} style={{ marginLeft: "2vh", textAlign: "center" }}>
-          <h2>{props.index}</h2>
-        </Grid>
-        <Divider
-          orientation="vertical"
-          flexItem
-          style={{ marginRight: "2vh", marginLeft: "2vh" }}
-        />
-        <Grid item xs={6} style={{ marginLeft: "2vh" }}>
+    <Container fluid className="score-card">
+      <Row>
+        <Col xs={2} sm={2}>
+          <h2>{props.index}.</h2>
+        </Col>
+        <Col xs={8} sm={8}>
           <h2>{props.teamName}</h2>
-        </Grid>
-        <Divider
-          orientation="vertical"
-          flexItem
-          style={{ marginRight: "2vh", marginLeft: "2vh" }}
-        />
-        <Grid item xs={5}>
-          Points: {Math.round(props.points)}
-        </Grid>
-      </Grid>
-    </Card>
+        </Col>
+        <Col xs={2} sm={2} style={{ textAlign: "right" }}>
+          <h2>{Math.round(props.points)}</h2>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

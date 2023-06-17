@@ -7,7 +7,7 @@ import {
   setDoc,
   onSnapshot,
 } from "firebase/firestore";
-import Grid from "@material-ui/core/Grid";
+import { Container } from "react-bootstrap";
 
 import "../style/Game.css"
 
@@ -98,7 +98,7 @@ function Game(props) {
         <h1>{props.gameName}</h1>
         <h2>Welcome {props.teamName}!</h2>
       </div>
-      <Grid
+      <Container
         container
         direction="column-reverse"
         spacing={2}
@@ -108,7 +108,7 @@ function Game(props) {
         {teamData && teamData.clueList ? (
           teamData.clueList.map((clue, i) => {
             return (
-              <Grid item key={i + 1} xs={12} style={{ paddingTop: "0vh", paddingBottom: "2vh" }}>
+              <Container item key={i + 1} xs={12} style={{ paddingTop: "0vh", paddingBottom: "2vh" }}>
                 <ClueCard
                   key={clue.id}
                   id={clue.id}
@@ -123,15 +123,15 @@ function Game(props) {
                   location={clue.location}
                   link={clue.link || ""}
                 />
-              </Grid>
+              </Container>
             );
           })
         ) : (
-          <Grid item xs={9}>
+          <Container item xs={9}>
             <ReactLoading type="spokes" color="#4a4747" />
-          </Grid>
+          </Container>
         )}
-      </Grid>
+      </Container>
     </>
   );
 }

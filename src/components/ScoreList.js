@@ -8,7 +8,7 @@ import { collection, onSnapshot } from "firebase/firestore";
 import "../style/App.css";
 import "../style/Leaderboard.css";
 
-import Grid from "@material-ui/core/Grid";
+import { Container } from "react-bootstrap";
 import ScoreCard from "./ScoreCard";
 import "animate.css";
 import { TransitionGroup } from "react-transition-group";
@@ -20,14 +20,16 @@ function ScoreList(props) {
 
   useEffect(() => {
     const timerId = setInterval(() => {
-      if(teamData && teamData.length > 6) {
-      setCurrentPage((cur) =>{
-      return(
-        teamData ? (cur < Math.floor((teamData.length-1) / 6) ? cur + 1 : 0) : 0
-      )}
-      );
-    }}, 7000);
-  
+      if (teamData && teamData.length > 6) {
+        setCurrentPage((cur) => {
+          return (
+            teamData ? (cur < Math.floor((teamData.length - 1) / 6) ? cur + 1 : 0) : 0
+          )
+        }
+        );
+      }
+    }, 5000);
+
     return () => {
       clearInterval(timerId);
     };
@@ -60,12 +62,10 @@ function ScoreList(props) {
         <h2>Scoreboard</h2>
       </div>
 
-      <Grid
-        container
+      <Container
+        fluid
         direction="column"
-        spacing={2}
-        alignItems="center"
-        style={{ flexWrap: "nowrap", overflow: "auto", textAlign: "left" }}
+        style={{ flexWrap: "nowrap", overflow: "auto" }}
       >
         {teamData ? (
           <TransitionGroup>
@@ -85,7 +85,7 @@ function ScoreList(props) {
                     timeout={900}
                     unmountOnExit
                   >
-                    <Grid
+                    <Container
                       item
                       key={i + 1}
                       xs={12}
@@ -97,18 +97,18 @@ function ScoreList(props) {
                         index={i + 1}
                         points={teamInfo.points}
                       />
-                    </Grid>
+                    </Container>
                   </CSSTransition>
                 )
               );
             })}
           </TransitionGroup>
         ) : (
-          <Grid item xs={9}>
+          <Container item xs={9}>
             <ReactLoading type="spokes" color="#4a4747" />
-          </Grid>
+          </Container>
         )}
-      </Grid>
+      </Container>
     </>
   );
 }
