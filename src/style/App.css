@@ -22,11 +22,12 @@
   min-height: 2vh;
   background-color: #e9c46a;
   color: black;
-  max-width: 75%;
+  max-width: 50%;
   min-width: 50%;
   border-radius: 1vh;
   padding: 2%;
   overflow: hidden;
+
 }
 
 button {

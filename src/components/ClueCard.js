@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
+import Stack from 'react-bootstrap/Stack';
 import ReactCardFlip from "react-card-flip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
@@ -34,14 +35,15 @@ function ClueCard(props) {
     return (
       <Card
         elevation={12}
-        className="clue-front"
+        className="clue clue-front"
         style={{ position: "relative" }}
       >
-        <Card.Title>Clue #{props.index}</Card.Title>
+        {
 
-        <Card.Text>{props.location}</Card.Text>
-        <Card.Body>
-          {showCamera ? <div>
+          <Card.Title style={{ position: "absolute", top: "-30px", left: 65 }}>{props.location}</Card.Title>
+        }
+        <Card.Body style={{ borderBottom: "1px solid rgba(0,0,0,.125)" }}>
+          {showCamera && <div>
 
             <div className="overlay">
 
@@ -75,13 +77,8 @@ function ClueCard(props) {
                 className="close"
               />
             </div>
-          </div> : <FontAwesomeIcon
-            icon={faCamera}
-            onClick={() => setShowCamera(true)}
-          />}
-        </Card.Body>
+          </div>}
 
-        <Card.Footer>
           <Formik
             initialValues={{ passcode: "" }}
             innerRef={formikRef}
@@ -93,7 +90,9 @@ function ClueCard(props) {
               return errors;
             }}
             onSubmit={async (values, { resetForm }) => {
+              console.log(values.passcode, props.passcode)
               if (values.passcode === props.passcode) {
+                console.log("match")
                 for (let i = 0; i < props.teamData.clueList.length; i++) {
                   if (props.teamData.clueList[i].id === props.id) {
                     props.teamData.clueList[i].startTime = Date.now();
@@ -105,6 +104,7 @@ function ClueCard(props) {
                   props.teamData
                 ).then(() => {
                   setShowBack(true);
+                  console.log("show back")
                 });
               } else {
                 resetForm();
@@ -112,29 +112,45 @@ function ClueCard(props) {
             }}
           >
             {({ isSubmitting }) => (
-              <Form>
-                <p>
-                  Passcode (case sensitive): <Field autoFocus name="passcode" />
-                  <ErrorMessage name="passcode" component="p" />
-                </p>
-                <button type="submit" disabled={isSubmitting}>
-                  Submit
-                </button>
-                <AutoSubmitToken />
+              <Form style={{ height: "100%" }}>
+                <Stack gap={4} style={{ height: "100%" }}>
+                  <div style={{ marginBottom: "20px" }}>
+
+                    <i className="fa fa-camera fa-gradient"
+                      onClick={() => setShowCamera(true)}
+                    ></i>
+
+                  </div>
+                  <div style={{ marginBottom: "50px" }} className={"wrap-input100"}>
+                    <Field className={"input100"} autoFocus name="passcode" />
+                    <span class="focus-input100" data-placeholder="passcode"></span>
+                    {/* <ErrorMessage name="passcode" component="p" /> */}
+                  </div>
+                  <div className="wrap-login100-form-btn">
+                    <div className="login100-form-bgbtn"></div>
+                    <button type="submit" className="login100-form-btn">
+                      Submit
+                    </button>
+                    <AutoSubmitToken />
+                  </div>
+
+
+                </Stack>
+
               </Form>
 
             )}
           </Formik>
-        </Card.Footer>
-      </Card>
+        </Card.Body>
+      </Card >
     );
   } else if (props.status === 2) {
     return (
-      <div className="clue">
+      <div>
         <ReactCardFlip isFlipped={showBack} flipDirection="vertical">
           <Card
             elevation={12}
-            className="clue-front"
+            className="clue clue-front"
             style={{ position: "relative" }}
           >
             <div className="cardContainer">
@@ -154,7 +170,7 @@ function ClueCard(props) {
 
           <Card
             elevation={12}
-            className="clue-back"
+            className="clue clue-back"
             style={{ position: "relative", overflow: "auto" }}
           >
             <div className="cardContainer">
@@ -273,11 +289,11 @@ function ClueCard(props) {
     );
   } else if (props.status === 3) {
     return (
-      <div className="clue">
+      <div>
         <ReactCardFlip isFlipped={showBack} flipDirection="vertical">
           <Card
             elevation={12}
-            className="clue-front"
+            className="clue clue-front"
             style={{ position: "relative" }}
           >
             <div className="cardContainer">
@@ -298,7 +314,7 @@ function ClueCard(props) {
 
           <Card
             elevation={12}
-            className="clue-back"
+            className="clue clue-back"
             style={{ position: "relative", overflow: "auto" }}
           >
             <div className="cardContainer">

@@ -102,38 +102,52 @@ function Game(props) {
       </div>
       <Container
         container
-        direction="column-reverse"
-        spacing={2}
-        alignItems="center"
-        style={{ maxHeight: "45vh", flexWrap: "nowrap", overflow: "auto" }}
+        style={{
+          flexWrap: "nowrap",
+        }}
+        className={"container-cluecard"}
       >
         {teamData && teamData.clueList ? (
           teamData.clueList.map((clue, i) => {
             return (
-              <Container item key={i + 1} xs={12} style={{ paddingTop: "0vh", paddingBottom: "2vh" }}>
-                <ClueCard
-                  key={clue.id}
-                  id={clue.id}
-                  teamData={teamData}
-                  status={clue.status}
-                  gamePin={props.gamePin}
-                  teamName={props.teamName}
-                  passcode={clue.id.slice(0, 6)}
-                  index={i + 1}
-                  answer={clue.answer}
-                  instructions={clue.instructions}
-                  location={clue.location}
-                  link={clue.link || ""}
-                />
-              </Container>
+              <>
+                {(clue.status == 1 || clue.status == 2) &&
+                  <Container item key={i + 1} xs={12}
+                    style={{
+                      paddingTop: "0vh",
+                      paddingBottom: "2vh",
+                      width: "100%"
+
+
+                    }}>
+
+                    <ClueCard
+                      key={clue.id}
+                      id={clue.id}
+                      teamData={teamData}
+                      status={clue.status}
+                      gamePin={props.gamePin}
+                      teamName={props.teamName}
+                      passcode={clue.id.slice(0, 6)}
+                      index={i + 1}
+                      answer={clue.answer}
+                      instructions={clue.instructions}
+                      location={clue.location}
+                      link={clue.link || ""}
+                    />
+
+                  </Container>
+                }
+              </>
             );
           })
         ) : (
           <Container item xs={9}>
             <ReactLoading type="spokes" color="#4a4747" />
           </Container>
-        )}
-      </Container>
+        )
+        }
+      </Container >
     </>
   );
 }
