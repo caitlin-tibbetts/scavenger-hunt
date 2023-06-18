@@ -11,18 +11,22 @@ import store from "store2";
 function App() {
 
 
+  const [gamePin, setGamePin] = useState(store.session.has("gamepin") ? store.session.get("gamepin") : "");
+  const [gameName, setGameName] = useState(store.session.has("gamename") ? store.session.get("gamename") : "");
+  const [teamName, setTeamName] = useState(store.session.has("teamname") ? store.session.get("teamname") : "");
+
 
   const [isGameMode, setIsGameMode] = useState(
-    store.session.get("gamepin") && store.session.get("teamname")
+    gamePin !== ""
   );
 
   if (isGameMode) {
     return (
       <div className="App">
         <div className="Floating-form game-form">
-          <Game gamePin={store.session.get("gamepin")}
-            gameName={store.session.get("gamename")}
-            teamName={store.session.get("teamname")} />
+          <Game gamePin={gamePin}
+            gameName={gameName}
+            teamName={teamName} />
         </div>
       </div>
     );
@@ -69,6 +73,9 @@ function App() {
               teamname: values.teamName
 
             })
+            setGamePin(values.gamePin);
+            setGameName(iGameName);
+            setTeamName(values.teamName);
             setIsGameMode(true);
           }}
         >

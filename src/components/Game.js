@@ -19,6 +19,7 @@ function Game(props) {
   const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
+
     const unsubscribeClues = onSnapshot(
       doc(db, "games", props.gamePin, "teams", props.teamName),
       (snapshot) => {
