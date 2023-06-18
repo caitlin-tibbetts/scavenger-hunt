@@ -50,34 +50,40 @@ function App() {
           }}
           onSubmit={async (values, { resetForm }) => {
             if (
-              (
-                await getDoc(
-                  doc(db, "games", values.gamePin, "teams", values.teamName)
-                )
-              ).exists() ||
               !(await getDoc(doc(db, "games", values.gamePin))).exists()
             ) {
               resetForm();
             }
-            await setDoc(
-              doc(db, "games", values.gamePin, "teams", values.teamName),
-              { name: values.teamName }
-            );
-            let iGameName = (
-              await getDoc(doc(db, "games", values.gamePin))
-            ).data().name;
+            else {
+              if
+                (
+                !(
+                  await getDoc(
+                    doc(db, "games", values.gamePin, "teams", values.teamName)
+                  )).exists()
+              ) {
+                await setDoc(
+                  doc(db, "games", values.gamePin, "teams", values.teamName),
+                  { name: values.teamName }
+                );
+              }
+              let iGameName = (
+                await getDoc(doc(db, "games", values.gamePin))
+              ).data().name;
 
-            store.session({
-              gamepin: values.gamePin,
-              gamename: iGameName,
-              teamname: values.teamName
+              store.session({
+                gamepin: values.gamePin,
+                gamename: iGameName,
+                teamname: values.teamName
 
-            })
-            setGamePin(values.gamePin);
-            setGameName(iGameName);
-            setTeamName(values.teamName);
-            setIsGameMode(true);
-          }}
+              })
+              setGamePin(values.gamePin);
+              setGameName(iGameName);
+              setTeamName(values.teamName);
+              setIsGameMode(true);
+            }
+          }
+          }
         >
           {({ isSubmitting }) => (
             <Form>

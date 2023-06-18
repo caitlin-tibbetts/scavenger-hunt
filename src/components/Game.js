@@ -23,6 +23,9 @@ function Game(props) {
     const unsubscribeClues = onSnapshot(
       doc(db, "games", props.gamePin, "teams", props.teamName),
       (snapshot) => {
+
+        console.log(snapshot)
+        console.log(props.gamePin, props.teamName)
         if (snapshot.exists()) {
           if ("clueList" in snapshot.data()) {
             setTeamData(snapshot.data());
@@ -84,6 +87,7 @@ function Game(props) {
     );
 
     return () => {
+      console.log("props", props)
       unsubscribeClues();
     };
   }, [props.gamePin, props.teamName]);
