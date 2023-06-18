@@ -7,6 +7,7 @@ import { faAngleDown, faX } from "@fortawesome/free-solid-svg-icons";
 import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
 import { setDoc, doc } from "firebase/firestore";
 import { QrReader } from "react-qr-reader";
+import "../style/ClueCard.css";
 
 import db from "../firebase";
 
@@ -41,14 +42,14 @@ function ClueCard(props) {
         <Card.Text>{props.location}</Card.Text>
         <Card.Body>
           {showCamera ? <div>
-            <FontAwesomeIcon
-              icon={faX}
-              onClick={() => setShowCamera(false)}
-            />
-            <>
-              <QrReader
+
+            <div className="overlay">
+
+              < QrReader
                 constraints={{ facingMode: 'environment' }}
-                containerStyle={{ height: "10vh" }}
+                style={{ position: "fixed" }}
+                containerStyle={{ height: "10vh", }}
+                videoStyle={{ position: "fixed" }}
                 onResult={(result, error) => {
                   if (!!result) {
                     formikRef.current.setFieldValue("passcode", result.text, false);
@@ -60,8 +61,20 @@ function ClueCard(props) {
                   }
 
                 }}
+
               />
-            </>
+
+              <FontAwesomeIcon
+                icon={faX}
+                onClick={() => setShowCamera(false)}
+                style={{
+                  zIndex: 100, padding: 10, background: "grey", borderRadius: "50%", width: "5vh", height: "5vh", color: "white", marginTop: "4vh",
+                  position: "relative", marginRight: "10vh"
+                  , display: "block"
+                }}
+                className="close"
+              />
+            </div>
           </div> : <FontAwesomeIcon
             icon={faCamera}
             onClick={() => setShowCamera(true)}
