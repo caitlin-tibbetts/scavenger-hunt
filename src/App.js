@@ -8,28 +8,21 @@ import db from "./firebase";
 import Game from "./components/Game";
 import store from "store2";
 
-// store.local({
-//   gamepin: store.get("gamepin") || "",
-//   gamename: store.get("gamename") || "",
-//   teamname: store.get("teamname") || ""
-
-// })
-
 function App() {
 
 
 
   const [isGameMode, setIsGameMode] = useState(
-    store.get("gamepin") && store.get("teamname")
+    store.session.get("gamepin") && store.session.get("teamname")
   );
 
   if (isGameMode) {
     return (
       <div className="App">
         <div className="Floating-form game-form">
-          <Game gamePin={store.get("gamepin")}
-            gameName={store.get("gamename")}
-            teamName={store.get("teamname")} />
+          <Game gamePin={store.session.get("gamepin")}
+            gameName={store.session.get("gamename")}
+            teamName={store.session.get("teamname")} />
         </div>
       </div>
     );
@@ -70,8 +63,7 @@ function App() {
               await getDoc(doc(db, "games", values.gamePin))
             ).data().name;
 
-            console.log()
-            store.local({
+            store.session({
               gamepin: values.gamePin,
               gamename: iGameName,
               teamname: values.teamName
