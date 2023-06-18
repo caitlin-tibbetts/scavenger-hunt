@@ -22,8 +22,8 @@
   min-height: 2vh;
   background-color: #e9c46a;
   color: black;
-  max-width: 50%;
-  min-width: 50%;
+  max-width: 310px;
+  min-width: 300px;
   border-radius: 1vh;
   padding: 2%;
   overflow: hidden;
