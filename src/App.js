@@ -7,6 +7,7 @@ import "./style/App.css";
 import db from "./firebase";
 import Game from "./components/Game";
 import store from "store2";
+import Stack from "react-bootstrap/Stack";
 
 function App() {
 
@@ -87,13 +88,19 @@ function App() {
         >
           {({ isSubmitting }) => (
             <Form>
-              <p>
-                Team Name: <Field name="teamName" />
+
+              <p className="teamname-input">
+                <span>Team Name&nbsp;&nbsp;</span>
+                <Field name="teamName" />
+
               </p>
               <ErrorMessage name="teamName" component="p" />
 
-              <p>
-                Game Pin: <Field name="gamePin" />
+              <p className="gamepin-input">
+
+                <span>Game Pin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <Field name="gamePin" />
+
               </p>
               <ErrorMessage name="gamePin" component="p" />
 

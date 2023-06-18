@@ -82,3 +82,11 @@ h2 {
   margin: 0;
 }
 
+
+.teamname-input {
+width: max-content;
+}
+
+.gamepin-input {
+  width: max-content;
+}
