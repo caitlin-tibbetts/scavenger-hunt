@@ -68,8 +68,8 @@ function ClueCard(props) {
                 icon={faX}
                 onClick={() => setShowCamera(false)}
                 style={{
-                  zIndex: 100, padding: 10, background: "grey", borderRadius: "50%", width: "5vh", height: "5vh", color: "white", marginTop: "4vh",
-                  position: "relative", marginRight: "10vh"
+                  zIndex: 100, padding: 5, background: "grey", borderRadius: "50%", width: "5vh", height: "5vh", color: "white", marginTop: "4vh",
+                  position: "relative", marginRight: "4vh"
                   , display: "block"
                 }}
                 className="close"
