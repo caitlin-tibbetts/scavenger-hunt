@@ -40,7 +40,7 @@ function ClueCard(props) {
       >
         {
 
-          <Card.Title style={{ position: "absolute", top: "-30px", left: 65 }}>{props.location}</Card.Title>
+          <Card.Title style={{ position: "absolute", top: "-30px", left: 65, color: "#ffffff" }}>{props.location}</Card.Title>
         }
         <Card.Body style={{ borderBottom: "1px solid rgba(0,0,0,.125)" }}>
           {showCamera && <div>
@@ -65,17 +65,6 @@ function ClueCard(props) {
                 }}
 
               />
-
-              <FontAwesomeIcon
-                icon={faX}
-                onClick={() => setShowCamera(false)}
-                style={{
-                  zIndex: 100, padding: 5, background: "grey", borderRadius: "50%", width: "5vh", height: "5vh", color: "white", marginTop: "4vh",
-                  position: "relative", marginRight: "4vh"
-                  , display: "block"
-                }}
-                className="close"
-              />
             </div>
           </div>}
 
@@ -92,7 +81,6 @@ function ClueCard(props) {
             onSubmit={async (values, { resetForm }) => {
               console.log(values.passcode, props.passcode)
               if (values.passcode === props.passcode) {
-                console.log("match")
                 for (let i = 0; i < props.teamData.clueList.length; i++) {
                   if (props.teamData.clueList[i].id === props.id) {
                     props.teamData.clueList[i].startTime = Date.now();
@@ -104,7 +92,6 @@ function ClueCard(props) {
                   props.teamData
                 ).then(() => {
                   setShowBack(true);
-                  console.log("show back")
                 });
               } else {
                 resetForm();
@@ -122,7 +109,7 @@ function ClueCard(props) {
 
                   </div>
                   <div style={{ marginBottom: "50px" }} className={"wrap-input100"}>
-                    <Field className={"input100"} autoFocus name="passcode" />
+                    <Field className={"input100"} autoFocus name="passcode" placeholder=" " />
                     <span class="focus-input100" data-placeholder="passcode"></span>
                     {/* <ErrorMessage name="passcode" component="p" /> */}
                   </div>
@@ -156,7 +143,7 @@ function ClueCard(props) {
             <div className="cardContainer">
               <div className="form">
                 <h2>Clue #{props.index}</h2>
-                <p>{props.location}</p>
+                <p >{props.location}</p>
               </div>
               <div className="flipButton">
                 <FontAwesomeIcon

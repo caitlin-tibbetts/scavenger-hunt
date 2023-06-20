@@ -94,7 +94,7 @@ function App() {
                 <Field name="teamName" />
 
               </p>
-              <ErrorMessage name="teamName" component="p" />
+              <ErrorMessage style={{ color: "red" }} name="teamName" component="p" />
 
               <p className="gamepin-input">
 

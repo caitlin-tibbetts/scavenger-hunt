@@ -21,15 +21,11 @@ all: initial;
   -webkit-box-shadow: 0 5px 10px 0 rgba(0,0,0,.1);
   -o-box-shadow: 0 5px 10px 0 rgba(0,0,0,.1);
   -ms-box-shadow: 0 5px 10px 0 rgba(0,0,0,.1);
-  min-height: 25vh;
-  min-width: 25vh;
-  max-width: 25vh;
-  max-height: 25vh;
   
 
 }
 .clue-front {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   justify-content: center;
   text-align: center;
   
@@ -59,7 +55,16 @@ all: initial;
 }
 
 .game-welcome {
-  margin-bottom: 5vh;
+  margin-bottom: 50px;
+  position: relative;
+  top: -11px;
+  padding: 0px;
+  left: 11px;
+}
+.game-welcome-header {
+  font-weight: 700;
+  font-size: small;
+  color: #ffffff;
 }
 
 .camera {

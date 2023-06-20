@@ -7,7 +7,7 @@ import {
   setDoc,
   onSnapshot,
 } from "firebase/firestore";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
 import "../style/Game.css"
 
@@ -96,10 +96,16 @@ function Game(props) {
   }
   return (
     <>
-      <div className="game-welcome">
-        <h1>{props.gameName}</h1>
-        <h2>Welcome {props.teamName}!</h2>
-      </div>
+      <Container className="game-welcome" style={{ padding: 0, }}>
+        <Row style={{ width: "100%", padding: 0 }}>
+          <Col className={"game-welcome-header"} xs={6} style={{ textAlign: "left", paddingLeft: 0 }}>
+            <span> {props.gameName}</span>
+          </Col>
+          <Col xs={6} className={"game-welcome-header"} style={{ textAlign: "right", paddingRight: 0, }}>
+            <span>  {props.teamName} </span>
+          </Col>
+        </Row>
+      </Container>
       <Container
         container
         style={{
