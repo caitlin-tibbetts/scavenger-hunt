@@ -5,15 +5,15 @@ function TeamListItem(props) {
       <p>Points: {Math.round(props.points)}</p>
       <button
         onClick={() => {
-          props.setCurrentTeam(props.teamName);
-          props.setIsCurrentTeamSet(true);
+          props.setCurrentTeam(props.teamName)
+          props.setIsCurrentTeamSet(true)
         }}
       >
         More Information
       </button>
       <hr />
     </div>
-  );
+  )
 }
 
-export default TeamListItem;
+export default TeamListItem

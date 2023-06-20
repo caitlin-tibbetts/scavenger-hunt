@@ -22,10 +22,10 @@ img {
   width: 80%;
 }
 
-.cancel-add-clue, .submit-add-clue {
+.cancel-add-clue,
+.submit-add-clue {
   max-height: 100px;
   height: 60px;
-
 }
 
 .Floating-form {
@@ -34,7 +34,8 @@ img {
   min-width: 300px;
 }
 
-.cancel-add-new-card-btn, .add-new-card-btn {
+.cancel-add-new-card-btn,
+.add-new-card-btn {
   margin: 0;
   padding: 0;
   font-size: 17px;

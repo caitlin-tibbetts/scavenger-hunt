@@ -1,41 +1,41 @@
-import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { doc, getDoc } from "firebase/firestore";
+import React, { useState } from 'react'
 
-import "../style/App.css";
-import "../style/Leaderboard.css";
+import { doc, getDoc } from 'firebase/firestore'
+import { ErrorMessage, Field, Form, Formik } from 'formik'
 
-import db from "../firebase";
-import ScoreList from "../components/ScoreList";
+import ScoreList from '../components/ScoreList'
+import db from '../firebase'
+import '../style/App.css'
+import '../style/Leaderboard.css'
 
 function Leaderboard() {
-  const [gamePin, setGamePin] = useState("");
-  const [gameName, setGameName] = useState("");
-  const [isGamePinSet, setIsGamePinSet] = useState(false);
+  const [gamePin, setGamePin] = useState('')
+  const [gameName, setGameName] = useState('')
+  const [isGamePinSet, setIsGamePinSet] = useState(false)
 
   const gamePinForm = (
     <Formik
-      initialValues={{ gamePin: "" }}
+      initialValues={{ gamePin: '' }}
       validate={async (values) => {
-        const regex = new RegExp("[0-9]{4}$");
-        const errors = {};
+        const regex = new RegExp('[0-9]{4}$')
+        const errors = {}
         if (!values.gamePin || !regex.test(values.gamePin)) {
-          errors.gamePin = "Game pin must be exactly four numbers";
+          errors.gamePin = 'Game pin must be exactly four numbers'
         }
-        if (!(await getDoc(doc(db, "games", values.gamePin))).exists()) {
-          errors.gamePin = "Game does not exist";
+        if (!(await getDoc(doc(db, 'games', values.gamePin))).exists()) {
+          errors.gamePin = 'Game does not exist'
         }
-        return errors;
+        return errors
       }}
       onSubmit={async (values, { setSubmitting }) => {
-        setGamePin(values.gamePin);
-        setIsGamePinSet(true);
-        setSubmitting(false);
+        setGamePin(values.gamePin)
+        setIsGamePinSet(true)
+        setSubmitting(false)
 
-        let iGameName = (await getDoc(doc(db, "games", values.gamePin))).data()
-          .name;
+        let iGameName = (await getDoc(doc(db, 'games', values.gamePin))).data()
+          .name
 
-        setGameName(iGameName);
+        setGameName(iGameName)
       }}
     >
       {({ isSubmitting }) => (
@@ -50,7 +50,7 @@ function Leaderboard() {
         </Form>
       )}
     </Formik>
-  );
+  )
 
   if (isGamePinSet) {
     return (
@@ -59,14 +59,14 @@ function Leaderboard() {
           <ScoreList gamePin={gamePin} gameName={gameName} />
         </div>
       </div>
-    );
+    )
   } else {
     return (
       <div className="App">
         <div className="Leaderboard Floating-form">{gamePinForm}</div>
       </div>
-    );
+    )
   }
 }
 
-export default Leaderboard;
+export default Leaderboard
