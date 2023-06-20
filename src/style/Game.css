@@ -21,19 +21,15 @@ all: initial;
   -webkit-box-shadow: 0 5px 10px 0 rgba(0,0,0,.1);
   -o-box-shadow: 0 5px 10px 0 rgba(0,0,0,.1);
   -ms-box-shadow: 0 5px 10px 0 rgba(0,0,0,.1);
-  
-
-}
-.clue-front {
   background-color: rgb(255, 255, 255);
   justify-content: center;
   text-align: center;
-  
+
 }
-.clue-back {
-  overflow: auto;
-  background-color: white;
-  width: inherit;
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .cardContainer {
@@ -55,7 +51,7 @@ all: initial;
 }
 
 .game-welcome {
-  margin-bottom: 50px;
+  margin-bottom: 10px;
   position: relative;
   top: -5px;
   padding: 0px;

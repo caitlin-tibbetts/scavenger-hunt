@@ -33,133 +33,115 @@ function ClueCard(props) {
 
   if (props.status === 1) {
     return (
-      <Card
-        elevation={12}
-        className="clue clue-front"
-        style={{ position: "relative" }}
-      >
-        {
+      <>
+        <div style={{ display: "block", position: "relative", textAlign: "center", color: "#ffffff", fontSize: "20px" }}>{props.location}</div>
+        <Card
+          elevation={12}
+          className="clue clue-front"
+          style={{ position: "relative" }}
+        >
+          <Card.Body>
+            {showCamera && <div>
 
-          <Card.Title style={{ position: "relative", top: "-30px", textAlign: "center", color: "#ffffff" }}>{props.location}</Card.Title>
-        }
-        <Card.Body style={{ borderBottom: "1px solid rgba(0,0,0,.125)" }}>
-          {showCamera && <div>
+              <div className="overlay">
 
-            <div className="overlay">
+                < QrReader
+                  constraints={{ facingMode: 'environment' }}
+                  style={{ position: "fixed" }}
+                  containerStyle={{ height: "10vh", }}
+                  videoStyle={{ position: "fixed" }}
+                  onResult={(result, error) => {
+                    if (!!result) {
+                      formikRef.current.setFieldValue("passcode", result.text, false);
+                      setShowCamera(false);
+                      formikRef.current.handleSubmit();
+                    }
+                    if (!!error) {
+                      console.log(error)
+                    }
 
-              < QrReader
-                constraints={{ facingMode: 'environment' }}
-                style={{ position: "fixed" }}
-                containerStyle={{ height: "10vh", }}
-                videoStyle={{ position: "fixed" }}
-                onResult={(result, error) => {
-                  if (!!result) {
-                    formikRef.current.setFieldValue("passcode", result.text, false);
-                    setShowCamera(false);
-                    formikRef.current.handleSubmit();
-                  }
-                  if (!!error) {
-                    console.log(error)
-                  }
+                  }}
 
-                }}
+                />
+              </div>
+            </div>}
 
-              />
-            </div>
-          </div>}
-
-          <Formik
-            initialValues={{ passcode: "" }}
-            innerRef={formikRef}
-            validate={(values) => {
-              const errors = {};
-              if (!values.passcode) {
-                errors.passcode = "Required";
-              }
-              return errors;
-            }}
-            onSubmit={async (values, { resetForm }) => {
-              console.log(values.passcode, props.passcode)
-              if (values.passcode === props.passcode) {
-                for (let i = 0; i < props.teamData.clueList.length; i++) {
-                  if (props.teamData.clueList[i].id === props.id) {
-                    props.teamData.clueList[i].startTime = Date.now();
-                    props.teamData.clueList[i].status = 2;
-                  }
+            <Formik
+              initialValues={{ passcode: "" }}
+              innerRef={formikRef}
+              validate={(values) => {
+                const errors = {};
+                if (!values.passcode) {
+                  errors.passcode = "Required";
                 }
-                setDoc(
-                  doc(db, "games", props.gamePin, "teams", props.teamName),
-                  props.teamData
-                ).then(() => {
-                  setShowBack(true);
-                });
-              } else {
-                resetForm();
-              }
-            }}
-          >
-            {({ isSubmitting }) => (
-              <Form style={{ height: "100%" }}>
-                <Stack gap={4} style={{ height: "100%" }}>
-                  <div style={{ marginBottom: "20px" }}>
+                return errors;
+              }}
+              onSubmit={async (values, { resetForm }) => {
+                console.log(values.passcode, props.passcode)
+                if (values.passcode === props.passcode) {
+                  for (let i = 0; i < props.teamData.clueList.length; i++) {
+                    if (props.teamData.clueList[i].id === props.id) {
+                      props.teamData.clueList[i].startTime = Date.now();
+                      props.teamData.clueList[i].status = 2;
+                    }
+                  }
+                  setDoc(
+                    doc(db, "games", props.gamePin, "teams", props.teamName),
+                    props.teamData
+                  ).then(() => {
+                    setShowBack(true);
+                  });
+                } else {
+                  resetForm();
+                }
+              }}
+            >
+              {({ isSubmitting }) => (
+                <Form style={{ height: "100%" }}>
+                  <Stack gap={4} style={{ height: "100%" }}>
+                    <div style={{}}>
 
-                    <i className="fa fa-camera fa-gradient"
-                      onClick={() => setShowCamera(true)}
-                    ></i>
+                      <i className="fa fa-camera fa-gradient"
+                        onClick={() => setShowCamera(true)}
+                      ></i>
 
-                  </div>
-                  <div style={{ marginBottom: "50px" }} className={"wrap-input100"}>
-                    <Field className={"input100"} autoFocus name="passcode" placeholder=" " />
-                    <span class="focus-input100" data-placeholder="passcode"></span>
-                    {/* <ErrorMessage name="passcode" component="p" /> */}
-                  </div>
-                  <div className="wrap-login100-form-btn">
-                    <div className="login100-form-bgbtn"></div>
-                    <button type="submit" className="login100-form-btn">
-                      Submit
-                    </button>
-                    <AutoSubmitToken />
-                  </div>
+                    </div>
+                    <div style={{}} className={"wrap-input100"}>
+                      <Field className={"input100"} name="passcode" placeholder=" " />
+                      <span className="focus-input100" data-placeholder="passcode"></span>
+                      {/* <ErrorMessage name="passcode" component="p" /> */}
+                    </div>
+                    <div className="wrap-login100-form-btn">
+                      <div className="login100-form-bgbtn"></div>
+                      <button type="submit" className="login100-form-btn">
+                        Submit
+                      </button>
+                      <AutoSubmitToken />
+                    </div>
 
 
-                </Stack>
+                  </Stack>
 
-              </Form>
+                </Form>
 
-            )}
-          </Formik>
-        </Card.Body>
-      </Card >
+              )}
+            </Formik>
+          </Card.Body>
+        </Card >
+      </>
     );
   } else if (props.status === 2) {
     return (
-      <div>
-        <ReactCardFlip isFlipped={showBack} flipDirection="vertical">
-          <Card
-            elevation={12}
-            className="clue clue-front"
-            style={{ position: "relative" }}
-          >
-            <div className="cardContainer">
-              <div className="form">
-                <h2>Clue #{props.index}</h2>
-                <p >{props.location}</p>
-              </div>
-              <div className="flipButton">
-                <FontAwesomeIcon
-                  icon={faAngleDown}
-                  onClick={() => setShowBack(!showBack)}
-                  size="4x"
-                />
-              </div>
-            </div>
-          </Card>
+      <>
+        <div style={{ display: "block", position: "relative", textAlign: "center", color: "#ffffff", fontSize: "20px" }}>{props.location}</div>
 
-          <Card
-            elevation={12}
-            className="clue clue-back"
-            style={{ position: "relative", overflow: "auto" }}
-          >
+        <Card
+          elevation={12}
+          className="clue"
+          style={{ position: "relative", }}
+        >
+
+          <Card.Body>
             <div className="cardContainer">
               <div className="form">
                 <p>{props.instructions}</p>
@@ -249,30 +231,26 @@ function ClueCard(props) {
                     }
                   }}
                 >
-                  {({ isSubmitting }) => (
+                  {({ isSubmitting, values }) => (
                     <Form>
-                      <p>
-                        Answer: <Field name="answer" />
-                      </p>
-                      <ErrorMessage name="answer" component="p" />
-                      <button type="submit" disabled={isSubmitting}>
-                        Submit
-                      </button>
+                      <div className={"wrap-input100"}>
+                        <Field className={"input100"} name="answer" placeholder=" " />
+                        <span className="focus-input100" data-placeholder="answer"></span>
+                      </div>
+                      <div className="wrap-login100-form-btn">
+                        <div className="login100-form-bgbtn"></div>
+                        <button type="submit" className="login100-form-btn">
+                          Submit
+                        </button>
+                      </div>
                     </Form>
                   )}
                 </Formik>
               </div>
-              <div className="flipButton">
-                <FontAwesomeIcon
-                  icon={faAngleDown}
-                  onClick={() => setShowBack(!showBack)}
-                  size="4x"
-                />
-              </div>
             </div>
-          </Card>
-        </ReactCardFlip>
-      </div>
+          </Card.Body>
+        </Card>
+      </>
     );
   } else if (props.status === 3) {
     return (
