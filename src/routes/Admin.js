@@ -20,10 +20,16 @@ function Admin() {
       validate={async (values) => {
         const regex = new RegExp('[0-9]{4}$')
         const errors = {}
-        if (!values.gamePin || !regex.test(values.gamePin)) {
+        if (
+          values.gamePin.length > 0 &&
+          (!values.gamePin || !regex.test(values.gamePin))
+        ) {
           errors.gamePin = 'Game pin must be exactly four numbers'
         }
-        if (!(await getDoc(doc(db, 'games', values.gamePin))).exists()) {
+        if (
+          values.gamePin.length > 0 &&
+          !(await getDoc(doc(db, 'games', values.gamePin))).exists()
+        ) {
           errors.gamePin = 'Game does not exist'
         }
         return errors
@@ -37,17 +43,31 @@ function Admin() {
       {({ isSubmitting, values }) => (
         <Form>
           <p>
-
-            <div style={{ color: "white", borderBottom: "2px solid #ffffff" }} className={"wrap-input100 " + (values.answer && "wrap-input100-filled")}>
-              <Field style={{ color: "white" }} name="gamePin" className={"input100"} placeholder=" " />
-              <span className="focus-input100  focus-input100-home-page" data-placeholder="Game Pin"></span>
+            <div
+              style={{ color: 'white', borderBottom: '2px solid #ffffff' }}
+              className={
+                'wrap-input100 ' + (values.answer && 'wrap-input100-filled')
+              }
+            >
+              <Field
+                style={{ color: 'white' }}
+                name="gamePin"
+                className={'input100'}
+                placeholder=" "
+              />
+              <span
+                className="focus-input100  focus-input100-home-page"
+                data-placeholder="Game Pin"
+              ></span>
             </div>
 
-            <Container style={{ marginTop: 15, justifyContent: "center" }}>
+            <Container style={{ marginTop: 15, justifyContent: 'center' }}>
               <Row>
-                <Col xs=
-                  {6} >
-                  <div className="wrap-login100-form-btn" style={{ width: 100 }}>
+                <Col xs={6}>
+                  <div
+                    className="wrap-login100-form-btn"
+                    style={{ width: 100 }}
+                  >
                     <div className="login100-form-bgbtn"></div>
                     <button
                       className="login100-form-btn"

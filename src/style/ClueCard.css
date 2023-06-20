@@ -45,6 +45,7 @@ button:hover {
 .fa-gradient {
   background: -webkit-linear-gradient(left, #21d4fd, #b721ff);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -56,6 +57,7 @@ button:hover {
     rgba(33, 212, 253, 1) 100%
   );
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   cursor: pointer;
 }
