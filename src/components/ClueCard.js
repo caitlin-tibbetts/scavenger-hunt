@@ -38,7 +38,7 @@ function ClueCard(props) {
         <Card
           elevation={12}
           className="clue clue-front"
-          style={{ position: "relative" }}
+          style={{ position: "relative", marginBottom: "10%" }}
         >
           <Card.Body>
             {showCamera && <div>
@@ -101,8 +101,9 @@ function ClueCard(props) {
                   <Stack gap={4} style={{ height: "100%" }}>
                     <div style={{}}>
 
-                      <i className="fa fa-camera fa-gradient"
-                        onClick={() => setShowCamera(true)}
+                      <i className="fa fa-camera fa-gradient qr-camera-icon"
+                        onClick={() => setShowCamera(true)
+                        }
                       ></i>
 
                     </div>
@@ -138,13 +139,13 @@ function ClueCard(props) {
         <Card
           elevation={12}
           className="clue"
-          style={{ position: "relative", }}
+          style={{ position: "relative", marginBottom: 15 }}
         >
 
           <Card.Body>
             <div className="cardContainer">
               <div className="form">
-                <p>{props.instructions}</p>
+                <p className={"clue-instruction"}>{props.instructions}</p>
                 {props.link ? <img src={props.link} alt="Clue" /> : ""}
                 <Formik
                   initialValues={{ answer: "" }}
@@ -233,8 +234,9 @@ function ClueCard(props) {
                 >
                   {({ isSubmitting, values }) => (
                     <Form>
-                      <div className={"wrap-input100"}>
-                        <Field className={"input100"} name="answer" placeholder=" " />
+                      <div className={"wrap-input100 " + (values.answer && "wrap-input100-filled")}>
+                        <Field className={"input100"} name="answer" placeholder=" "
+                        />
                         <span className="focus-input100" data-placeholder="answer"></span>
                       </div>
                       <div className="wrap-login100-form-btn">
@@ -249,56 +251,8 @@ function ClueCard(props) {
               </div>
             </div>
           </Card.Body>
-        </Card>
+        </Card >
       </>
-    );
-  } else if (props.status === 3) {
-    return (
-      <div>
-        <ReactCardFlip isFlipped={showBack} flipDirection="vertical">
-          <Card
-            elevation={12}
-            className="clue clue-front"
-            style={{ position: "relative" }}
-          >
-            <div className="cardContainer">
-              <div className="form">
-                <h2>Clue #{props.index}</h2>
-                <p>{props.location}</p>
-                <p>Finished!</p>
-              </div>
-              <div className="flipButton">
-                <FontAwesomeIcon
-                  icon={faAngleDown}
-                  onClick={() => setShowBack(!showBack)}
-                  size="4x"
-                />
-              </div>
-            </div>
-          </Card>
-
-          <Card
-            elevation={12}
-            className="clue clue-back"
-            style={{ position: "relative", overflow: "auto" }}
-          >
-            <div className="cardContainer">
-              <div className="form">
-                <p>{props.instructions}</p>
-                {props.link ? <img src={props.link} alt="Clue" /> : ""}
-                <p>Finished! Answer: {props.answer}</p>
-              </div>
-              <div className="flipButton">
-                <FontAwesomeIcon
-                  icon={faAngleDown}
-                  onClick={() => setShowBack(!showBack)}
-                  size="4x"
-                />
-              </div>
-            </div>
-          </Card>
-        </ReactCardFlip>
-      </div>
     );
   }
 }

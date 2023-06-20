@@ -227,7 +227,6 @@ button:hover {
 
 .input100 {
   font-size: 15px;
-  color: #555;
   line-height: 1.2;
   display: block;
   width: 100%;
@@ -235,6 +234,8 @@ button:hover {
   background: 0 0;
   padding: 0 5px;
   margin-bottom: 100px;
+ 
+
 }
 
 .focus-input100 {
@@ -260,11 +261,11 @@ button:hover {
   -o-transition: all .4s;
   -moz-transition: all .4s;
   transition: all .4s;
-  background: #6a7dfe;
+  background: #7a8cff;
   background: -webkit-linear-gradient(left,#21d4fd,#b721ff);
   background: -o-linear-gradient(left,#21d4fd,#b721ff);
   background: -moz-linear-gradient(left,#21d4fd,#b721ff);
-  background: linear-gradient(left,#21d4fd,#b721ff);
+  background: linear-gradient(45deg, rgba(33,212,253,1) 0%, rgba(183,33,255,1) 35%, rgba(33,212,253,1) 100%);
 }
 
 .focus-input100::after {
@@ -299,4 +300,26 @@ button:hover {
 
 .input100:not(:placeholder-shown)+.focus-input100::before {
   width: 100% !important
+}
+
+.focus-input100-home-page::after {
+  color: #ffffffb7;
+}
+
+.focus-input100-home-page::before {
+  background: #7a8cff;
+  background: -webkit-linear-gradient(left,#21d4fd,#b721ff);
+  background: -o-linear-gradient(left,#21d4fd,#b721ff);
+  background: -moz-linear-gradient(left,#21d4fd,#b721ff);
+  background: linear-gradient(90deg, rgb(119, 222, 248) 0%, rgb(207, 128, 244) 50%, rgb(231, 113, 212) 100%);
+
+}
+
+
+.qr-camera-icon {
+  margin-bottom: 20px;
+}
+
+.clue-instruction {
+ margin-bottom: 30px;
 }

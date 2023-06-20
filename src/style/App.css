@@ -89,3 +89,14 @@ width: auto;
 .gamepin-input {
   width: auto;
 }
+
+h1.game-welcome-text:has(.input100) {
+  margin-bottom: 50px;
+  color: red
+}
+
+h1.game-welcome-text {
+  color: #ffffffb7; 
+  font-size: 30px;
+   margin-bottom: 20px 
+}

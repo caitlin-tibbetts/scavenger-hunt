@@ -35,7 +35,7 @@ function App() {
   return (
     <div className="App">
       <div className="Floating-form">
-        <h1>Welcome to the Scavenger Hunt!</h1>
+        <h1 className={"game-welcome-text"}>Welcome to the Scavenger Hunt!</h1>
         <Formik
           initialValues={{ teamName: "", gamePin: "" }}
           validate={async (values) => {
@@ -86,32 +86,45 @@ function App() {
           }
           }
         >
-          {({ isSubmitting }) => (
-            <Form>
+          {({ isSubmitting, values }) => (
+            <Form style={{ marginBottom: "20px" }}>
 
-              <p className="teamname-input">
-                <span>Team Name&nbsp;&nbsp;</span>
-                <Field name="teamName" />
+              <div className={"wrap-input100"} style={{ borderBottom: "2px solid #ffffff" }}>
+                <Field className={"input100"} name="teamName" placeholder=" " style={{ color: "#ffffff" }} />
+                <span className="focus-input100 focus-input100-home-page" data-placeholder="Team Name"
+                ></span>
+              </div>
+              {/* <ErrorMessage style={{ color: "red" }} name="teamName" component="p" /> */}
 
-              </p>
-              <ErrorMessage style={{ color: "red" }} name="teamName" component="p" />
 
-              <p className="gamepin-input">
+              <div className={"wrap-input100"} style={{ borderBottom: "2px solid #ffffff" }}>
+                <Field className={"input100"} name="gamePin" placeholder=" " style={{ color: "#ffffff" }} />
+                <span className="focus-input100 focus-input100-home-page" data-placeholder="Game Pin"></span>
+              </div>
+              {/* <ErrorMessage name="gamePin" component="p" /> */}
 
-                <span>Game Pin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <Field name="gamePin" />
+              {/* <div className={"wrap-input100"}>
+                        <Field className={"input100"} name="answer" placeholder=" " />
+                        <span className="focus-input100" data-placeholder="answer"></span>
+                      </div>
+                      <div className="wrap-login100-form-btn">
+                        <div className="login100-form-bgbtn"></div>
+                        <button type="submit" className="login100-form-btn">
+                          Submit
+                        </button>
+                      </div> */}
 
-              </p>
-              <ErrorMessage name="gamePin" component="p" />
-
-              <button type="submit" disabled={isSubmitting}>
-                Join Now!
-              </button>
+              <div className="wrap-login100-form-btn" style={{ width: "50%" }}>
+                <div className="login100-form-bgbtn" ></div>
+                <button type="submit" className="login100-form-btn" >
+                  Join Now
+                </button>
+              </div>
             </Form>
           )}
         </Formik>
       </div>
-    </div>
+    </div >
   );
 }
 
