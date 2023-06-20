@@ -1,10 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import Stack from 'react-bootstrap/Stack';
-import ReactCardFlip from "react-card-flip";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera } from "@fortawesome/free-solid-svg-icons";
-import { faAngleDown, faX } from "@fortawesome/free-solid-svg-icons";
 import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
 import { setDoc, doc } from "firebase/firestore";
 import { QrReader } from "react-qr-reader";
@@ -13,7 +9,6 @@ import "../style/ClueCard.css";
 import db from "../firebase";
 
 function ClueCard(props) {
-  const [showBack, setShowBack] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
   //const [field, meta, helpers] = useField(props);
   const formikRef = useRef();
@@ -89,9 +84,7 @@ function ClueCard(props) {
                   setDoc(
                     doc(db, "games", props.gamePin, "teams", props.teamName),
                     props.teamData
-                  ).then(() => {
-                    setShowBack(true);
-                  });
+                  )
                 } else {
                   resetForm();
                 }
@@ -136,7 +129,7 @@ function ClueCard(props) {
     return (
       <>
         <div style={{ display: "block", position: "relative", textAlign: "center", color: "#ffffff", fontSize: "20px" }}>{props.location}</div>
-
+        <div class="break"></div>
         <Card
           elevation={12}
           className="clue"

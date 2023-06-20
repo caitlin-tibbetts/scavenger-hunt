@@ -7,6 +7,7 @@ import "../style/Admin.css";
 
 import db from "../firebase";
 import AdminForm from "../components/AdminForm";
+import { Col, Container, Row, Stack } from "react-bootstrap";
 
 function Admin() {
   const [gamePin, setGamePin] = useState("");
@@ -37,21 +38,38 @@ function Admin() {
         <Form>
           <p>
             Game Pin: <Field name="gamePin" />
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
-            <button
-              onClick={() => {
-                setCreateGame(true);
-              }}
-            >
-              Create new Game
-            </button>
+
+            <Container style={{ marginTop: 15, justifyContent: "center" }}>
+              <Row>
+                <Col xs={6} >
+                  <div className="wrap-login100-form-btn" style={{ width: 100 }}>
+                    <div className="login100-form-bgbtn"></div>
+                    <button className="login100-form-btn" type="submit" disabled={isSubmitting}>
+                      Submit
+                    </button>
+                  </div>
+                </Col>
+                <Col xs={6}>
+                  <div className="wrap-login100-form-btn" style={{ width: 120 }} >
+                    <div className="login100-form-bgbtn"></div>
+                    <button
+                      className="login100-form-btn"
+                      onClick={() => {
+                        setCreateGame(true);
+                      }}
+                    >
+                      Create new Game
+                    </button>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
           </p>
           <ErrorMessage name="gamePin" component="p" />
         </Form>
-      )}
-    </Formik>
+      )
+      }
+    </Formik >
   );
 
   if (createGame) {
@@ -104,6 +122,7 @@ function Admin() {
       <div className="App">
         <div className="Floating-form">
           {gamePinForm}
+          <hr style={{ width: "100%", height: "100%" }} />
           <AdminForm gamePin={gamePin} />
         </div>
       </div>

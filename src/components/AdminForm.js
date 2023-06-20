@@ -9,6 +9,9 @@ import AdminClueListItem from "./AdminClueListItem";
 
 function AdminForm(props) {
   const [clueList, setClueList] = useState([]);
+
+  const [createNewClue, setCreateNewClue] = useState(false);
+
   useEffect(() => {
     const unsubscribeClues = onSnapshot(
       collection(db, "games", props.gamePin, "clues"),
@@ -28,11 +31,13 @@ function AdminForm(props) {
     };
   }, [props.gamePin]);
   return (
-    <div className="containerAdmin">
-      <div className="form">
-        <CreateClueForm
+    createNewClue ? (
+      // <div className="containerAdmin">
+      <div className="form" >
+        < CreateClueForm
           gamePin={props.gamePin}
           submitButtonText="Add Clue"
+          cancelCreateNewCard={setCreateNewClue}
           onSubmit={async (values, { resetForm }) => {
             await addDoc(collection(db, "games", props.gamePin, "clues"), {
               location: values.location,
@@ -41,27 +46,48 @@ function AdminForm(props) {
               answer: values.answer,
             });
             resetForm();
-          }}
+          }
+          }
         />
-      </div>
-      <div className="adminClues">
-        {clueList &&
-          clueList.map((value) => {
-            return (
-              <AdminClueListItem
-                key={value.id}
-                gamePin={props.gamePin}
-                id={value.id}
-                location={value.location}
-                instructions={value.instructions}
-                answer={value.answer}
-                link={value.link || ""}
-              />
-            );
-          })}
-      </div>
-    </div>
+      </div >
+    )
+      :
+      (
+        <div className="adminClues">
+
+          <div className="wrap-login100-form-btn" style={{ width: 120 }}>
+            <div className="login100-form-bgbtn"></div>
+            <button
+              className="login100-form-btn"
+              onClick={() => {
+                setCreateNewClue(true);
+              }}
+            >
+              Add New Clue
+            </button>
+          </div>
+
+          {
+            clueList &&
+            clueList.map((value) => {
+              return (
+                <AdminClueListItem
+                  key={value.id}
+                  gamePin={props.gamePin}
+                  id={value.id}
+                  location={value.location}
+                  instructions={value.instructions}
+                  answer={value.answer}
+                  link={value.link || ""}
+                />
+              );
+            })
+          }
+        </div >
+      )
+    // </div >
   );
+
 }
 
 export default AdminForm;

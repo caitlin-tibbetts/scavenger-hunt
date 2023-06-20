@@ -5,6 +5,8 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 
 import db from "../firebase";
 import CreateClueForm from "./CreateClueForm";
+import "../style/ClueCard.css";
+import ClueCard from './ClueCard';
 
 function AdminClueListItem(props) {
   const [isEditing, setIsEditing] = useState(false);
@@ -39,19 +41,24 @@ function AdminClueListItem(props) {
     );
   } else {
     return (
-      <div>
-        {props.link ? <img src={props.link} alt="Clue"/> : ""}
+      <div style={{ color: "white" }}>
+        {props.link ? <img src={props.link} alt="Clue" /> : ""}
         <p>Passcode: {props.id.slice(0, 6)}</p>
         <p>Location: {props.location}</p>
         <p>Instructions: {props.instructions}</p>
         <p>Answer: {props.answer}</p>
-        <button
-          onClick={() => {
-            setIsEditing(true);
-          }}
-        >
-          Edit
-        </button>
+
+        <div className="wrap-login100-form-btn">
+          <div className="login100-form-bgbtn"></div>
+          <button className="login100-form-btn"
+            onClick={() => {
+              setIsEditing(true);
+            }}
+          >
+            Edit
+          </button>
+        </div>
+
         <hr />
       </div>
     );
