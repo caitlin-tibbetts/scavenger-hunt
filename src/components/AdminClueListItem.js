@@ -13,12 +13,6 @@ function AdminClueListItem(props) {
   if (isEditing) {
     return (
       <>
-        <FontAwesomeIcon
-          icon={faX}
-          onClick={async () => {
-            await deleteDoc(doc(db, 'games', props.gamePin, 'clues', props.id))
-          }}
-        />
         <CreateClueForm
           gamePin={props.gamePin}
           initialLocation={props.location}

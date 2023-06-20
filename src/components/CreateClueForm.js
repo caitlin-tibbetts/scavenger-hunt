@@ -50,7 +50,7 @@ function CreateClueForm(props) {
                   <div className="login100-form-bgbtn cancel-add-clue"></div>
                   <button
                     className="cancel-add-new-card-btn"
-                    onClick={() => props.cancelCreateNewCard(false)}
+                    onClick={props.cancelCreateNewCard}
                     style={{
                       backgroundColor: 'inherit',
                       border: 'none',

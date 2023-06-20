@@ -36,7 +36,7 @@ function AdminForm(props) {
       <CreateClueForm
         gamePin={props.gamePin}
         submitButtonText="Add Clue"
-        cancelCreateNewCard={setCreateNewClue}
+        cancelCreateNewCard={() => setCreateNewClue(false)}
         onSubmit={async (values, { resetForm }) => {
           await addDoc(collection(db, 'games', props.gamePin, 'clues'), {
             location: values.location,
