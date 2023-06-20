@@ -1,21 +1,21 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Col, Container, Row } from "react-bootstrap";
+import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { Col, Container, Row } from 'react-bootstrap'
 
 function CreateClueForm(props) {
   return (
     <Formik
       initialValues={{
-        location: props.initialLocation || "",
-        instructions: props.initialInstructions || "",
-        link: props.initialLink || "",
-        answer: props.initialAnswer || "",
+        location: props.initialLocation || '',
+        instructions: props.initialInstructions || '',
+        link: props.initialLink || '',
+        answer: props.initialAnswer || '',
       }}
       validate={(values) => {
-        const errors = {};
+        const errors = {}
         if (!values.answer) {
-          errors.answer = "Required";
+          errors.answer = 'Required'
         }
-        return errors;
+        return errors
       }}
       onSubmit={props.onSubmit}
     >
@@ -26,9 +26,7 @@ function CreateClueForm(props) {
           </p>
           <ErrorMessage name="location" component="p" />
 
-          <p>
-            Instructions
-          </p>
+          <p>Instructions</p>
           <Field name="instructions" as="textarea" />
           <ErrorMessage name="instructions" component="p" />
 
@@ -46,20 +44,32 @@ function CreateClueForm(props) {
               <Col xs={6}>
                 <div className="wrap-login100-form-btn">
                   <div className="login100-form-bgbtn cancel-add-clue"></div>
-                  <button className="cancel-add-new-card-btn"
+                  <button
+                    className="cancel-add-new-card-btn"
                     onClick={() => props.cancelCreateNewCard(false)}
-                    style={{ backgroundColor: "inherit", border: "none", color: "white" }}>
-                    {"Cancel"}
+                    style={{
+                      backgroundColor: 'inherit',
+                      border: 'none',
+                      color: 'white',
+                    }}
+                  >
+                    {'Cancel'}
                   </button>
                 </div>
               </Col>
               <Col xs={6}>
                 <div className="wrap-login100-form-btn" style={{ width: 120 }}>
                   <div className="login100-form-bgbtn  submit-add-clue"></div>
-                  <button className="add-new-card-btn" type="submit" disabled={isSubmitting}
+                  <button
+                    className="add-new-card-btn"
+                    type="submit"
+                    disabled={isSubmitting}
                     style={{
-                      backgroundColor: "transparent", border: "none", color: "white"
-                    }}>
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      color: 'white',
+                    }}
+                  >
                     {props.submitButtonText}
                   </button>
                 </div>
@@ -67,10 +77,9 @@ function CreateClueForm(props) {
             </Row>
           </Container>
         </Form>
-      )
-      }
-    </Formik >
-  );
+      )}
+    </Formik>
+  )
 }
 
-export default CreateClueForm;
+export default CreateClueForm

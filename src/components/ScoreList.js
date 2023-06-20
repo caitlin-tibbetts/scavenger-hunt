@@ -1,59 +1,59 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import db from "../firebase";
-import ReactLoading from "react-loading";
+import React from 'react'
+import { useEffect, useState } from 'react'
 
-import { collection, onSnapshot } from "firebase/firestore";
+import 'animate.css'
+import { collection, onSnapshot } from 'firebase/firestore'
+import { Container } from 'react-bootstrap'
+import ReactLoading from 'react-loading'
+import { TransitionGroup } from 'react-transition-group'
+import { CSSTransition } from 'react-transition-group'
 
-import "../style/App.css";
-import "../style/Leaderboard.css";
-
-import { Container } from "react-bootstrap";
-import ScoreCard from "./ScoreCard";
-import "animate.css";
-import { TransitionGroup } from "react-transition-group";
-import { CSSTransition } from "react-transition-group";
+import db from '../firebase'
+import '../style/App.css'
+import '../style/Leaderboard.css'
+import ScoreCard from './ScoreCard'
 
 function ScoreList(props) {
-  const [teamData, setTeamData] = useState();
-  const [currentPage, setCurrentPage] = React.useState(0);
+  const [teamData, setTeamData] = useState()
+  const [currentPage, setCurrentPage] = React.useState(0)
 
   useEffect(() => {
     const timerId = setInterval(() => {
       if (teamData && teamData.length > 6) {
         setCurrentPage((cur) => {
-          return (
-            teamData ? (cur < Math.floor((teamData.length - 1) / 6) ? cur + 1 : 0) : 0
-          )
-        }
-        );
+          return teamData
+            ? cur < Math.floor((teamData.length - 1) / 6)
+              ? cur + 1
+              : 0
+            : 0
+        })
       }
-    }, 5000);
+    }, 5000)
 
     return () => {
-      clearInterval(timerId);
-    };
-  }, [teamData]);
+      clearInterval(timerId)
+    }
+  }, [teamData])
 
   useEffect(() => {
     const unsubscribeTeams = onSnapshot(
-      collection(db, "games", props.gamePin, "teams"),
+      collection(db, 'games', props.gamePin, 'teams'),
       (snapshot) => {
         if (snapshot.size) {
           setTeamData(
             snapshot.docs
               .map((document) => {
-                return document.data();
+                return document.data()
               })
               .sort((a, b) => b.points - a.points)
-          );
+          )
         }
       }
-    );
+    )
     return () => {
-      unsubscribeTeams();
-    };
-  }, [props.gamePin]);
+      unsubscribeTeams()
+    }
+  }, [props.gamePin])
 
   return (
     <>
@@ -65,7 +65,7 @@ function ScoreList(props) {
       <Container
         fluid
         direction="column"
-        style={{ flexWrap: "nowrap", overflow: "auto" }}
+        style={{ flexWrap: 'nowrap', overflow: 'auto' }}
       >
         {teamData ? (
           <TransitionGroup>
@@ -78,9 +78,9 @@ function ScoreList(props) {
                     in={true}
                     classNames={{
                       enterActive:
-                        "animate__animated animate__lightSpeedInLeft",
+                        'animate__animated animate__lightSpeedInLeft',
                       exitActive:
-                        "animate__animated animate__lightSpeedOutLeft",
+                        'animate__animated animate__lightSpeedOutLeft',
                     }}
                     timeout={900}
                     unmountOnExit
@@ -89,7 +89,7 @@ function ScoreList(props) {
                       item
                       key={i + 1}
                       xs={12}
-                      style={{ marginBottom: "2vh" }}
+                      style={{ marginBottom: '2vh' }}
                     >
                       <ScoreCard
                         key={teamInfo.id}
@@ -100,7 +100,7 @@ function ScoreList(props) {
                     </Container>
                   </CSSTransition>
                 )
-              );
+              )
             })}
           </TransitionGroup>
         ) : (
@@ -110,7 +110,7 @@ function ScoreList(props) {
         )}
       </Container>
     </>
-  );
+  )
 }
 
-export default ScoreList;
+export default ScoreList

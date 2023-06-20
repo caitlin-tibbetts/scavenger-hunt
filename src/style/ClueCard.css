@@ -1,222 +1,226 @@
 .overlay {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background: rgba(51,51,51,0.7);
-    z-index: 10;
-  }
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(51, 51, 51, 0.7);
+  z-index: 10;
+}
 
-  .break {
-    flex-basis: 100%;
-    height: 0;
-  }
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
 
-button.login100-form-btn{
-    outline: none!important;
-    border: none;
-    background: 0 0
+button.login100-form-btn {
+  outline: none !important;
+  border: none;
+  background: 0 0;
 }
 
 button:hover {
-    cursor: pointer
+  cursor: pointer;
 }
 
-
-
 .container-login100 {
-    width: 100%;
-    min-height: 100vh;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .wrap-login100 {
-    width: 100%;
-    border-radius: 10px;
-    overflow: hidden;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-
 .fa-gradient {
-	background: -webkit-linear-gradient(left,#21d4fd,#b721ff);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
+  background: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .fa-gradient:hover {
-  background: linear-gradient(90deg, rgba(33,212,253,1) 0%, rgba(183,33,255,1) 35%, rgba(33,212,253,1) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(33, 212, 253, 1) 0%,
+    rgba(183, 33, 255, 1) 35%,
+    rgba(33, 212, 253, 1) 100%
+  );
   -webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
   cursor: pointer;
 }
 
 .focus-input100 {
-    position: absolute;
-    display: block;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    text-align: center;
-    pointer-events: none
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  text-align: center;
+  pointer-events: none;
 }
 
 .focus-input100::before {
-    content: "";
-    display: block;
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    -webkit-transition: all .4s;
-    -o-transition: all .4s;
-    -moz-transition: all .4s;
-    transition: all .4s;
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
 
-    background: -webkit-linear-gradient(left,#21d4fd,#b721ff);
-    background: -o-linear-gradient(left,#21d4fd,#b721ff);
-    background: -moz-linear-gradient(left,#21d4fd,#b721ff);
-    background: linear-gradient(left,#21d4fd,#b721ff)
+  background: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+  background: -o-linear-gradient(left, #21d4fd, #b721ff);
+  background: -moz-linear-gradient(left, #21d4fd, #b721ff);
+  background: linear-gradient(to right, #21d4fd, #b721ff);
 }
 
 .focus-input100::after {
-    font-size: 15px;
-    color: #999;
-    line-height: 1.2;
-    content: attr(data-placeholder);
-    display: block;
-    width: 100%;
-    position: absolute;
-    top: 16px;
-    left: 0;
-    padding-left: 5px;
-    -webkit-transition: all .4s;
-    -o-transition: all .4s;
-    -moz-transition: all .4s;
-    transition: all .4s
+  font-size: 15px;
+  color: #999;
+  line-height: 1.2;
+  content: attr(data-placeholder);
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 16px;
+  left: 0;
+  padding-left: 5px;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
 }
 
-.input100:focus+.focus-input100::after {
-    top: -15px
+.input100:focus + .focus-input100::after {
+  top: -15px;
 }
 
-.input100:focus+.focus-input100::before {
-    width: 100%
+.input100:focus + .focus-input100::before {
+  width: 100%;
 }
 
-.has-val.input100+.focus-input100::after {
-    top: -15px
+.has-val.input100 + .focus-input100::after {
+  top: -15px;
 }
 
-.has-val.input100+.focus-input100::before {
-    width: 100%
+.has-val.input100 + .focus-input100::before {
+  width: 100%;
 }
 
 .btn-show-pass {
-    font-size: 15px;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    align-items: center;
-    position: absolute;
-    height: 100%;
-    top: 0;
-    right: 0;
-    padding-right: 5px;
-    cursor: pointer;
-    -webkit-transition: all .4s;
-    -o-transition: all .4s;
-    -moz-transition: all .4s;
-    transition: all .4s
+  font-size: 15px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+  padding-right: 5px;
+  cursor: pointer;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
 }
 
 .btn-show-pass:hover {
-    color: #6a7dfe;
-    color: -webkit-linear-gradient(left,#21d4fd,#b721ff);
-    color: -o-linear-gradient(left,#21d4fd,#b721ff);
-    color: -moz-linear-gradient(left,#21d4fd,#b721ff);
-    color: linear-gradient(left,#21d4fd,#b721ff)
+  color: #6a7dfe;
+  color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+  color: -o-linear-gradient(left, #21d4fd, #b721ff);
+  color: -moz-linear-gradient(left, #21d4fd, #b721ff);
+  color: linear-gradient(to right, #21d4fd, #b721ff);
 }
 
 .btn-show-pass.active {
-    color: #6a7dfe;
-    color: -webkit-linear-gradient(left,#21d4fd,#b721ff);
-    color: -o-linear-gradient(left,#21d4fd,#b721ff);
-    color: -moz-linear-gradient(left,#21d4fd,#b721ff);
-    color: linear-gradient(left,#21d4fd,#b721ff)
+  color: #6a7dfe;
+  color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+  color: -o-linear-gradient(left, #21d4fd, #b721ff);
+  color: -moz-linear-gradient(left, #21d4fd, #b721ff);
+  color: linear-gradient(to right, #21d4fd, #b721ff);
 }
 
 .container-login100-form-btn {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    width: inherit;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  width: inherit;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .wrap-login100-form-btn {
-    width: 90%;
-    display: block;
-    position: relative;
-    z-index: 1;
-    border-radius: 25px;
-    overflow: hidden;
-    margin: 0 auto
+  width: 90%;
+  display: block;
+  position: relative;
+  z-index: 1;
+  border-radius: 25px;
+  overflow: hidden;
+  margin: 0 auto;
 }
 
-    .login100-form-bgbtn {
-    position: absolute;
-    z-index: -1;
-    width: 300%;
-    height: 100%;
-    max-height: 50px;
-    background: linear-gradient(90deg, rgba(33,212,253,1) 0%, rgba(183,33,255,1) 35%, rgba(33,212,253,1) 100%);
-    top: 0;
-    left: -100%;
-    -webkit-transition: all .4s;
-    -o-transition: all .4s;
-    -moz-transition: all .4s;
-    transition: all .4s
+.login100-form-bgbtn {
+  position: absolute;
+  z-index: -1;
+  width: 300%;
+  height: 100%;
+  max-height: 50px;
+  background: linear-gradient(
+    90deg,
+    rgba(33, 212, 253, 1) 0%,
+    rgba(183, 33, 255, 1) 35%,
+    rgba(33, 212, 253, 1) 100%
+  );
+  top: 0;
+  left: -100%;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
 }
 
 .login100-form-btn {
-    font-size: 15px;
-    color: #fff;
-    line-height: 1.2;
-    text-transform: uppercase;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 0;
-    width: 90%;
-    height: 25px
-    
+  font-size: 15px;
+  color: #fff;
+  line-height: 1.2;
+  text-transform: uppercase;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 0;
+  width: 90%;
+  height: 25px;
 }
 
 .wrap-login100-form-btn:hover .login100-form-bgbtn {
-    left: 0
+  left: 0;
 }
-
-
 
 .wrap-input100 {
   width: 100%;
@@ -234,8 +238,6 @@ button:hover {
   background: 0 0;
   padding: 0 5px;
   margin-bottom: 100px;
- 
-
 }
 
 .focus-input100 {
@@ -246,26 +248,30 @@ button:hover {
   top: 0;
   left: 0;
   pointer-events: none;
-
 }
 
 .focus-input100::before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   bottom: 2;
   left: 0;
   width: 0;
   height: 2px;
-  -webkit-transition: all .4s;
-  -o-transition: all .4s;
-  -moz-transition: all .4s;
-  transition: all .4s;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
   background: #7a8cff;
-  background: -webkit-linear-gradient(left,#21d4fd,#b721ff);
-  background: -o-linear-gradient(left,#21d4fd,#b721ff);
-  background: -moz-linear-gradient(left,#21d4fd,#b721ff);
-  background: linear-gradient(45deg, rgba(33,212,253,1) 0%, rgba(183,33,255,1) 35%, rgba(33,212,253,1) 100%);
+  background: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+  background: -o-linear-gradient(left, #21d4fd, #b721ff);
+  background: -moz-linear-gradient(left, #21d4fd, #b721ff);
+  background: linear-gradient(
+    45deg,
+    rgba(33, 212, 253, 1) 0%,
+    rgba(183, 33, 255, 1) 35%,
+    rgba(33, 212, 253, 1) 100%
+  );
 }
 
 .focus-input100::after {
@@ -279,27 +285,26 @@ button:hover {
   position: absolute;
   vertical-align: top;
   justify-content: center;
-  -webkit-transition: all .4s;
-  -o-transition: all .4s;
-  -moz-transition: all .4s;
-  transition: all .4s;
-
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
 }
 
-.input100:focus+.focus-input100::after {
-  top: -15px
+.input100:focus + .focus-input100::after {
+  top: -15px;
 }
 
-.input100:focus+.focus-input100::before {
-  width: 100%
+.input100:focus + .focus-input100::before {
+  width: 100%;
 }
 
-.input100:not(:placeholder-shown)+.focus-input100::after {
-  top: -15px
+.input100:not(:placeholder-shown) + .focus-input100::after {
+  top: -15px;
 }
 
-.input100:not(:placeholder-shown)+.focus-input100::before {
-  width: 100% !important
+.input100:not(:placeholder-shown) + .focus-input100::before {
+  width: 100% !important;
 }
 
 .focus-input100-home-page::after {
@@ -308,20 +313,23 @@ button:hover {
 
 .focus-input100-home-page::before {
   background: #7a8cff;
-  background: -webkit-linear-gradient(left,#21d4fd,#b721ff);
-  background: -o-linear-gradient(left,#21d4fd,#b721ff);
-  background: -moz-linear-gradient(left,#21d4fd,#b721ff);
-  background: linear-gradient(90deg, rgb(119, 222, 248) 0%, rgb(207, 128, 244) 50%, rgb(231, 113, 212) 100%);
-
+  background: -webkit-linear-gradient(left, #21d4fd, #b721ff);
+  background: -o-linear-gradient(left, #21d4fd, #b721ff);
+  background: -moz-linear-gradient(left, #21d4fd, #b721ff);
+  background: linear-gradient(
+    90deg,
+    rgb(119, 222, 248) 0%,
+    rgb(207, 128, 244) 50%,
+    rgb(231, 113, 212) 100%
+  );
 }
-
 
 .qr-camera-icon {
   margin-bottom: 20px;
 }
 
 .clue-instruction {
- margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .break {

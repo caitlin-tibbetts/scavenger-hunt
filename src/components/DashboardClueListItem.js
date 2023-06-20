@@ -1,24 +1,25 @@
-import React, { useState } from "react";
-import { setDoc, doc } from "firebase/firestore";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX, faCheck, faPencil } from "@fortawesome/free-solid-svg-icons";
-import { Formik, Form, Field } from "formik";
+import React, { useState } from 'react'
 
-import db from "../firebase";
+import { faCheck, faPencil, faX } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { doc, setDoc } from 'firebase/firestore'
+import { Field, Form, Formik } from 'formik'
+
+import db from '../firebase'
 
 function DashboardClueListItem(props) {
-  let statusString = "";
+  let statusString = ''
   if (props.status === 0) {
-    statusString = "Not Started";
+    statusString = 'Not Started'
   } else if (props.status === 1) {
-    statusString = "En Route";
+    statusString = 'En Route'
   } else if (props.status === 2) {
-    statusString = "In Progress";
+    statusString = 'In Progress'
   } else if (props.status === 3) {
-    statusString = "Finished";
+    statusString = 'Finished'
   }
 
-  const [addingPoints, setAddingPoints] = useState(false);
+  const [addingPoints, setAddingPoints] = useState(false)
 
   if (props.teamAnswer) {
     if (addingPoints) {
@@ -31,29 +32,33 @@ function DashboardClueListItem(props) {
               <p>Location: {props.location}</p>
               <p>Instructions: {props.instructions}</p>
               <p>Correct Answer: {props.answer}</p>
-              <p>Team Answer: {props.teamAnswer ? props.teamAnswer : ""}</p>
+              <p>Team Answer: {props.teamAnswer ? props.teamAnswer : ''}</p>
             </div>
             <div className="right">
               <p>{statusString}</p>
               <Formik
-                initialValues={{ points: Math.round(props.points) }}
+                initialValues={{
+                  points: Math.round(props.points),
+                }}
                 validate={(values) => {
-                  return {};
+                  return {}
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                   for (let i = 0; i < props.teamData.clueList.length; i++) {
                     if (props.teamData.clueList[i].id === props.id) {
                       props.teamData.points -= props.teamData.clueList[i].points
-                      props.teamData.clueList[i].points = parseInt(values.points)
+                      props.teamData.clueList[i].points = parseInt(
+                        values.points
+                      )
                       props.teamData.points += parseInt(values.points)
                     }
                   }
                   setDoc(
-                    doc(db, "games", props.gamePin, "teams", props.teamName),
+                    doc(db, 'games', props.gamePin, 'teams', props.teamName),
                     props.teamData
-                  ).then();
-                  setAddingPoints(false);
-                  setSubmitting(false);
+                  ).then()
+                  setAddingPoints(false)
+                  setSubmitting(false)
                 }}
               >
                 {({ isSubmitting }) => (
@@ -82,16 +87,16 @@ function DashboardClueListItem(props) {
                 for (let i = 0; i < props.teamData.clueList.length; i++) {
                   if (props.teamData.clueList[i].id === props.id) {
                     if (!props.teamData.clueList[i].correct) {
-                      props.teamData.clueList[i].points += 500;
-                      props.teamData.points += 500;
+                      props.teamData.clueList[i].points += 500
+                      props.teamData.points += 500
                     }
-                    props.teamData.clueList[i].correct = true;
+                    props.teamData.clueList[i].correct = true
                   }
                 }
                 setDoc(
-                  doc(db, "games", props.gamePin, "teams", props.teamName),
+                  doc(db, 'games', props.gamePin, 'teams', props.teamName),
                   props.teamData
-                ).then();
+                ).then()
               }}
             >
               Correct
@@ -101,16 +106,16 @@ function DashboardClueListItem(props) {
                 for (let i = 0; i < props.teamData.clueList.length; i++) {
                   if (props.teamData.clueList[i].id === props.id) {
                     if (props.teamData.clueList[i].correct) {
-                      props.teamData.clueList[i].points -= 500;
-                      props.teamData.points -= 500;
+                      props.teamData.clueList[i].points -= 500
+                      props.teamData.points -= 500
                     }
-                    props.teamData.clueList[i].correct = false;
+                    props.teamData.clueList[i].correct = false
                   }
                 }
                 setDoc(
-                  doc(db, "games", props.gamePin, "teams", props.teamName),
+                  doc(db, 'games', props.gamePin, 'teams', props.teamName),
                   props.teamData
-                ).then();
+                ).then()
               }}
             >
               Incorrect
@@ -118,7 +123,7 @@ function DashboardClueListItem(props) {
           </p>
           <hr />
         </div>
-      );
+      )
     } else {
       return (
         <div>
@@ -129,16 +134,16 @@ function DashboardClueListItem(props) {
               <p>Location: {props.location}</p>
               <p>Instructions: {props.instructions}</p>
               <p>Correct Answer: {props.answer}</p>
-              <p>Team Answer: {props.teamAnswer ? props.teamAnswer : ""}</p>
+              <p>Team Answer: {props.teamAnswer ? props.teamAnswer : ''}</p>
             </div>
             <div className="right">
               <p>{statusString}</p>
               <p>
-                {props.points ? Math.round(props.points) : 0}{" "}
+                {props.points ? Math.round(props.points) : 0}{' '}
                 <FontAwesomeIcon
                   icon={faPencil}
                   onClick={() => {
-                    setAddingPoints(true);
+                    setAddingPoints(true)
                   }}
                 />
               </p>
@@ -157,16 +162,16 @@ function DashboardClueListItem(props) {
                 for (let i = 0; i < props.teamData.clueList.length; i++) {
                   if (props.teamData.clueList[i].id === props.id) {
                     if (!props.teamData.clueList[i].correct) {
-                      props.teamData.clueList[i].points += 500;
-                      props.teamData.points += 500;
+                      props.teamData.clueList[i].points += 500
+                      props.teamData.points += 500
                     }
-                    props.teamData.clueList[i].correct = true;
+                    props.teamData.clueList[i].correct = true
                   }
                 }
                 setDoc(
-                  doc(db, "games", props.gamePin, "teams", props.teamName),
+                  doc(db, 'games', props.gamePin, 'teams', props.teamName),
                   props.teamData
-                ).then();
+                ).then()
               }}
             >
               Correct
@@ -176,16 +181,16 @@ function DashboardClueListItem(props) {
                 for (let i = 0; i < props.teamData.clueList.length; i++) {
                   if (props.teamData.clueList[i].id === props.id) {
                     if (props.teamData.clueList[i].correct) {
-                      props.teamData.clueList[i].points -= 500;
-                      props.teamData.points -= 500;
+                      props.teamData.clueList[i].points -= 500
+                      props.teamData.points -= 500
                     }
-                    props.teamData.clueList[i].correct = false;
+                    props.teamData.clueList[i].correct = false
                   }
                 }
                 setDoc(
-                  doc(db, "games", props.gamePin, "teams", props.teamName),
+                  doc(db, 'games', props.gamePin, 'teams', props.teamName),
                   props.teamData
-                ).then();
+                ).then()
               }}
             >
               Incorrect
@@ -193,7 +198,7 @@ function DashboardClueListItem(props) {
           </p>
           <hr />
         </div>
-      );
+      )
     }
   }
   return (
@@ -212,7 +217,7 @@ function DashboardClueListItem(props) {
       </div>
       <hr />
     </div>
-  );
+  )
 }
 
-export default DashboardClueListItem;
+export default DashboardClueListItem

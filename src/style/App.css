@@ -1,10 +1,14 @@
 .App {
   text-align: center;
-  background: rgb(70,84,156);
-  background: linear-gradient(180deg, rgb(96, 120, 238) 0%, rgb(103, 49, 179) 49%, rgb(170, 23, 184) 87%);
+  background: rgb(70, 84, 156);
+  background: linear-gradient(
+    180deg,
+    rgb(96, 120, 238) 0%,
+    rgb(103, 49, 179) 49%,
+    rgb(170, 23, 184) 87%
+  );
   min-height: 100vh;
 
- 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +16,6 @@
   font-size: calc(10px + 2vmin);
   color: #cdeac0;
 }
-
 
 .Floating-form {
   /* backdrop-filter: blur(20px); */
@@ -26,7 +29,6 @@
   border-radius: 1vh;
   padding: 2%;
   overflow: hidden;
-
 }
 
 button {
@@ -76,14 +78,12 @@ p {
   width: 50vh;
 }
 
-
 h2 {
   margin: 0;
 }
 
-
 .teamname-input {
-width: auto;
+  width: auto;
 }
 
 .gamepin-input {
@@ -92,11 +92,11 @@ width: auto;
 
 h1.game-welcome-text:has(.input100) {
   margin-bottom: 50px;
-  color: red
+  color: red;
 }
 
 h1.game-welcome-text {
-  color: #ffffffb7; 
+  color: #ffffffb7;
   font-size: 30px;
-   margin-bottom: 20px 
+  margin-bottom: 20px;
 }

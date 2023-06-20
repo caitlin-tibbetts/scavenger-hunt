@@ -1,0 +1,14 @@
+{
+  "importOrder": [
+    "^react*$",
+    "<THIRD_PARTY_MODULES>",
+    "^[./]",
+    "^components/(.*)$"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "semi": false,
+  "singleQuote": true
+}
