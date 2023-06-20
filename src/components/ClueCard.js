@@ -35,6 +35,7 @@ function ClueCard(props) {
     return (
       <>
         <div style={{ display: "block", position: "relative", textAlign: "center", color: "#ffffff", fontSize: "20px" }}>{props.location}</div>
+        <div class="break"></div>
         <Card
           elevation={12}
           className="clue clue-front"
