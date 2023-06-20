@@ -29,19 +29,25 @@ function Admin() {
         return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
+        console.log("here")
         setGamePin(values.gamePin);
         setIsGamePinSet(true);
         setSubmitting(false);
       }}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting, values }) => (
         <Form>
           <p>
-            Game Pin: <Field name="gamePin" />
+
+            <div style={{ color: "white", borderBottom: "2px solid #ffffff" }} className={"wrap-input100 " + (values.answer && "wrap-input100-filled")}>
+              <Field style={{ color: "white" }} name="gamePin" className={"input100"} placeholder=" " />
+              <span className="focus-input100  focus-input100-home-page" data-placeholder="Game Pin"></span>
+            </div>
 
             <Container style={{ marginTop: 15, justifyContent: "center" }}>
               <Row>
-                <Col xs={6} >
+                <Col xs=
+                  {6} >
                   <div className="wrap-login100-form-btn" style={{ width: 100 }}>
                     <div className="login100-form-bgbtn"></div>
                     <button className="login100-form-btn" type="submit" disabled={isSubmitting}>
