@@ -66,7 +66,7 @@ function AdminForm(props) {
               Add New Clue
             </button>
           </div>
-
+          <hr />
           {
             clueList &&
             clueList.map((value) => {
