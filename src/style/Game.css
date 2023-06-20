@@ -57,7 +57,7 @@ all: initial;
 .game-welcome {
   margin-bottom: 50px;
   position: relative;
-  top: -11px;
+  top: -5px;
   padding: 0px;
   left: 11px;
 }

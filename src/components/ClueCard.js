@@ -40,7 +40,7 @@ function ClueCard(props) {
       >
         {
 
-          <Card.Title style={{ position: "absolute", top: "-30px", left: 65, color: "#ffffff" }}>{props.location}</Card.Title>
+          <Card.Title style={{ position: "relative", top: "-30px", textAlign: "center", color: "#ffffff" }}>{props.location}</Card.Title>
         }
         <Card.Body style={{ borderBottom: "1px solid rgba(0,0,0,.125)" }}>
           {showCamera && <div>

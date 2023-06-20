@@ -269,12 +269,12 @@ button:hover {
   color: #999;
   line-height: 1.2;
   content: attr(data-placeholder);
-  display: block;
+  display: flex;
   width: 100%;
+  top: calc(50% - 0.59em);
   position: absolute;
-  top: 10px;
-  left: 0;
-  padding-left: 5px;
+  vertical-align: top;
+  justify-content: center;
   -webkit-transition: all .4s;
   -o-transition: all .4s;
   -moz-transition: all .4s;
