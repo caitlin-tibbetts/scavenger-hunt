@@ -44,7 +44,7 @@ function CreateClueForm(props) {
           </p>
           <ErrorMessage name="answer" component="p" />
           <Container>
-            <Row>
+            <Row style={{marginLeft: "10px"}}>
               <Col xs={6}>
                 <div className="wrap-login100-form-btn">
                   <div className="login100-form-bgbtn cancel-add-clue"></div>
@@ -54,7 +54,7 @@ function CreateClueForm(props) {
                     style={{
                       backgroundColor: 'inherit',
                       border: 'none',
-                      color: 'white',
+                      color: 'white'
                     }}
                   >
                     {'Cancel'}

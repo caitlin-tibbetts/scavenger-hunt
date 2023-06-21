@@ -56,39 +56,46 @@ function Admin() {
                 placeholder=" "
               />
               <span
-                className="focus-input100  focus-input100-home-page"
+                className="focus-input100  focus-input100-game-pin"
                 data-placeholder="Game Pin"
+                style={{"::after": {
+                  marginTop: 100
+                }}}
               ></span>
             </div>
 
-            <Container style={{ marginTop: 15, justifyContent: 'center' }}>
-              <Row>
-                <Col xs={6}>
+            <Container style={{ marginTop: 15}}>
+              <Row style={{margin: 0, width: "100%", marginLeft: -25 }}>
+                <Col xs={6} >
                   <div
                     className="wrap-login100-form-btn"
-                    style={{ width: 100 }}
+                    style={{ width: 100}}
                   >
                     <div className="login100-form-bgbtn"></div>
                     <button
                       className="login100-form-btn"
                       type="submit"
                       disabled={isSubmitting}
+                      style={{fontSize: 14}}
                     >
                       Submit
                     </button>
                   </div>
                 </Col>
-                <Col xs={6}>
+                <Col xs={6} >
                   <div
                     className="wrap-login100-form-btn"
-                    style={{ width: 120 }}
+                    style={{ width: 150, padding: 1 }}
                   >
                     <div className="login100-form-bgbtn"></div>
                     <button
                       className="login100-form-btn"
+                      style={{fontSize: 14}}
                       onClick={() => {
                         setCreateGame(true)
-                      }}
+                      }}  
+                 
+                   
                     >
                       Create new Game
                     </button>
@@ -151,7 +158,7 @@ function Admin() {
   } else if (isGamePinSet) {
     return (
       <div className="App">
-        <div className="Floating-form">
+        <div className="Floating-form" style={{width: "400px"}}>
           {gamePinForm}
           <hr style={{ width: '100%', height: '100%' }} />
           <AdminForm gamePin={gamePin} />
@@ -161,7 +168,7 @@ function Admin() {
   } else {
     return (
       <div className="App">
-        <div className="Floating-form">{gamePinForm}</div>
+        <div className="Floating-form" style={{verticalAlign: "center", height: 200, paddingTop: 40}}>{gamePinForm}</div>
       </div>
     )
   }

@@ -42,10 +42,12 @@ function AdminClueListItem(props) {
         <p>Instructions: {props.instructions}</p>
         <p>Answer: {props.answer}</p>
 
-        <div className="wrap-login100-form-btn">
-          <div className="login100-form-bgbtn"></div>
+        <div className="wrap-login100-form-btn"     style={{margin: 0,  width: 110, 
+        margin: "0 auto"}}>
+          <div className="login100-form-bgbtn"   style={{margin: 0}}></div>
           <button
             className="login100-form-btn"
+            style={{margin: 0, width: "100%", fontSize: 14}}
             onClick={() => {
               setIsEditing(true)
             }}
