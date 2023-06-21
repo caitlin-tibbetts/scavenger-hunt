@@ -158,7 +158,7 @@ function Admin() {
   } else if (isGamePinSet) {
     return (
       <div className="App">
-        <div className="Floating-form" style={{width: "400px"}}>
+        <div className="Floating-form" style={{width: 200, maxWidth: 250}}>
           {gamePinForm}
           <hr style={{ width: '100%', height: '100%' }} />
           <AdminForm gamePin={gamePin} />

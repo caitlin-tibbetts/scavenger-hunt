@@ -51,3 +51,6 @@ img {
   color: #ffffffb7;
 }
 
+#root {
+  overflow: hidden;
+}
