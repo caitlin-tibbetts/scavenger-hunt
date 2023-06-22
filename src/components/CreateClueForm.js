@@ -21,30 +21,42 @@ function CreateClueForm(props) {
     >
       {({ isSubmitting }) => (
         <Form>
-          <p >
-            Location: <Field name="location" style={{fontSize: 15, 
-            height: 30, width: "100%"}}/>
+          <p>
+            Location:{' '}
+            <Field
+              name="location"
+              style={{ fontSize: 15, height: 30, width: '100%' }}
+            />
           </p>
           <ErrorMessage name="location" component="p" />
 
           <p>Instructions</p>
-          <Field name="instructions" as="textarea" style={{fontSize: 15, 
-            height: 100, width: "100%"}}/>
+          <Field
+            name="instructions"
+            as="textarea"
+            style={{ fontSize: 15, height: 100, width: '100%' }}
+          />
           <ErrorMessage name="instructions" component="p" />
 
-          <p >
-            Picture Link: <Field name="link" style={{fontSize: 15, 
-            height: 30, width: "100%"}}/>
+          <p>
+            Picture Link:{' '}
+            <Field
+              name="link"
+              style={{ fontSize: 15, height: 30, width: '100%' }}
+            />
           </p>
           <ErrorMessage name="link" component="p" />
 
           <p>
-            Answer: <Field name="answer" style={{fontSize: 15, 
-            height: 30, width: "100%"}}/>
+            Answer:{' '}
+            <Field
+              name="answer"
+              style={{ fontSize: 15, height: 30, width: '100%' }}
+            />
           </p>
           <ErrorMessage name="answer" component="p" />
           <Container>
-            <Row style={{marginLeft: "10px"}}>
+            <Row style={{ marginLeft: '10px' }}>
               <Col xs={6}>
                 <div className="wrap-login100-form-btn">
                   <div className="login100-form-bgbtn cancel-add-clue"></div>
@@ -54,7 +66,7 @@ function CreateClueForm(props) {
                     style={{
                       backgroundColor: 'inherit',
                       border: 'none',
-                      color: 'white'
+                      color: 'white',
                     }}
                   >
                     {'Cancel'}

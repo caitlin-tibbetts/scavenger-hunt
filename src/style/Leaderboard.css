@@ -1,14 +1,18 @@
 .leaderboard-header {
   margin-bottom: 5vh;
+  color: white;
 }
 
 .score-card {
-  background-color: white;
+  background-color: #fdfdfd20;
+  color: white;
   min-height: 5vh;
+  border-radius: 5px;
 }
 
 .score-form {
   max-width: 100%;
+  width: 800px;
   position: absolute;
   top: 0;
 }

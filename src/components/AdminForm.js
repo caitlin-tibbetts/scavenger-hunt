@@ -50,11 +50,13 @@ function AdminForm(props) {
     </div>
   ) : (
     <div className="adminClues">
-      <div className="wrap-login100-form-btn" style={{ width: 120, height: "fit-content" }}>
-        <div   className="login100-form-bgbtn"
-        ></div>
+      <div
+        className="wrap-login100-form-btn"
+        style={{ width: 120, height: 'fit-content' }}
+      >
+        <div className="login100-form-bgbtn"></div>
         <button
-         style={{padding: 5, textAlign: 'center', fontSize: 14 }}
+          style={{ padding: 5, textAlign: 'center', fontSize: 14 }}
           className="login100-form-btn"
           onClick={() => {
             setCreateNewClue(true)

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { doc, setDoc } from 'firebase/firestore'
 import { Field, Form, Formik, useFormikContext } from 'formik'
@@ -8,11 +8,16 @@ import { QrReader } from 'react-qr-reader'
 
 import db from '../firebase'
 import '../style/ClueCard.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faX } from '@fortawesome/free-solid-svg-icons'
 
 function ClueCard(props) {
   const [showCamera, setShowCamera] = useState(false)
   //const [field, meta, helpers] = useField(props);
   const formikRef = useRef()
+
+  const [height, setHeight] = useState(0)
+
 
   const AutoSubmitToken = () => {
     // Grab values and submitForm from context
@@ -54,9 +59,10 @@ function ClueCard(props) {
                     constraints={{
                       facingMode: 'environment',
                     }}
-                    style={{ position: 'fixed' }}
-                    containerStyle={{ height: '10vh' }}
-                    videoStyle={{ position: 'fixed' }}
+                    videoId={"qr-camera"}
+                    containerStyle={{ height: "100%"  }}
+                    videoContainerStyle={{padding: 0, height: "100%" }}
+                    videoStyle={{ height: "100%"  }}
                     onResult={(result, error) => {
                       if (!!result) {
                         formikRef.current.setFieldValue(
@@ -71,6 +77,24 @@ function ClueCard(props) {
                         console.log(error)
                       }
                     }}
+                  />
+                  <FontAwesomeIcon
+                    icon={faX}
+                    onClick={() => setShowCamera(false)}
+                    style={{
+                      zIndex: 100,
+                      padding: 10,
+                      background: 'grey',
+                      borderRadius: '50%',
+                      width: '4vh',
+                      height: '4vh',
+                      color: 'white',
+                      position: 'fixed',
+                      display: 'block',
+                      top: 50,
+                      right: 50,
+                    }}
+                    className="close"
                   />
                 </div>
               </div>

@@ -18,10 +18,16 @@ function Dashboard() {
       validate={async (values) => {
         const regex = new RegExp('[0-9]{4}$')
         const errors = {}
-        if (!values.gamePin || !regex.test(values.gamePin)) {
+        if (
+          values.gamePin.length > 0 &&
+          (!values.gamePin || !regex.test(values.gamePin))
+        ) {
           errors.gamePin = 'Game pin must be exactly four numbers'
         }
-        if (!(await getDoc(doc(db, 'games', values.gamePin))).exists()) {
+        if (
+          values.gamePin.length > 0 &&
+          !(await getDoc(doc(db, 'games', values.gamePin))).exists()
+        ) {
           errors.gamePin = 'Game does not exist'
         }
         return errors
