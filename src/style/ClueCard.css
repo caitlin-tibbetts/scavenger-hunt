@@ -239,7 +239,7 @@ button:hover {
   font-size: 15px;
   line-height: 1.2;
   display: block;
-  width: 100%;
+  width: 95% !important;
   height: 45px;
   background: 0 0;
   padding: 0 5px;
@@ -336,6 +336,7 @@ button:hover {
 
 .clue-instruction {
   margin-bottom: 30px;
+  font-weight: 600;
 }
 
 .break {
@@ -343,7 +344,7 @@ button:hover {
   height: 0;
 }
 
-video{
+video {
   width: 100vw;
   height: 100vh;
   object-fit: cover;

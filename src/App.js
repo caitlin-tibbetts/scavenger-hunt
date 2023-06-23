@@ -80,7 +80,7 @@ function App() {
           }}
         >
           {({ isSubmitting, values }) => (
-            <Form style={{ marginBottom: '20px' }}>
+            <Form style={{ marginBottom: 20, marginTop: 15 }}>
               <div
                 className={'wrap-input100'}
                 style={{ borderBottom: '2px solid #ffffff' }}
@@ -89,7 +89,7 @@ function App() {
                   className={'input100'}
                   name="teamName"
                   placeholder=" "
-                  style={{ color: '#ffffff' }}
+                  style={{ color: '#ffffff', textAlign: "center", marginTop: 15  }}
                 />
                 <span
                   className="focus-input100 focus-input100-home-page"
@@ -106,7 +106,7 @@ function App() {
                   className={'input100'}
                   name="gamePin"
                   placeholder=" "
-                  style={{ color: '#ffffff' }}
+                  style={{ color: '#ffffff', textAlign: "center", marginTop: 15 }}
                 />
                 <span
                   className="focus-input100 focus-input100-home-page"

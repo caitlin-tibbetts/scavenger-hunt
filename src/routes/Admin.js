@@ -41,16 +41,16 @@ function Admin() {
       }}
     >
       {({ isSubmitting, values }) => (
-        <Form>
+        <Form style={{marginTop: 20}}>
           <p>
             <div
               style={{ color: 'white', borderBottom: '2px solid #ffffff' }}
               className={
-                'wrap-input100 ' + (values.answer && 'wrap-input100-filled')
+                'wrap-input100'
               }
             >
               <Field
-                style={{ color: 'white' }}
+                style={{ color: 'white', textAlign: "center", marginTop: 15 }}
                 name="gamePin"
                 className={'input100'}
                 placeholder=" "
@@ -66,12 +66,12 @@ function Admin() {
               ></span>
             </div>
 
-            <Container style={{ marginTop: 15 }}>
-              <Row style={{ margin: 0, width: '100%', marginLeft: -25 }}>
+            <Container style={{ marginTop: 15, width: "120%", padding: 0, marginLeft: -28 }}>
+              <Row style={{ width: '100%', marginLeft: 10, marginRight: 10 }}>
                 <Col xs={6}>
                   <div
                     className="wrap-login100-form-btn"
-                    style={{ width: 100 }}
+                    style={{ width: 120 }}
                   >
                     <div className="login100-form-bgbtn"></div>
                     <button
@@ -87,7 +87,7 @@ function Admin() {
                 <Col xs={6}>
                   <div
                     className="wrap-login100-form-btn"
-                    style={{ width: 150, padding: 1 }}
+                    style={{ width: 150, padding: 1,  marginLeft: -20 }}
                   >
                     <div className="login100-form-bgbtn"></div>
                     <button
@@ -158,7 +158,7 @@ function Admin() {
   } else if (isGamePinSet) {
     return (
       <div className="App">
-        <div className="Floating-form" style={{ width: 200, maxWidth: 250 }}>
+        <div className="Floating-form" style={{ width: 350, maxWidth: 350 }}>
           {gamePinForm}
           <hr style={{ width: '100%', height: '100%' }} />
           <AdminForm gamePin={gamePin} />
@@ -170,7 +170,7 @@ function Admin() {
       <div className="App">
         <div
           className="Floating-form"
-          style={{ verticalAlign: 'center', height: 200, paddingTop: 40 }}
+          style={{ verticalAlign: 'center', height: 200, paddingTop: 40, width: 350 }}
         >
           {gamePinForm}
         </div>

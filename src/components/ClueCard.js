@@ -16,9 +16,6 @@ function ClueCard(props) {
   //const [field, meta, helpers] = useField(props);
   const formikRef = useRef()
 
-  const [height, setHeight] = useState(0)
-
-
   const AutoSubmitToken = () => {
     // Grab values and submitForm from context
     const { values, submitForm } = useFormikContext()
@@ -59,10 +56,10 @@ function ClueCard(props) {
                     constraints={{
                       facingMode: 'environment',
                     }}
-                    videoId={"qr-camera"}
-                    containerStyle={{ height: "100%"  }}
-                    videoContainerStyle={{padding: 0, height: "100%" }}
-                    videoStyle={{ height: "100%"  }}
+                    videoId={'qr-camera'}
+                    containerStyle={{ height: '100%' }}
+                    videoContainerStyle={{ padding: 0, height: '100%' }}
+                    videoStyle={{ height: '100%' }}
                     onResult={(result, error) => {
                       if (!!result) {
                         formikRef.current.setFieldValue(
@@ -142,12 +139,13 @@ function ClueCard(props) {
                         className={'input100'}
                         name="passcode"
                         placeholder=" "
+                        style={{  textAlign: "center",
+                        marginTop: 15}}
                       />
                       <span
                         className="focus-input100"
                         data-placeholder="passcode"
                       ></span>
-                      {/* <ErrorMessage name="passcode" component="p" /> */}
                     </div>
                     <div className="wrap-login100-form-btn">
                       <div className="login100-form-bgbtn"></div>
@@ -182,7 +180,7 @@ function ClueCard(props) {
         <Card
           elevation={12}
           className="clue"
-          style={{ position: 'relative', marginBottom: 15 }}
+          style={{ position: 'relative', marginBottom: 15, width: "100%" }}
         >
           <Card.Body>
             <div className="cardContainer">
@@ -278,14 +276,14 @@ function ClueCard(props) {
                     <Form>
                       <div
                         className={
-                          'wrap-input100 ' +
-                          (values.answer && 'wrap-input100-filled')
+                          'wrap-input100'
                         }
                       >
                         <Field
                           className={'input100'}
                           name="answer"
                           placeholder=" "
+                          style={{ textAlign: "center", marginTop: 15}}
                         />
                         <span
                           className="focus-input100"

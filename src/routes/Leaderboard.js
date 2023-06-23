@@ -53,7 +53,7 @@ function Leaderboard() {
               className={'wrap-input100'}
             >
               <Field
-                style={{ color: 'white' }}
+                style={{ color: 'white', textAlign: "center", marginTop: 15  }}
                 name="gamePin"
                 className={'input100'}
                 placeholder=" "
